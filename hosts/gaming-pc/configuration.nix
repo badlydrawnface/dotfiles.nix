@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "gaming-pc"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -78,15 +78,14 @@
   };
 
   home-manager = {
+    # avoid home-manager failure due to existing files
+    backupFileExtension = "bak";
     # also pass inputs to home-manager modules
     extraSpecialArgs = {inherit inputs;};
     users = {
       "bdface" = import ./home.nix;
     };
   };
-
-  # Enable automatic login for the user.
-  services.getty.autologinUser = "bdface";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -106,14 +105,20 @@
     wofi
     fastfetch
     hyprcursor
-    nwg-look
     flatpak-builder
+    direnv
+    killall
 
     # cinnamon apps for consistant, desktop-agnostic theming (tbd)
-    cinnamon.nemo
-    cinnamon.xreader
-    cinnamon.xviewer
-    cinnamon.pix
+    nemo
+    xreader
+    xviewer
+    pix
+  ];
+
+  # install ONLY the iosevka nerd font
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];
 
   xdg.portal = {
