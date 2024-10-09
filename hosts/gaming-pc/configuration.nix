@@ -15,14 +15,22 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "gaming-pc"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # enable sddm (needed to unlock keyring)
+  services.displayManager.sddm = {
+    enable = true;
+    package = pkgs.libsForQt5.sddm;
+    wayland.enable = true;
+    # save this for laptops
+    enableHidpi = true;
+    theme = "Catppuccin Mocha";
+  };
+
+  # enable gnome keyring for chromium secrets
+  services.gnome.gnome-keyring.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -41,6 +49,10 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+
+  # mount usb drives and other removable media
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -96,18 +108,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
     yt-dlp
     open-vm-tools 
     tree
     tmux
-    alacritty
-    wofi
     fastfetch
     hyprcursor
     flatpak-builder
     direnv
-    killall
+    catppuccin-sddm
 
     # cinnamon apps for consistant, desktop-agnostic theming (tbd)
     nemo

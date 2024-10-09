@@ -27,6 +27,7 @@
         modules = [
           ./hosts/gaming-pc/configuration.nix
           inputs.home-manager.nixosModules.default
+
         ];
       };
     };

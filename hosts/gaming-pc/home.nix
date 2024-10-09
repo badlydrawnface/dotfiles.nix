@@ -1,23 +1,71 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, outputs, ... }:
 
 {
-  
-  # github-cli and credential helper
+  # # TODO finish modularizing the flake
+  # imports = [
+  #   ../../myModules/homeModules/features/vscode.nix
+  # ];
+
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
   };
 
-  # gitconfig
   programs.git = {
     enable = true;
     userEmail = "bdface@proton.me";
     userName = "badlydrawnface";
+    aliases = {
+      hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
+    };
   };
 
   programs.alacritty = {
     enable = true;
-    # TODO config
+    # TODO get theme coloring
+    settings = {
+        font = {
+            size = 12;
+            normal = {
+                family = "IosevkaNF";
+                style = "Regular";
+            };
+            bold = {
+                family = "IosevkaNF";
+                style = "Bold";
+            };
+            italic = {
+                family = "IosevkaNF";
+                style = "Italic";
+            };
+        };
+    };
+  };
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+        github.copilot
+        github.copilot-chat
+    ];
+    userSettings = {
+        "[nix]"."editor.tabSize" = 2;
+        "editor.fontFamily" = "Iosevka NF, monospace";
+        "editor.fontSize" = 16;
+        "catppuccin.accentColor" = "lavender";
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.iconTheme" = "Catppuccin Mocha";
+        "terminal.integrated.fontSize" = "16";
+    };
+  };
+
+  xdg = {
+    enable = true;
+    # add user folders (Desktop, Documents, etc.)
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
   };
 
   # all hypr
@@ -39,9 +87,101 @@
       "$menu" = "rofi";
       "$browser" = "librewolf";
 
+      "input" = {
+        "kb_layout" = "us, ca";
+        "kb_variant" = ", multix";
+        "kb_options" = "grp:win_space_toggle";
+
+        "touchpad" = {
+          "natural_scroll" = true;
+          "clickfinger_behavior" = 1;
+        };
+
+        # disable mouse acceleration
+        "accel_profile"  = "flat";
+        "sensitivity" = -0.25;
+      };
+
+      "general" = {
+        "gaps_in" = 3;
+        "gaps_out" = 5;
+        "border_size" = 3;
+        #TODO abstract this from the config into a seperate color config
+        "col.active_border" = "rgba(89b4faee) rgba(cba6f7ee) 45deg";
+        "col.inactive_border" = "rgba(1e1e2eaa)";
+
+        "layout" = "dwindle";
+      };
+
+      "decoration" = {
+        "rounding" = 10;
+
+        "blur" = {
+          "enabled" = true;
+          "size" = 10;
+          "passes" = 1;
+        };
+
+        "blurls" = [
+          "waybar"
+          "rofi"
+        ];
+
+        "drop_shadow" = true;
+        "shadow_range" = 4;
+        "shadow_render_power" = 3;
+        "col.shadow" = "rgba(1a1a1aee)";
+      };
+
+      "animations" = {
+        "enabled" = true;
+
+        "bezier" = "slide,0.05,0.9,0.1,1.1";
+
+        "animation" = [
+          "windows,1,7,slide"
+          "windowsOut,1,7,default,popin 80%"
+          "border,1,10,default"
+          "borderangle,1,8,default"
+          "fade,1,7,default"
+          "workspaces,1,6,default"
+        ];
+      };
+
+      "dwindle" = {
+        "pseudotile" = true;
+        "preserve_split" = true;
+      };
+
+      "gestures" = {
+        "workspace_swipe" = "on";
+      };
+
+      "misc" = {
+        "col.splash" = "rgba(cdd6f4ff)";
+      };
+
+      # TODO windowrules
+
       "$mainMod" = "SUPER";
 
       "bind" = [
+        "$mainMod, Q, exec, $terminal"
+        "$mainMod, C, killactive"
+        "$mainMod, W, exec, $browser"
+        "$mainMod, R, exec, $menu -show drun -show emoji"
+        "$mainMod, E, exec, $fileManager"
+        "$mainMod, F, fullscreen"
+        "$mainMod, V, togglefloating"
+        "$mainMod, P, pseudo"
+        "$mainMod, J, togglesplit"
+
+        # focus movement with arrow keys
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
+
         # Switch workspaces with mainMod + [0-9]
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
@@ -66,15 +206,45 @@
         "$mainMod SHIFT, 9, movetoworkspace, 9"
         "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-        "$mainMod, Q, exec, $terminal"
-        "$mainMod, W, exec, $browser"
-        "$mainMod, C, killactive"
-        "$mainMod, R, exec, $menu -show drun -show emoji"
-	"$mainMod, E, exec, $fileManager"
+        # scratchpad workspace
+        "$mainMod, S, togglespecialworkspace, magic"
+        "$mainMod SHIFT, S, movetoworkspace, special:magic"
+
+        # scroll through workspaces
+        "$mainMod, mouse_up, workspace, e+1"
+        "$mainMod, mouse_down, workspace, e-1"
+
+        # keyboard window movement
+        "$mainMod SHIFT, left, movewindow, l"
+        "$mainMod SHIFT, right, movewindow, r"
+        "$mainMod SHIFT, up, movewindow, u"
+        "$mainMod SHIFT, down, movewindow, d"
+
+        # screen brightness
+        ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
+        ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+
+        # playback
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext,exec, playerctl next"
+        ", XF86AudioPrev,exec, playerctl previous"
+
+        # volume with wpctl
+        ", XF86AudioRaiseVolume, exec, wpctl volume +5"
+        ", XF86AudioLowerVolume, exec, wpctl volume -5"
+        ", XF86AudioMute, exec, wpctl mute"
+
       ];
 
-      blurls = [
-        "waybar"
+      "bindl" = [
+        "$mainMod, A, exec, grim - | swappy -f -"
+        "$mainMod SHIFT, A, exec, grim -g \"$(slurp)\" - | swappy -f -"
+      ];
+
+      "bindm" = [
+        # drag to resize with mouse
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resize_window"
       ];
     };
   };
@@ -91,6 +261,11 @@
   # notifications
   services.dunst = {
     enable = true;
+    iconTheme = {
+      name = "Papirus-dark";
+      package = pkgs.catppuccin-papirus-folders;
+      size = "32x32";
+    };
     settings = {
       global = {
         frame_color = "#89b4fa";
@@ -129,28 +304,50 @@
     };
   };
 
+  # declare rasi file from config to ~/.local/share/rofi/catppuccin-mocha.rasi
+  home.file.".local/share/rofi/catppuccin-mocha.rasi" = {
+    source = ../../config/rofi/themes/catppuccin-mocha.rasi;
+  };
+
   # browser
   programs.librewolf = {
     enable = true;
     package = pkgs.librewolf-wayland;
     settings = {
-      "identitiy.fxaccounts.enabled" = true;
+      "identity.fxaccounts.enabled" = true;
     };
   };
 
   programs.kitty.enable = true;
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
+    plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+      copilot-lua
+      CopilotChat-nvim
+      mason-nvim
+      mason-lspconfig-nvim
+      nvim-lspconfig
+    ];
+  };
+
   # wlsunset, a night light service for wayland compositors
   services.wlsunset = {
-    enable = true;
+    #FIXME the timing isnt working correctly
+    enable = false;
     gamma = 3500;
     latitude = 40.3;
     longitude = -75.2;
   };
 
+  # home.file.".config/gtk-4.0/mocha.css" = ../../config/gtk/mocha.css;
+
   gtk = {
     enable = true;
-    gtk4.extraCss = ''@import url("./mocha.css");'';
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
@@ -159,8 +356,13 @@
       };
     };
     theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
+      name = "catppuccin-mocha-lavender-standard";
+      package = pkgs.catppuccin-gtk.override {
+        size = "standard";
+        tweaks = [];
+        accents = ["lavender"];
+        variant = "mocha";
+      };
     };
     cursorTheme = {
       name = "Bibata-Modern-Classic";
@@ -168,13 +370,29 @@
       package = pkgs.bibata-cursors;
     };
     font = {
-      name = "Fira Sans";
-      size = 12;
-      package = pkgs.fira-sans;
+      name = "Inter";
+      size = 11;
+      package = pkgs.inter-nerdfont;
     };
   };
 
-  programs.waybar = { 
+  # set gtk4 theme to the catppuccin theme
+  xdg.configFile =
+    let
+      gtk4Dir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
+    in
+    {
+      "gtk-4.0/assets".source = "${gtk4Dir}/assets";
+      "gtk-4.0/gtk.css".source = "${gtk4Dir}/gtk.css";
+      "gtk-4.0/gtk-dark.css".source = "${gtk4Dir}/gtk-dark.css";
+    };
+
+  # get the css colors for waybar
+  home.file.".config/waybar/mocha.css" = {
+    source = ../../config/waybar/mocha.css;
+  };
+
+  programs.waybar = {
     enable = true;
     settings =
     {
@@ -182,7 +400,7 @@
         modules-left =  [ "custom/launcher" "hyprland/workspaces" "custom/media" ];
         modules-center = [ "hyprland/window" ];
         modules-right = [ "tray" "hyprland/language" "backlight" "network" "battery" "wireplumber" "clock" ];
-        
+
         "custom/launcher" = {
           on-click = "rofi -show drun -show emoji";
           format = " ";
@@ -221,9 +439,9 @@
         };
 
         "tray" = {
-          spacing = 6; 
+          spacing = 6;
         };
-        
+
         "clock" = {
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           format-alt = "{:%m/%d/%Y}";
@@ -269,7 +487,7 @@
           };
         };
 
-      # TODO use home.files to add auxiliary files (i.e define-color css files and scripts)
+      # TODO use home.file to add auxiliary files (i.e define-color css files and scripts)
       #   custom/media = {
       #     format = "{icon} {}";
       #     return-type = "json";
@@ -316,7 +534,7 @@
         margin: 5px;
         background-color: @surface0;
         margin-left: 1rem;
-      }  
+      }
 
       #workspaces button {
         min-width: 2em;
@@ -363,7 +581,7 @@
       window#waybar.empty #window {
         background-color:transparent;
       }
-        
+
       #language {
         color: @peach;
         border-radius: 1rem 0px 0px 1rem;
@@ -396,7 +614,7 @@
         border-radius: 1rem;
       }
 
-    '';  
+    '';
   };
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -420,15 +638,13 @@
     # hello
     vesktop
     discord
-    vscode
     zed-editor
-    obsidian
     gradience
-    iosevka-bin
     fastfetch
     wl-clipboard
     wormhole-rs
     steam
+    mpv
     discord
     discover-overlay
     lutris
@@ -436,8 +652,6 @@
     dolphin-emu
     ryujinx
     cemu
-    pywal16
-    pywalfox-native
     spotify
     heroic
     gimp
@@ -449,20 +663,7 @@
     qt6ct
     wlsunset
     pavucontrol
-
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    grimblast
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -482,14 +683,6 @@
     # ".config/hypr/themes/macchiato.conf" = ../../config/hypr/macchiato.conf;
     # ".config/hypr/themes/mocha.conf" = ../../config/hypr/mocha.conf;
 
-    # waybar colors #TODO need to figure out how to fix syntax issues when building with css files
-    # ".config/waybar/latte.css" = ../../config/waybar/latte.css;
-    # ".config/waybar/frappe.css" = ../../config/waybar/frappe.css;
-    # ".config/waybar/macchiato.css" = ../../config/waybar/macchiato.css;
-    # ".confrig/waybar/mocha.css" = ../../config/waybar/mocha.css;
-
-    # ".config/gtk-4.0/mocha.css" = ../../config/gtk/mocha.css;
-    
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
@@ -515,6 +708,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
   };
 
   # Let Home Manager install and manage itself.
