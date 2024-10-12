@@ -75,7 +75,42 @@
     alsa = {
       enable = true;
       support32Bit = true;
-    }; 
+    };
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [
+              {
+                device.name = "~alsa_card.*"
+              }
+            ]
+            actions = {
+              update-props = {
+                # Device settings
+                api.alsa.use-acp = true
+              }
+            }
+          }
+          {
+            matches = [
+              {
+                node.name = "~alsa_input.pci.*"
+              }
+              {
+                node.name = "~alsa_output.pci.*"
+              }
+            ]
+            actions = {
+            # Node settings
+              update-props = {
+                session.suspend-timeout-seconds = 0
+              }
+            }
+          }
+        ]
+      '')
+    ];
   };
 
   # enable fish
@@ -99,6 +134,11 @@
     };
   };
 
+  # # overlay file-roller to compile the non-libadwaita version from mint
+  # nixpkgs.overlays = [
+  #   (import ../../overlays/file-roller.nix)
+  # ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -117,6 +157,9 @@
     flatpak-builder
     direnv
     catppuccin-sddm
+    p7zip
+    unrar
+    usbutils
 
     # cinnamon apps for consistant, desktop-agnostic theming (tbd)
     nemo
@@ -129,6 +172,14 @@
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];
+
+  services.udev.extraRules = ''
+    # Nintendo SDK debugger, which nxdumptool presents itself as
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", TAG+="uaccess"
+
+    # rcm perms
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0664", GROUP="plugdev"
+  '';
 
   xdg.portal = {
     enable = true;

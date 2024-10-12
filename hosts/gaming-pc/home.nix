@@ -20,25 +20,96 @@
     };
   };
 
+  home.file.".config/alacritty/catppuccin-mocha.toml" = {
+    source = ../../config/alacritty/catppuccin-mocha.toml;
+  };
+
   programs.alacritty = {
     enable = true;
     # TODO get theme coloring
     settings = {
-        font = {
-            size = 12;
-            normal = {
-                family = "IosevkaNF";
-                style = "Regular";
-            };
-            bold = {
-                family = "IosevkaNF";
-                style = "Bold";
-            };
-            italic = {
-                family = "IosevkaNF";
-                style = "Italic";
-            };
+      import = ["~/.config/alacritty/catppuccin-mocha.toml"];
+      font = {
+        size = 12;
+        normal = {
+          family = "IosevkaNF";
+          style = "Regular";
         };
+        bold = {
+          family = "IosevkaNF";
+          style = "Bold";
+        };
+        italic = {
+          family = "IosevkaNF";
+          style = "Italic";
+        };
+        bold_italic = {
+          family = "IosevkaNF";
+          style = "Bold Italic";
+        };
+      };
+      window = {
+        dynamic_padding = true;
+        decorations = "full";
+        title = "Alacritty";
+        opacity = 0.8;
+      };
+
+      colors = {
+        draw_bold_text_with_bright_colors = true;
+      };
+      selection = {
+        semantic_escape_chars = ",│`|:\"' ()[]{}<>\t";
+        save_to_clipboard = true;
+      };
+      cursor = {
+        style = "Underline";
+        vi_mode_style = "None";
+        unfocused_hollow = true;
+        thickness = 0.15;
+      };
+      mouse = {
+        hide_when_typing = true;
+        bindings = [
+          {
+            mouse = "Middle";
+            action = "PasteSelection";
+          }
+        ];
+      };
+      keyboard = {
+        bindings = [
+          {
+            key = "Paste";
+            action = "Paste";
+          }
+          {
+            key = "Copy";
+            action = "Copy";
+          }
+          {
+            key = "L";
+            mods = "Control";
+            action = "ClearLogNotice";
+          }
+          {
+            key = "L";
+            mods = "Control";
+            mode = "~Vi";
+            chars = "\f";
+          }
+        ];
+      };
+    };
+  };
+
+  # fallback in case alacritty doesn't work
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        font = "Iosevka:size=11";
+      };
     };
   };
 
@@ -54,8 +125,89 @@
         "editor.fontSize" = 16;
         "catppuccin.accentColor" = "lavender";
         "workbench.colorTheme" = "Catppuccin Mocha";
-        "workbench.iconTheme" = "Catppuccin Mocha";
+        "workbench.iconTheme" = "catppuccin-mocha";
         "terminal.integrated.fontSize" = "16";
+    };
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      starship init fish | source
+    '';
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      # enable right format
+      "[format]" = {
+        "format" = "[$all]($right_format)";
+        "right_format" = "$time";
+        "palette" = "catppuccin_mocha";
+      };
+
+    
+      "[os]" = {
+        "format" = "[$symbol]($style)";
+        "style" = "red";
+        "symbols.NixOS" = " ";
+        "symbols.Macos" = " ";
+        "symbols.Arch" = " ";
+      };
+
+
+      "[character]" = {
+        "format" = "[$symbol]($style) ";
+        "success_symbol" = "[[󰄛](green) ❯](peach)";
+        "error_symbol" = "[[󰄛](red) ❯](peach)";
+      };
+
+
+      "[directory]" = {
+        "truncation_length" = 4;
+        "style" = "bold lavender";
+      };
+
+
+      "[username]" = {
+        "style" = "bold green";
+      };
+
+      "[time]" = {
+        "format" = "[$time]($style)";
+        "style" = "surface2";
+      };
+
+      # catppuccin <https://github.com/catppuccin/starship>
+      "[palettes.catppuccin_mocha]" = {
+        "rosewater" = "#f5e0dc";
+        "flamingo" = "#f2cdcd";
+        "pink" = "#f5c2e7";
+        "mauve" = "#cba6f7";
+        "red" = "#f38ba8";
+        "maroon" = "#eba0ac";
+        "peach" = "#fab387";
+        "yellow" = "#f9e2af";
+        "green" = "#a6e3a1";
+        "teal" = "#94e2d5";
+        "sky" = "#89dceb";
+        "sapphire" = "#74c7ec";
+        "blue" = "#89b4fa";
+        "lavender" = "#b4befe";
+        "text" = "#cdd6f4";
+        "subtext1" = "#bac2de";
+        "subtext0" = "#a6adc8";
+        "overlay2" = "#9399b2";
+        "overlay1" = "#7f849c";
+        "overlay0" = "#6c7086";
+        "surface2" = "#585b70";
+        "surface1" = "#45475a";
+        "surface0" = "#313244";
+        "base" = "#1e1e2e";
+        "mantle" = "#181825";
+        "crust" = "#11111b";
+      };
     };
   };
 
@@ -66,9 +218,31 @@
       enable = true;
       createDirectories = true;
     };
+    mimeApps = {
+      #TODO
+    };
   };
 
   # all hypr
+
+  home.file."Pictures/wallhaven-83ox2k.jpg" = {
+    source = ../../wallpapers/wallhaven-83ox2k.jpg;
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    package = pkgs.hyprpaper;
+    settings = {
+      preload = [
+        "~/Pictures/wallhaven-83ox2k.jpg"
+      ];
+
+      wallpaper = [
+        "DP-1,~/Pictures/wallhaven-83ox2k.jpg"
+      ];
+    };
+  };
+
   wayland.windowManager.hyprland = {
     #TODO
     enable = true;
@@ -226,19 +400,22 @@
 
         # playback
         ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext,exec, playerctl next"
-        ", XF86AudioPrev,exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
 
-        # volume with wpctl
-        ", XF86AudioRaiseVolume, exec, wpctl volume +5"
-        ", XF86AudioLowerVolume, exec, wpctl volume -5"
-        ", XF86AudioMute, exec, wpctl mute"
+        # mute with swayosd
+        ", XF86AudioMute, exec, swayosd-client --max-volume 100 --output-volume mute-toggle"
+      ];
 
+      "binde" = [
+        # volume control with swayosd
+        ", XF86AudioRaiseVolume, exec, swayosd-client --max-volume 100 --output-volume raise"
+        ", XF86AudioLowerVolume, exec, swayosd-client --max-volume 100 --output-volume lower"
       ];
 
       "bindl" = [
-        "$mainMod, A, exec, grim - | swappy -f -"
-        "$mainMod SHIFT, A, exec, grim -g \"$(slurp)\" - | swappy -f -"
+        "$mainMod, A, exec, grimshot edit screen -"
+        "$mainMod SHIFT, A, exec, grimshot edit area -"
       ];
 
       "bindm" = [
@@ -246,15 +423,6 @@
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resize_window"
       ];
-    };
-  };
-
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        font = "Iosevka:size=11";
-      };
     };
   };
 
@@ -278,6 +446,21 @@
         frame_color = "#fab387";
       };
     };
+  };
+
+  # TODO
+  # home.file.".config/swayosd/style.css" = {
+  #   source = ../../config/swayosd/style.css;
+  # };
+
+  services.swayosd = {
+    enable = true;
+    # TODO style the OSD
+    # stylePath = "~/.config/swayosd/mocha.css";
+  };
+
+  services.playerctld = {
+    enable = true;
   };
 
   # wayland fork of rofi, probably will replace with wofi, but will take time
@@ -318,6 +501,7 @@
     };
   };
 
+  # as a fallback in
   programs.kitty.enable = true;
 
   programs.neovim = {
@@ -327,11 +511,6 @@
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
-      copilot-lua
-      CopilotChat-nvim
-      mason-nvim
-      mason-lspconfig-nvim
-      nvim-lspconfig
     ];
   };
 
@@ -376,16 +555,12 @@
     };
   };
 
-  # set gtk4 theme to the catppuccin theme
-  xdg.configFile =
-    let
-      gtk4Dir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
-    in
-    {
-      "gtk-4.0/assets".source = "${gtk4Dir}/assets";
-      "gtk-4.0/gtk.css".source = "${gtk4Dir}/gtk.css";
-      "gtk-4.0/gtk-dark.css".source = "${gtk4Dir}/gtk-dark.css";
-    };
+  # set prefer-dark for gtk4 and others
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+  };
 
   # get the css colors for waybar
   home.file.".config/waybar/mocha.css" = {
@@ -503,6 +678,7 @@
       # };
       };
     };
+
     style = ''
       /** https://github.com/catppuccin/waybar **/
       @import "mocha.css";
@@ -637,6 +813,9 @@
     # # "Hello, world!" when run.
     # hello
     vesktop
+    brave
+    hyprpaper
+    playerctl
     discord
     zed-editor
     gradience
@@ -709,6 +888,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     QT_QPA_PLATFORMTHEME = "qt6ct";
+    GRIMBLAST_EDITOR = "pix";
   };
 
   # Let Home Manager install and manage itself.
