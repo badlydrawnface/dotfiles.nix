@@ -1,5 +1,10 @@
 { config, pkgs, inputs, outputs, ... }:
 
+# define hyprland flake packages
+let
+  hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
+  hyprsunsetPkgs = inputs.hyprsunset.packages.${pkgs.system};
+in
 {
   # # TODO finish modularizing the flake
   # imports = [
@@ -21,7 +26,7 @@
   };
 
   home.file.".config/alacritty/catppuccin-mocha.toml" = {
-    source = ../../config/alacritty/catppuccin-mocha.toml;
+    source = ../../modules/home/alacritty/catppuccin-mocha.toml;
   };
 
   programs.alacritty = {
@@ -114,21 +119,29 @@
   };
 
   programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
-        github.copilot
-        github.copilot-chat
-    ];
+    enable = true;   
     userSettings = {
-        "[nix]"."editor.tabSize" = 2;
-        "editor.fontFamily" = "Iosevka NF, monospace";
-        "editor.fontSize" = 16;
-        "catppuccin.accentColor" = "lavender";
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "workbench.iconTheme" = "catppuccin-mocha";
-        "terminal.integrated.fontSize" = "16";
+      "[nix]"."editor.tabSize" = 2;
+      "editor.fontFamily" = "Iosevka NF";
+      "editor.fontSize" = 16;
+      "terminal.integrated.fontSize" = 16;
+      "catppuccin.accentColor" = "lavender";
+      "workbench.iconTheme" = "catppuccin-mocha";
+      "workbench.colorTheme" = "Catppuccin Mocha";
     };
-  };
+
+      extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
+        github.copilot
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
+        gruntfuggly.todo-tree
+        rust-lang.rust-analyzer
+        ms-vsliveshare.vsliveshare
+        ms-python.python
+        dart-code.flutter
+      ];
+    };
 
   programs.fish = {
     enable = true;
@@ -219,7 +232,21 @@
       createDirectories = true;
     };
     mimeApps = {
-      #TODO
+      enable = true;
+      defaultApplications = {
+        # file manager
+        "inode/directory" = "nemo.desktop";
+        "video/*" = "mpv.desktop";
+        "audio/*" = "mpv.desktop";
+        "image/*" = "xviewer.desktop";
+        "text/*" = "nvim.desktop";
+        "application/pdf" = [ "xreader.desktop"  "brave.desktop" ];
+
+        # browser
+        "x-scheme-handler/http" = "brave.desktop";
+        "x-scheme-handler/https" = "brave.desktop";
+        "text/html" = "brave.desktop";
+      };
     };
   };
 
@@ -231,7 +258,6 @@
 
   services.hyprpaper = {
     enable = true;
-    package = pkgs.hyprpaper;
     settings = {
       preload = [
         "~/Pictures/wallhaven-83ox2k.jpg"
@@ -246,6 +272,7 @@
   wayland.windowManager.hyprland = {
     #TODO
     enable = true;
+    package = hyprlandPkgs.hyprland;
     settings = {
       "monitor" = "DP-1,1920x1080@144,auto,1";
 
@@ -336,6 +363,20 @@
       };
 
       # TODO windowrules
+      "windowrulev2" = [
+        "float, title:^(Picture-in-Picture)$"
+        "size 800 450, title:(Picture-in-Picture)"
+        "pin, title:^(Picture-in-Picture)"
+        "float, title:^(Firefox)$"
+        "size 800 450, title:(Firefox)"
+        "pin, title:^(Firefox)$"
+
+        # chromium pip
+        "float, title:^(Picture in picture)$"
+        "pin, title:^(Picture in picture)$"
+        "size 800 450, title:(Picture in picture)"
+
+      ];
 
       "$mainMod" = "SUPER";
 
@@ -347,6 +388,7 @@
         "$mainMod, E, exec, $fileManager"
         "$mainMod, F, fullscreen"
         "$mainMod, V, togglefloating"
+        "$mainMod, M, exit"
         "$mainMod, P, pseudo"
         "$mainMod, J, togglesplit"
 
@@ -414,8 +456,9 @@
       ];
 
       "bindl" = [
-        "$mainMod, A, exec, grimshot edit screen -"
-        "$mainMod SHIFT, A, exec, grimshot edit area -"
+        # copy and pastes to the clipboard
+        "$mainMod, A, exec, grimblast copy screen"
+        "$mainMod SHIFT, A, exec, grimblast copy area -"
       ];
 
       "bindm" = [
@@ -461,6 +504,11 @@
 
   services.playerctld = {
     enable = true;
+  };
+
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
   };
 
   # wayland fork of rofi, probably will replace with wofi, but will take time
@@ -562,9 +610,22 @@
       };
   };
 
+  qt = {
+    enable = true;
+    style = {
+      name = "kvantum";
+      package = pkgs.catppuccin-kvantum;
+    };
+  };
+
   # get the css colors for waybar
   home.file.".config/waybar/mocha.css" = {
     source = ../../config/waybar/mocha.css;
+  };
+
+  # get the python script for the media player
+  home.file.".config/waybar/mediaplayer.py" = {
+    source = ../../config/waybar/mediaplayer.py;
   };
 
   programs.waybar = {
@@ -603,20 +664,6 @@
           max-length = 40;
         };
 
-        "keyboard-state" = {
-          numlock = true;
-          capslock = true;
-          format = "{name} {icon}";
-          format-icons = {
-            locked = "";
-            unlocked = "";
-          };
-        };
-
-        "tray" = {
-          spacing = 6;
-        };
-
         "clock" = {
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           format-alt = "{:%m/%d/%Y}";
@@ -624,7 +671,7 @@
         };
 
         "hyprland/language" = {
-          format = "󰌌  {}";
+          format = "󰌌   {}";
           format-en = "en";
           format-fr = "fr";
           format-it = "it";
@@ -632,59 +679,58 @@
 
         "backlight" = {
           # device = "acpi_video1"
-          format = "{icon} {percent}%";
+          format = "{icon}  {percent}%";
           format-icons = ["" "" "" "" "" "" "" "" ""];
         };
 
         "network" = {
           interface = "enp34s0";
           interval = 3;
-          format = " {bandwidthDownBytes}";
+          format = "  {bandwidthDownBytes}";
         };
 
         "battery" = {
           states = {
             warning = 15;
           };
-          format = "{icon} {capacity}%";
-          format-charging = "󰂄 {capacity}%";
-          format-warning = "󰂃 {capacity}%";
-          format-alt = "{icon} {time}";
+          format = "{icon}  {capacity}%";
+          format-charging = "󰂄  {capacity}%";
+          format-warning = "󰂃  {capacity}%";
+          format-alt = "{icon}  {time}";
           format-icons = ["󰁺" "󰁻" "󰁽" "󰁽" "󰁿" "󰂁" "󰁹"];
         };
 
         "wireplumber" = {
           on-click = "pavucontrol";
-          format = "{icon} {volume}%";
+          format = "{icon}   {volume}%";
           format-muted = " ";
           format-icons = {
             default = [" " " " " "];
           };
         };
 
-      # TODO use home.file to add auxiliary files (i.e define-color css files and scripts)
-      #   custom/media = {
-      #     format = "{icon} {}";
-      #     return-type = "json";
-      #     max-length = 40;
-      #     format-icons = {
-      #       spotify = " ";
-      #       default = "🎜 ";
-      #     },
-      #     escape = true;
-      #     exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" # Script in resources folder
-      #     // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-      #   }
-      # };
+        # TODO use home.file to add auxiliary files (i.e define-color css files and scripts)
+        "custom/media" = {
+          format = "{icon} {}";
+          return-type = "json";
+          max-length = 40;
+          format-icons = {
+            spotify = " ";
+            default = "🎜 ";
+          };
+          escape = true;
+          exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources folder
+          # "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        };
       };
     };
-
+  
     style = ''
       /** https://github.com/catppuccin/waybar **/
       @import "mocha.css";
-
+  
       * {
-        font-family: Iosevka Nerd Font;
+        font-family: "Inter Display" ,"Iosevka Nerd Font";
         font-weight: bold;
         font-size: 14px;
         min-height: 0;
@@ -692,42 +738,42 @@
         margin: 0;
         border-radius: 0;
       }
-
+  
       window#waybar {
         background-color: rgba(30, 30, 46, 0.5);
         transition-property: background-color;
         transition-duration: 0.5s;
       }
-
+  
       #custom-launcher {
         color: @lavender;
         font-size: 22px;
         margin-left: 1rem;
       }
-
+  
       #workspaces {
         border-radius: 0.75rem;
         margin: 5px;
-        background-color: @surface0;
+        background-color: @base;
         margin-left: 1rem;
       }
-
+  
       #workspaces button {
         min-width: 2em;
         color: @text;
         border-radius: 0.75rem;
       }
-
+  
       #workspaces button.active {
         background-color: @lavender;
         margin: 2px 2px;
         color: @base;
       }
-
+  
       #workspaces button.urgent {
         color: @red;
       }
-
+  
       #window,
       #tray,
       #language,
@@ -737,59 +783,58 @@
       #clock,
       #battery,
       #wireplumber {
-        background-color: @surface0;
+        background-color: @base;
         margin: 5px 0;
         padding: 0rem 0.75rem 0rem;
       }
-
+  
       #custom-media {
         background-color: @green;
         color: @base;
         border-radius: 1rem;
         margin-left: 4rem;
       }
-
+  
       #window {
         color: @mauve;
         border-radius: 1rem;
       }
-
+  
       window#waybar.empty #window {
         background-color:transparent;
       }
-
+  
       #language {
         color: @peach;
         border-radius: 1rem 0px 0px 1rem;
         margin-left: 1rem;
       }
-
+  
       #network {
         color: @teal;
       }
-
+  
       #battery {
         color: @green;
       }
-
+  
       #battery.warning:not(.charging) {
         color: @red;
       }
-
+  
       #wireplumber {
         color: @yellow;
       }
-
+  
       #clock {
         color: @blue;
         border-radius: 0px 1rem 1rem 0px;
         margin-right: 1rem;
       }
-
+  
       #tray {
         border-radius: 1rem;
       }
-
     '';
   };
 
@@ -815,6 +860,7 @@
     vesktop
     brave
     hyprpaper
+    hyprsunsetPkgs.hyprsunset
     playerctl
     discord
     zed-editor
@@ -838,11 +884,10 @@
     kdenlive
     catppuccin-kvantum
     libsForQt5.qtstyleplugin-kvantum
-    qt5ct
-    qt6ct
     wlsunset
     pavucontrol
     grimblast
+    android-studio
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -852,9 +897,6 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
-    # rofi theme #TODO they might need to be nix files instead
-    # ".local/share/rofi/catppuccin-mocha.rasi" = ../../config/rofi/themes/catppuccin-mocha.rasi;
 
     # # hyprland color configs
     # ".config/hypr/themes/latte.conf" = ../../config/hypr/latte.conf;
@@ -888,7 +930,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     QT_QPA_PLATFORMTHEME = "qt6ct";
-    GRIMBLAST_EDITOR = "pix";
+    GRIMBLAST_EDITOR = "xviewer";
   };
 
   # Let Home Manager install and manage itself.

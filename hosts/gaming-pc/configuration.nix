@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, catppuccin, ... }:
 
 {
   imports =
@@ -14,20 +14,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  #FIXME this doesn't work
+  # external hard drive
+  fileSystems."/media/hdd" = 
+  { device = "/dev/disk/by-uuid/0b67b245-ccc3-4560-b544-70c93f0a4499";
+    fsType = "btrfs";
+    options = [ "defaults" "user" "exec" "nofail" "noatime" ];
+  };
+
   networking.hostName = "gaming-pc"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # enable sddm (needed to unlock keyring)
-  services.displayManager.sddm = {
-    enable = true;
-    package = pkgs.libsForQt5.sddm;
-    wayland.enable = true;
-    # save this for laptops
-    enableHidpi = true;
-    theme = "Catppuccin Mocha";
-  };
 
   # enable gnome keyring for chromium secrets
   services.gnome.gnome-keyring.enable = true;
@@ -51,6 +49,7 @@
   };
 
   # mount usb drives and other removable media
+  services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
@@ -64,13 +63,19 @@
   services.printing.enable = true;
 
   # enable hyprland
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
   programs.hyprlock.enable = true;
 
   # enable audio
   services.pipewire = {
     enable = true;
-    pulse.enable = true;
+    pulse = {
+      enable = true;
+    };
     jack.enable = true;
     alsa = {
       enable = true;
@@ -116,6 +121,10 @@
   # enable fish
   programs.fish.enable = true;
 
+  # needed for steam
+  hardware.graphics.enable32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bdface = {
     isNormalUser = true;
@@ -130,7 +139,11 @@
     # also pass inputs to home-manager modules
     extraSpecialArgs = {inherit inputs;};
     users = {
-      "bdface" = import ./home.nix;
+      "bdface" = {
+        imports = [
+          ./home.nix
+        ];
+      };
     };
   };
 
@@ -142,8 +155,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # enable flakes and nix command
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # enable flakes and nix command, use cachix to not have to build hyprland each time
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -156,21 +173,28 @@
     hyprcursor
     flatpak-builder
     direnv
-    catppuccin-sddm
     p7zip
     unrar
     usbutils
+    qt5ct
+    qt6Packages.qt6ct
+    webp-pixbuf-loader
+    libwebp
+    podman
+    distrobox
+    flutter
 
-    # cinnamon apps for consistant, desktop-agnostic theming (tbd)
+    # cinnamon apps (xapps) for consistant, desktop-agnostic theming (tbd)
     nemo
     xreader
     xviewer
-    pix
+    xed
   ];
 
-  # install ONLY the iosevka nerd font
+  # install ONLY the iosevka nerd font out of the nerd-fonts package
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    inter
   ];
 
   services.udev.extraRules = ''
@@ -185,7 +209,7 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
     ];
   };
