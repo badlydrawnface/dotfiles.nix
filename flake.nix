@@ -4,6 +4,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # more up to date version of hyprland
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -29,7 +41,7 @@
     
   };
 
-  outputs = { self, nixpkgs, hyprland, hyprsunset, ... }@inputs: {
+  outputs = { self, nixpkgs, catppuccin, lanzaboote, hyprland, hyprsunset, ... }@inputs: {
     nixosConfigurations = {
       vm-test = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -43,6 +55,8 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/gaming-pc/configuration.nix
+          inputs.catppuccin.nixosModules.catppuccin
+          lanzaboote.nixosModules.lanzaboote
           inputs.home-manager.nixosModules.default
 
         ];

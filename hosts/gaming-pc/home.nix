@@ -25,15 +25,16 @@ in
     };
   };
 
-  home.file.".config/alacritty/catppuccin-mocha.toml" = {
-    source = ../../modules/home/alacritty/catppuccin-mocha.toml;
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
   };
 
   programs.alacritty = {
     enable = true;
     # TODO get theme coloring
     settings = {
-      import = ["~/.config/alacritty/catppuccin-mocha.toml"];
       font = {
         size = 12;
         normal = {
@@ -125,7 +126,7 @@ in
       "editor.fontFamily" = "Iosevka NF";
       "editor.fontSize" = 16;
       "terminal.integrated.fontSize" = 16;
-      "catppuccin.accentColor" = "lavender";
+      "catppuccin.accentColor" = "mauve";
       "workbench.iconTheme" = "catppuccin-mocha";
       "workbench.colorTheme" = "Catppuccin Mocha";
     };
@@ -133,6 +134,7 @@ in
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
         github.copilot
+        github.copilot-chat
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
         gruntfuggly.todo-tree
@@ -152,76 +154,6 @@ in
 
   programs.starship = {
     enable = true;
-    settings = {
-      # enable right format
-      "[format]" = {
-        "format" = "[$all]($right_format)";
-        "right_format" = "$time";
-        "palette" = "catppuccin_mocha";
-      };
-
-    
-      "[os]" = {
-        "format" = "[$symbol]($style)";
-        "style" = "red";
-        "symbols.NixOS" = " ";
-        "symbols.Macos" = " ";
-        "symbols.Arch" = " ";
-      };
-
-
-      "[character]" = {
-        "format" = "[$symbol]($style) ";
-        "success_symbol" = "[[󰄛](green) ❯](peach)";
-        "error_symbol" = "[[󰄛](red) ❯](peach)";
-      };
-
-
-      "[directory]" = {
-        "truncation_length" = 4;
-        "style" = "bold lavender";
-      };
-
-
-      "[username]" = {
-        "style" = "bold green";
-      };
-
-      "[time]" = {
-        "format" = "[$time]($style)";
-        "style" = "surface2";
-      };
-
-      # catppuccin <https://github.com/catppuccin/starship>
-      "[palettes.catppuccin_mocha]" = {
-        "rosewater" = "#f5e0dc";
-        "flamingo" = "#f2cdcd";
-        "pink" = "#f5c2e7";
-        "mauve" = "#cba6f7";
-        "red" = "#f38ba8";
-        "maroon" = "#eba0ac";
-        "peach" = "#fab387";
-        "yellow" = "#f9e2af";
-        "green" = "#a6e3a1";
-        "teal" = "#94e2d5";
-        "sky" = "#89dceb";
-        "sapphire" = "#74c7ec";
-        "blue" = "#89b4fa";
-        "lavender" = "#b4befe";
-        "text" = "#cdd6f4";
-        "subtext1" = "#bac2de";
-        "subtext0" = "#a6adc8";
-        "overlay2" = "#9399b2";
-        "overlay1" = "#7f849c";
-        "overlay0" = "#6c7086";
-        "surface2" = "#585b70";
-        "surface1" = "#45475a";
-        "surface0" = "#313244";
-        "base" = "#1e1e2e";
-        "mantle" = "#181825";
-        "crust" = "#11111b";
-      };
-    };
   };
 
   xdg = {
@@ -252,19 +184,19 @@ in
 
   # all hypr
 
-  home.file."Pictures/wallhaven-83ox2k.jpg" = {
-    source = ../../wallpapers/wallhaven-83ox2k.jpg;
+  home.file."Pictures/wallhaven-vq6kp8.jpg" = {
+    source = ../../wallpapers/wallhaven-vq6kp8.jpg;
   };
 
   services.hyprpaper = {
     enable = true;
     settings = {
       preload = [
-        "~/Pictures/wallhaven-83ox2k.jpg"
+        "~/Pictures/wallhaven-vq6kp8.jpg"
       ];
 
       wallpaper = [
-        "DP-1,~/Pictures/wallhaven-83ox2k.jpg"
+        "DP-1,~/Pictures/wallhaven-vq6kp8.jpg"
       ];
     };
   };
@@ -279,7 +211,7 @@ in
       # autostart programs
       "exec-once" = [
          "/usr/lib/polkit-kde-authentication-agent-1"
-         "waybar & hyprpaper & wlsunset"
+         "waybar & hyprpaper"
          "hyprctl setcursor Bibata-Modern-Classic 24"
       ];
 
@@ -308,8 +240,8 @@ in
         "gaps_out" = 5;
         "border_size" = 3;
         #TODO abstract this from the config into a seperate color config
-        "col.active_border" = "rgba(89b4faee) rgba(cba6f7ee) 45deg";
-        "col.inactive_border" = "rgba(1e1e2eaa)";
+        "col.active_border" = "rgba($mauveAlphaee) rgba($rosewaterAlphaee) 65deg";
+        "col.inactive_border" = "rgba($surface0Alphacc)";
 
         "layout" = "dwindle";
       };
@@ -479,27 +411,13 @@ in
     };
     settings = {
       global = {
-        frame_color = "#89b4fa";
-        separator_color = "frame";
-        background = "#1e1e2e";
-        foreground = "cdd6f4";
-      };
-
-      urgency_critical = {
-        frame_color = "#fab387";
+        font = "Inter Display 11";
       };
     };
   };
 
-  # TODO
-  # home.file.".config/swayosd/style.css" = {
-  #   source = ../../config/swayosd/style.css;
-  # };
-
   services.swayosd = {
     enable = true;
-    # TODO style the OSD
-    # stylePath = "~/.config/swayosd/mocha.css";
   };
 
   services.playerctld = {
@@ -516,14 +434,15 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     plugins = [ pkgs.rofi-emoji-wayland ];
-    theme = "~/.local/share/rofi/catppuccin-mocha.rasi";
+    font = "Inter Display 11, Iosevka Nerd Font 11";
     extraConfig = {
       modi = "run,drun,window,emoji";
       icon-theme = "Papirus-dark";
       show-icons = true;
       terminal = "alacritty";
       drun-display-format = "{icon} {name}";
-      location = 0;
+      location = 8;
+      height = "100%";
       disable-history = false;
       hide-scrollbar = true;
       display-drun = "   Apps ";
@@ -535,11 +454,6 @@ in
     };
   };
 
-  # declare rasi file from config to ~/.local/share/rofi/catppuccin-mocha.rasi
-  home.file.".local/share/rofi/catppuccin-mocha.rasi" = {
-    source = ../../config/rofi/themes/catppuccin-mocha.rasi;
-  };
-
   # browser
   programs.librewolf = {
     enable = true;
@@ -548,9 +462,6 @@ in
       "identity.fxaccounts.enabled" = true;
     };
   };
-
-  # as a fallback in
-  programs.kitty.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -575,21 +486,11 @@ in
 
   gtk = {
     enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders.override {
-        flavor = "mocha";
-	      accent = "lavender";
-      };
-    };
-    theme = {
-      name = "catppuccin-mocha-lavender-standard";
-      package = pkgs.catppuccin-gtk.override {
-        size = "standard";
-        tweaks = [];
-        accents = ["lavender"];
-        variant = "mocha";
-      };
+    catppuccin = {
+      enable = true;
+      icon.enable = true;
+      accent = "mauve";
+      flavor = "mocha";
     };
     cursorTheme = {
       name = "Bibata-Modern-Classic";
@@ -612,15 +513,11 @@ in
 
   qt = {
     enable = true;
+    platformTheme.name = "kvantum";
     style = {
       name = "kvantum";
-      package = pkgs.catppuccin-kvantum;
+      package = pkgs.libsForQt5.qtstyleplugin-kvantum;
     };
-  };
-
-  # get the css colors for waybar
-  home.file.".config/waybar/mocha.css" = {
-    source = ../../config/waybar/mocha.css;
   };
 
   # get the python script for the media player
@@ -709,6 +606,12 @@ in
           };
         };
 
+        "tray" = {
+          # kdeconnect-indicator is passive so it won't show otherwise
+          show-passive-items = true;
+          spacing = 10;
+        };
+
         # TODO use home.file to add auxiliary files (i.e define-color css files and scripts)
         "custom/media" = {
           format = "{icon} {}";
@@ -725,10 +628,7 @@ in
       };
     };
   
-    style = ''
-      /** https://github.com/catppuccin/waybar **/
-      @import "mocha.css";
-  
+    style = ''  
       * {
         font-family: "Inter Display" ,"Iosevka Nerd Font";
         font-weight: bold;
@@ -746,7 +646,7 @@ in
       }
   
       #custom-launcher {
-        color: @lavender;
+        color: @mauve;
         font-size: 22px;
         margin-left: 1rem;
       }
@@ -754,7 +654,7 @@ in
       #workspaces {
         border-radius: 0.75rem;
         margin: 5px;
-        background-color: @base;
+        background-color: @surface0;
         margin-left: 1rem;
       }
   
@@ -765,7 +665,7 @@ in
       }
   
       #workspaces button.active {
-        background-color: @lavender;
+        background-color: @mauve;
         margin: 2px 2px;
         color: @base;
       }
@@ -783,7 +683,8 @@ in
       #clock,
       #battery,
       #wireplumber {
-        background-color: @base;
+        background-color: @surface0;
+        color: @mauve;
         margin: 5px 0;
         padding: 0rem 0.75rem 0rem;
       }
@@ -796,7 +697,6 @@ in
       }
   
       #window {
-        color: @mauve;
         border-radius: 1rem;
       }
   
@@ -805,29 +705,15 @@ in
       }
   
       #language {
-        color: @peach;
         border-radius: 1rem 0px 0px 1rem;
         margin-left: 1rem;
       }
-  
-      #network {
-        color: @teal;
-      }
-  
-      #battery {
-        color: @green;
-      }
-  
+
       #battery.warning:not(.charging) {
         color: @red;
       }
   
-      #wireplumber {
-        color: @yellow;
-      }
-  
       #clock {
-        color: @blue;
         border-radius: 0px 1rem 1rem 0px;
         margin-right: 1rem;
       }
@@ -857,7 +743,8 @@ in
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # hello
-    vesktop
+    libreoffice-fresh
+    litemdview
     brave
     hyprpaper
     hyprsunsetPkgs.hyprsunset
@@ -890,46 +777,7 @@ in
     android-studio
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # hyprland color configs
-    # ".config/hypr/themes/latte.conf" = ../../config/hypr/latte.conf;
-    # ".config/hypr/themes/frappe.conf" = ../../config/hypr/frappe.conf;
-    # ".config/hypr/themes/macchiato.conf" = ../../config/hypr/macchiato.conf;
-    # ".config/hypr/themes/mocha.conf" = ../../config/hypr/mocha.conf;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/bdface/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
-    # EDITOR = "emacs";
-    QT_QPA_PLATFORMTHEME = "qt6ct";
     GRIMBLAST_EDITOR = "xviewer";
   };
 
