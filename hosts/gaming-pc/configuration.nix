@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, catppuccin, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -11,8 +11,15 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # this must be mkForce disabled or else nix will think two bootloaders are enabled at once
+  boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Secure boot
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
 
   #FIXME this doesn't work
   # external hard drive
@@ -29,6 +36,8 @@
 
   # enable gnome keyring for chromium secrets
   services.gnome.gnome-keyring.enable = true;
+
+  security.polkit.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -142,6 +151,7 @@
       "bdface" = {
         imports = [
           ./home.nix
+          inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     };
@@ -158,8 +168,8 @@
   # enable flakes and nix command, use cachix to not have to build hyprland each time
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -180,9 +190,11 @@
     qt6Packages.qt6ct
     webp-pixbuf-loader
     libwebp
+    polkit-kde-agent
     podman
     distrobox
     flutter
+    sbctl
 
     # cinnamon apps (xapps) for consistant, desktop-agnostic theming (tbd)
     nemo
