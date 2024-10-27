@@ -25,6 +25,12 @@ in
     };
   };
 
+  # nextcloud client
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
+
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -140,6 +146,7 @@ in
         gruntfuggly.todo-tree
         rust-lang.rust-analyzer
         ms-vsliveshare.vsliveshare
+        ms-azuretools.vscode-docker
         ms-python.python
         dart-code.flutter
       ];
@@ -172,12 +179,12 @@ in
         "audio/*" = "mpv.desktop";
         "image/*" = "xviewer.desktop";
         "text/*" = "nvim.desktop";
-        "application/pdf" = [ "xreader.desktop"  "brave.desktop" ];
+        "application/pdf" = [ "xreader.desktop" ];
 
         # browser
-        "x-scheme-handler/http" = "brave.desktop";
-        "x-scheme-handler/https" = "brave.desktop";
-        "text/html" = "brave.desktop";
+        "x-scheme-handler/http" = "librewolf.desktop";
+        "x-scheme-handler/https" = "librewolf.desktop";
+        "text/html" = "librewolf.desktop";
       };
     };
   };
