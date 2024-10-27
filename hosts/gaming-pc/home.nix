@@ -146,7 +146,6 @@ in
         gruntfuggly.todo-tree
         rust-lang.rust-analyzer
         ms-vsliveshare.vsliveshare
-        ms-azuretools.vscode-docker
         ms-python.python
         dart-code.flutter
       ];

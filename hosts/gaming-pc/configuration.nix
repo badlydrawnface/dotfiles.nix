@@ -140,6 +140,15 @@
   hardware.graphics.enable32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
+  # enable dynamically-linked executables
+  programs.nix-ld.enable = true;
+
+  programs.nix-ld.libraries = with pkgs; [
+    nodejs_22
+    python312Packages.python-lsp-server
+  ];
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bdface = {
     isNormalUser = true;
@@ -193,7 +202,7 @@
     unrar
     unzip
     usbutils
-    qt5ct
+    libsForQt5.qt5ct
     qt6Packages.qt6ct
     webp-pixbuf-loader
     libwebp
