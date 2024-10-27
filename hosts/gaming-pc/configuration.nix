@@ -39,6 +39,12 @@
 
   security.polkit.enable = true;
 
+  # enable docker and podman
+  virtualisation = {
+    docker.enable = true;
+    podman.enable = true;
+  };
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -138,7 +144,7 @@
   users.users.bdface = {
     isNormalUser = true;
     description = "badlydrawnface";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish;
   };
 
@@ -185,17 +191,18 @@
     direnv
     p7zip
     unrar
+    unzip
     usbutils
     qt5ct
     qt6Packages.qt6ct
     webp-pixbuf-loader
     libwebp
     polkit-kde-agent
-    podman
     distrobox
     flutter
     sbctl
-
+    file-roller
+    
     # cinnamon apps (xapps) for consistant, desktop-agnostic theming (tbd)
     nemo
     xreader
