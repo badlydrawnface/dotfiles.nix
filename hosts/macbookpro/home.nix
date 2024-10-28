@@ -30,6 +30,14 @@
   #   };
   # };
 
+  programs.kitty = {
+    enable = true;
+    extraConfig = ''
+      font_family IosevkaNFM
+      font_size 16
+    '';
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
