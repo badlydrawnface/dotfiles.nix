@@ -11,11 +11,11 @@
       enable = true;
       settings = {
         preload = [
-          "~/Pictures/wallhaven-vq6kp8.jpg"
+          "~/.local/share/wallpapers/wallhaven-vq6kp8.jpg"
         ];
 
         wallpaper = [
-          "DP-1,~/Pictures/wallhaven-vq6kp8.jpg"
+          "DP-1,~/.local/share/wallpapers/wallhaven-vq6kp8.jpg"
         ];
       };
     };
