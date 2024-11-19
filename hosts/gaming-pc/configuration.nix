@@ -10,23 +10,25 @@
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  # this must be mkForce disabled or else nix will think two bootloaders are enabled at once
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # you must configure secure boot keys in order to enable secure boot on a fresh install
+  # for now keep systemd-boot enabled, then comment out this command, then uncomment the next block below if you want to use secure boot
+  boot.loader.systemd-boot.enable = true;
 
-  # Secure boot
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
+  ## Secure boot
+  #boot.lanzaboote = {
+  #  enable = true;
+  #  pkiBundle = "/etc/secureboot";
+  #};
+
+  ## needs to be forcibly disabled with lanzaboote enabled otherwise the config will think two different bootloaders are being used
+  #boot.loader.systemd-boot.enable = lib.mkForce false;
 
   #FIXME this doesn't work
   # external hard drive
-  fileSystems."/media/hdd" = 
-  { device = "/dev/disk/by-uuid/0b67b245-ccc3-4560-b544-70c93f0a4499";
+  fileSystems."/mnt/HDD" = {
+    device = "/dev/disk/by-label/HDD";
     fsType = "btrfs";
-    options = [ "defaults" "user" "exec" "nofail" "noatime" ];
+    options = [ "defaults" "user" "exec" "nofail" "gvfs-show" ];
   };
 
   networking.hostName = "gaming-pc"; # Define your hostname.
@@ -36,6 +38,8 @@
 
   # enable gnome keyring for chromium secrets
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   security.polkit.enable = true;
 
@@ -190,6 +194,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    inputs.zen-browser.packages."${system}".specific
     yt-dlp
     open-vm-tools 
     tree
@@ -254,31 +259,5 @@
     '';
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-
+  system.stateVersion = "24.05";
 }

@@ -24,9 +24,9 @@
           "application/pdf" = [ "xreader.desktop" ];
 
           # browser
-          "x-scheme-handler/http" = "librewolf.desktop";
-          "x-scheme-handler/https" = "librewolf.desktop";
-          "text/html" = "librewolf.desktop";
+          "x-scheme-handler/http" = "zen.desktop";
+          "x-scheme-handler/https" = "zen.desktop";
+          "text/html" = "zen.desktop";
         };
       };
     };

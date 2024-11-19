@@ -26,6 +26,7 @@ in
     home.packages = with pkgs; [
       hyprpaper
       hyprsunsetPkgs.hyprsunset
+      hyprpolkitagent
       grimblast
       playerctl
     ];
@@ -53,7 +54,7 @@ in
 
         # autostart programs
         "exec-once" = [
-          "/usr/lib/polkit-kde-authentication-agent-1"
+	        "systemctl --user enable --now hyprpolkitagent.service"
           "waybar & hyprpaper"
           "hyprctl setcursor Bibata-Modern-Classic 24"
         ];
@@ -61,7 +62,7 @@ in
         "$terminal" = "alacritty";
         "$fileManager" = "nemo";
         "$menu" = "rofi";
-        "$browser" = "librewolf";
+        "$browser" = "zen";
 
         "input" = {
           "kb_layout" = "us, ca";
@@ -101,11 +102,6 @@ in
             "waybar"
             "rofi"
           ];
-
-          "drop_shadow" = true;
-          "shadow_range" = 4;
-          "shadow_render_power" = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
         };
 
         "animations" = {

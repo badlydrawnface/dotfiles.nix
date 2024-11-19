@@ -7,11 +7,14 @@
     catppuccin = {
       url = "github:catppuccin/nix";
     };
+
+    zen-browser = {
+      url = "github:VCPYC/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
-
-      # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

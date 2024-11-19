@@ -7,6 +7,7 @@
     ./gtk
     ./hyprland
     ./nextcloud
+    ./nvim
     ./terms
     ./vscode
     ./xdg
