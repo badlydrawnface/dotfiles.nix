@@ -30,7 +30,7 @@
   fileSystems."/mnt/HDD" = {
     device = "/dev/disk/by-label/HDD";
     fsType = "btrfs";
-    options = [ "defaults" "user" "exec" "nofail" "gvfs-show" ];
+    options = [ "defaults" "user" "exec" "nofail" "x-gvfs-show"];
   };
 
   networking.hostName = "gaming-pc"; # Define your hostname.
