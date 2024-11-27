@@ -7,9 +7,10 @@ let
 in
 {
   imports = [
-    ./hyprpaper
+    ./dunst
     # ./hypridle
     # ./hyprlock
+    ./hyprpaper
     ./rofi
     ./waybar
   ];
