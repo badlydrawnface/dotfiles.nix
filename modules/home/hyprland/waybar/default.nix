@@ -109,7 +109,7 @@
     
       style = ''  
         * {
-          font-family: "Inter Display" ,"Iosevka Nerd Font";
+          font-family: "Inter Display", "Iosevka Nerd Font";
           font-weight: bold;
           font-size: 14px;
           min-height: 0;
@@ -125,7 +125,7 @@
         }
     
         #custom-launcher {
-          color: @mauve;
+          color: @maroon;
           font-size: 22px;
           margin-left: 1rem;
         }
@@ -144,7 +144,7 @@
         }
     
         #workspaces button.active {
-          background-color: @mauve;
+          background-color: @maroon;
           margin: 2px 2px;
           color: @base;
         }
@@ -163,7 +163,7 @@
         #battery,
         #wireplumber {
           background-color: @surface0;
-          color: @mauve;
+          color: @sapphire;
           margin: 5px 0;
           padding: 0rem 0.75rem 0rem;
         }

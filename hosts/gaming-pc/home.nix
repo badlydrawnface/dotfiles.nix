@@ -15,7 +15,7 @@ in
   catppuccin = {
     enable = true;
     flavor = "mocha";
-    accent = "mauve";
+    accent = "sapphire";
   };
 
 
@@ -33,8 +33,8 @@ in
   vscode.enable = true;
   myXdg.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-vq6kp8.jpg" = {
-    source = ../../wallpapers/wallhaven-vq6kp8.jpg;
+  home.file.".local/share/wallpapers/wallhaven-yxdrex.png" = {
+    source = ../../wallpapers/wallhaven-yxdrex.png;
   };
 
   services.swayosd = {
@@ -79,9 +79,11 @@ in
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
-    libreoffice-fresh
+    libreoffice
     litemdview
     brave
+    vivaldi
+    vivaldi-ffmpeg-codecs
     discord
     zed-editor
     gradience
@@ -96,6 +98,7 @@ in
     prismlauncher
     dolphin-emu
     ryujinx
+    audacity
     cemu
     spotify
     heroic

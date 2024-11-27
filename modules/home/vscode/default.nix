@@ -14,7 +14,7 @@
         "editor.fontFamily" = "Iosevka NF";
         "editor.fontSize" = 16;
         "terminal.integrated.fontSize" = 16;
-        "catppuccin.accentColor" = "mauve";
+        "catppuccin.accentColor" = "sapphire";
         "workbench.iconTheme" = "catppuccin-mocha";
         "workbench.colorTheme" = "Catppuccin Mocha";
       };

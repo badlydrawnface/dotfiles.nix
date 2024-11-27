@@ -16,7 +16,7 @@ in
 
   options = {
     hyprland.enable = lib.mkEnableOption {
-      default = true;
+      default = false;
       description = "Enable hyprland";
     };
   };
@@ -83,7 +83,7 @@ in
           "gaps_in" = 3;
           "gaps_out" = 5;
           "border_size" = 3;
-          "col.active_border" = "rgba($mauveAlphaee) rgba($rosewaterAlphaee) 65deg";
+          "col.active_border" = "rgba($maroonAlphaee) rgba($sapphireAlphaee) 65deg";
           "col.inactive_border" = "rgba($surface0Alphacc)";
 
           "layout" = "dwindle";
