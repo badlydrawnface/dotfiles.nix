@@ -17,6 +17,9 @@
         "catppuccin.accentColor" = "sapphire";
         "workbench.iconTheme" = "catppuccin-mocha";
         "workbench.colorTheme" = "Catppuccin Mocha";
+
+        # hide update notifications
+        "update.mode" = "none";
       };
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
