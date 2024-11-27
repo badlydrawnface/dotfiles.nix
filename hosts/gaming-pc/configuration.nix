@@ -8,11 +8,13 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/nixos
     ];
 
-  # you must configure secure boot keys in order to enable secure boot on a fresh install
-  # for now keep systemd-boot enabled, then comment out this command, then uncomment the next block below if you want to use secure boot
-  boot.loader.systemd-boot.enable = true;
+  systemd-boot.enable = true;
+
+  # ly display manager
+  ly.enable = true;
 
   ## Secure boot
   #boot.lanzaboote = {
