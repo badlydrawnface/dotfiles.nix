@@ -16,17 +16,20 @@
         enable = true;
         defaultApplications = {
           # file manager
-          "inode/directory" = "nemo.desktop";
-          "video/*" = "mpv.desktop";
-          "audio/*" = "mpv.desktop";
-          "image/*" = "xviewer.desktop";
-          "text/*" = "nvim.desktop";
-          "application/pdf" = [ "xreader.desktop" ];
-
+          "inode/directory" = ["nemo.desktop"];
+          "video/*" = ["mpv.desktop"];
+          "audio/*" = ["mpv.desktop"];
+          "image/*" = ["xviewer.desktop"];
+          "image/jpeg" = ["xviewer.desktop"];
+          "image/png" = ["xviewer.desktop"];
+          "image/svg" = ["inkscape.desktop"];
+          "text/*" = ["nvim.desktop"];
+          "application/pdf" = ["xreader.desktop"];
+          
           # browser
-          "x-scheme-handler/http" = "zen.desktop";
-          "x-scheme-handler/https" = "zen.desktop";
-          "text/html" = "zen.desktop";
+          "x-scheme-handler/http" = ["firefox.desktop"];
+          "x-scheme-handler/https" = ["firefox.desktop"];
+          "text/html" = ["firefox.desktop"];
         };
       };
     };

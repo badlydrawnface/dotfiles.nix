@@ -17,12 +17,13 @@
         "catppuccin.accentColor" = "sapphire";
         "workbench.iconTheme" = "catppuccin-mocha";
         "workbench.colorTheme" = "Catppuccin Mocha";
+        "window.titleBarStyle" = "custom";
 
         # hide update notifications
         "update.mode" = "none";
       };
       extensions = with pkgs.vscode-extensions; [
-        jnoortheen.nix-ide
+        bbenoist.nix
         github.copilot
         github.copilot-chat
         catppuccin.catppuccin-vsc

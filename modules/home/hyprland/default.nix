@@ -51,19 +51,17 @@ in
       enable = true;
       package = hyprlandPkgs.hyprland;
       settings = {
-        "monitor" = "DP-1,1920x1080@144,auto,1";
-
         # autostart programs
         "exec-once" = [
 	        "systemctl --user enable --now hyprpolkitagent.service"
           "waybar & hyprpaper"
-          "hyprctl setcursor Bibata-Modern-Classic 24"
+          "hyprctl setcursor Breeze_Hacked 24"
         ];
 
         "$terminal" = "alacritty";
         "$fileManager" = "nemo";
         "$menu" = "rofi";
-        "$browser" = "zen";
+        "$browser" = "firefox";
 
         "input" = {
           "kb_layout" = "us, ca";

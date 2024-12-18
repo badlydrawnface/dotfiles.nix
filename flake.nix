@@ -8,11 +8,11 @@
       url = "github:catppuccin/nix";
     };
 
-    zen-browser = {
-      url = "github:VCPYC/zen-browser-flake";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +43,7 @@
     
   };
 
-  outputs = { self, nixpkgs, catppuccin, lanzaboote, hyprland, hyprsunset, ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, hyprland, hyprsunset, ... }@inputs: {
     nixosConfigurations = {
       vm-test = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };

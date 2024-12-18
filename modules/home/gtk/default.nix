@@ -12,9 +12,9 @@
         icon.enable = true;
       };
       cursorTheme = {
-        name = "Bibata-Modern-Classic";
+        name = "Breeze_Hacked";
         size = 24;
-        package = pkgs.bibata-cursors;
+        package = pkgs.breeze-hacked-cursor-theme;
       };
       font = {
         name = "Inter";

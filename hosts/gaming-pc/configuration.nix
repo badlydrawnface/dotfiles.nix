@@ -13,8 +13,11 @@
 
   systemd-boot.enable = true;
 
-  # ly display manager
+  # enable ly
   ly.enable = true;
+  
+  # enable plymouth
+  boot.plymouth.enable = true;
 
   ## Secure boot
   #boot.lanzaboote = {
@@ -22,7 +25,7 @@
   #  pkiBundle = "/etc/secureboot";
   #};
 
-  ## needs to be forcibly disabled with lanzaboote enabled otherwise the config will think two different bootloaders are being used
+  ## systemd-boot needs to be forcibly disabled with lanzaboote enabled otherwise the config will think two different bootloaders are being used
   #boot.loader.systemd-boot.enable = lib.mkForce false;
 
   #FIXME this doesn't work
@@ -89,7 +92,6 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
-  programs.hyprlock.enable = true;
 
   # enable audio
   services.pipewire = {
@@ -165,9 +167,10 @@
 
   home-manager = {
     # avoid home-manager failure due to existing files
-    backupFileExtension = "bak";
+    backupFileExtension = "backup";
     # also pass inputs to home-manager modules
     extraSpecialArgs = {inherit inputs;};
+    useGlobalPkgs = true;
     users = {
       "bdface" = {
         imports = [
@@ -177,11 +180,6 @@
       };
     };
   };
-
-  # # overlay file-roller to compile the non-libadwaita version from mint
-  # nixpkgs.overlays = [
-  #   (import ../../overlays/file-roller.nix)
-  # ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -196,7 +194,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    inputs.zen-browser.packages."${system}".specific
     yt-dlp
     open-vm-tools 
     tree

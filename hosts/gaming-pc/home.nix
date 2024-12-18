@@ -23,12 +23,13 @@ in
 
   alacritty.enable = true;
   fish.enable = true;
+  firefox.enable = true;
   gh.enable = true;
   git.enable = true;
   myGtk.enable = true;
   hyprland.enable = true;
   nextcloud.enable = true;
-  #TODO nnn config
+  #TODO nnn/yazi config
   nvim.enable = true;
   vscode.enable = true;
   myXdg.enable = true;
@@ -48,6 +49,13 @@ in
   services.kdeconnect = {
     enable = true;
     indicator = true;
+  };
+
+  # host-specific monitor configuration
+  wayland.windowManager.hyprland = {
+    settings = {
+      "monitor" = "DP-1,1920x1080@144,auto,1";
+    };
   };
 
   # TODO move this to theming modules
@@ -82,11 +90,8 @@ in
     libreoffice
     litemdview
     brave
-    vivaldi
-    vivaldi-ffmpeg-codecs
-    discord
+    tutanota-desktop
     zed-editor
-    gradience
     fastfetch
     wl-clipboard
     wormhole-rs
@@ -110,6 +115,7 @@ in
     wlsunset
     pavucontrol
     grimblast
+    wf-recorder
     android-studio
     calibre
   ];
@@ -121,6 +127,4 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 }
