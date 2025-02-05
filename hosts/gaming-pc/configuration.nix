@@ -14,19 +14,10 @@
   systemd-boot.enable = true;
 
   # enable ly
-  ly.enable = true;
+  sddm.enable = true;
   
   # enable plymouth
   boot.plymouth.enable = true;
-
-  ## Secure boot
-  #boot.lanzaboote = {
-  #  enable = true;
-  #  pkiBundle = "/etc/secureboot";
-  #};
-
-  ## systemd-boot needs to be forcibly disabled with lanzaboote enabled otherwise the config will think two different bootloaders are being used
-  #boot.loader.systemd-boot.enable = lib.mkForce false;
 
   #FIXME this doesn't work
   # external hard drive
@@ -41,10 +32,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # TODO replace with kwallet
+  security.pam.services.login.kwallet.enable = true;
   # enable gnome keyring for chromium secrets
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-  security.pam.services.login.enableGnomeKeyring = true;
+  #services.gnome.gnome-keyring.enable = true;
+  #security.pam.services.greetd.enableGnomeKeyring = true;
+  #security.pam.services.login.enableGnomeKeyring = true;
 
   security.polkit.enable = true;
 
@@ -92,6 +85,10 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
+
+  # TODO modularize
+  # enable plasma
+  services.desktopManager.plasma6.enable = true;
 
   # enable audio
   services.pipewire = {
@@ -146,7 +143,7 @@
 
   # needed for steam
   hardware.graphics.enable32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
+  services.pulseaudio.support32Bit = true;
 
   # enable dynamically-linked executables
   programs.nix-ld.enable = true;
@@ -213,8 +210,10 @@
     polkit-kde-agent
     distrobox
     flutter
-    sbctl
     file-roller
+    wl-clipboard
+    awscli2
+    aws-sam-cli
     
     # cinnamon apps (xapps) for consistant, desktop-agnostic theming (tbd)
     nemo
@@ -223,10 +222,11 @@
     xed
   ];
 
-  # install ONLY the iosevka nerd font out of the nerd-fonts package
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    # install iosevka nerd font
+    nerd-fonts.iosevka
     inter
+    fira
   ];
 
   services.udev.extraRules = ''

@@ -55,13 +55,13 @@ in
         "exec-once" = [
 	        "systemctl --user enable --now hyprpolkitagent.service"
           "waybar & hyprpaper"
-          "hyprctl setcursor Breeze_Hacked 24"
+          "hyprctl setcursor catppuccin-mocha-dark-cursors 32"
         ];
 
         "$terminal" = "alacritty";
         "$fileManager" = "nemo";
         "$menu" = "rofi";
-        "$browser" = "firefox";
+        "$browser" = "brave";
 
         "input" = {
           "kb_layout" = "us, ca";

@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }: {
   options = {
-    hyprland.waybar.enable = lib.mkEnableOption "Enable waybar configurationa and style";
+    hyprland.waybar.enable = lib.mkEnableOption "Enable waybar configurations and style";
   };
 
   config = lib.mkIf config.hyprland.waybar.enable {
@@ -109,7 +109,7 @@
     
       style = ''  
         * {
-          font-family: "Inter Display", "Iosevka Nerd Font";
+          font-family: "Fira Sans", "Iosevka Nerd Font";
           font-weight: bold;
           font-size: 14px;
           min-height: 0;

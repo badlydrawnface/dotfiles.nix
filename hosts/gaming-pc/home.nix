@@ -16,8 +16,11 @@ in
     enable = true;
     flavor = "mocha";
     accent = "sapphire";
+    gtk = {
+      enable = true;
+      icon.enable = true;
+    };
   };
-
 
   # modularized configs
 
@@ -88,9 +91,7 @@ in
 
   home.packages = with pkgs; [
     libreoffice
-    litemdview
     brave
-    tutanota-desktop
     zed-editor
     fastfetch
     wl-clipboard
@@ -118,6 +119,9 @@ in
     wf-recorder
     android-studio
     calibre
+    gearlever
+    via
+    solaar
   ];
 
   home.sessionVariables = {
