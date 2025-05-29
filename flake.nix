@@ -8,30 +8,23 @@
       url = "github:catppuccin/nix";
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # more up to date version of hyprland
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    # more up to date version of cosmic
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
     };
 
-    # new hypr tools not in nixpkgs yet
-    hyprsunset = {
-      url = "github:hyprwm/hyprsunset";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprsysteminfo = {
-      url = "github:hyprwm/hyprsysteminfo";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -43,7 +36,7 @@
     
   };
 
-  outputs = { self, nixpkgs, lanzaboote, hyprland, hyprsunset, ... }@inputs: {
+  outputs = { self, nixpkgs, nixos-cosmic, lanzaboote, ... }@inputs: {
     nixosConfigurations = {
       vm-test = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -60,7 +53,17 @@
           inputs.catppuccin.nixosModules.catppuccin
           lanzaboote.nixosModules.lanzaboote
           inputs.home-manager.nixosModules.default
+        ];
+      };
 
+      framework = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+	      modules = [
+          ./hosts/framework/configuration.nix
+          nixos-cosmic.nixosModules.default
+          inputs.catppuccin.nixosModules.catppuccin
+          lanzaboote.nixosModules.lanzaboote
+          inputs.home-manager.nixosModules.default
         ];
       };
     };

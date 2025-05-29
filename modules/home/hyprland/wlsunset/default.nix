@@ -4,10 +4,12 @@
     hyprland.wlsunset.enable = lib.mkEnableOption "Enable wlsunset for night light gamma control";
   };
 
-  # TODO try rebuilding hyprsunset
   config = lib.mkIf config.hyprland.wlsunset.enable {
-    programs.wlsunset = {
+    services.wlsunset = {
       enable = true;
+      # Allentown, PA
+      latitude = 40.6;
+      longitude = -75.4;
     };
-  }
+  };
 }

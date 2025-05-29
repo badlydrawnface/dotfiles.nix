@@ -3,18 +3,19 @@
 # define hyprland flake packages
 let
   hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
-  hyprsunsetPkgs = inputs.hyprsunset.packages.${pkgs.system};
 in
 
 {
   # # TODO finish modularizing the flake
   imports = [
     ../../modules/home
+    inputs.zen-browser.homeModules.beta
   ];
 
   catppuccin = {
     enable = true;
-    flavor = "macchiato";
+    gtk.enable = true;
+    flavor = "latte";
     accent = "sapphire";
   };
 
@@ -23,6 +24,7 @@ in
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
+  hyprland.enable = true;
   myGtk.enable = true;
   nvim.enable = true;
   vscode.enable = true;
@@ -32,19 +34,19 @@ in
     source = ../../wallpapers/wallhaven-yxdrex.png;
   };
 
-  services.playerctld = {
+  programs.zen-browser = {
     enable = true;
-  };
-
-  services.kdeconnect = {
-    enable = true;
-    indicator = true;
+    policies = {
+      DisableAppUpdate = true;
+      DisableTelemetry = true;
+      # find more options here: https://mozilla.github.io/policy-templates/
+    };
   };
 
   # host-specific monitor configuration
   wayland.windowManager.hyprland = {
     settings = {
-      "monitor" = "eDP-1,preferred,auto,1";
+      "monitor" = "eDP-1,preferred,auto,1.566667";
     };
   };
 
@@ -83,6 +85,8 @@ in
     kdePackages.kdenlive
     pavucontrol
     calibre
+    steamguard-cli
+    openai-whisper
   ];
 
   home.sessionVariables = {

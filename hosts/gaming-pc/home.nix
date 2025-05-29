@@ -7,7 +7,7 @@ let
 in
 
 {
-  # # TODO finish modularizing the flake
+  #TODO finish modularizing the flake
   imports = [
     ../../modules/home
   ];
@@ -23,7 +23,6 @@ in
   };
 
   # modularized configs
-
   alacritty.enable = true;
   fish.enable = true;
   firefox.enable = true;
@@ -39,19 +38,6 @@ in
 
   home.file.".local/share/wallpapers/wallhaven-yxdrex.png" = {
     source = ../../wallpapers/wallhaven-yxdrex.png;
-  };
-
-  services.swayosd = {
-    enable = true;
-  };
-
-  services.playerctld = {
-    enable = true;
-  };
-
-  services.kdeconnect = {
-    enable = true;
-    indicator = true;
   };
 
   # host-specific monitor configuration

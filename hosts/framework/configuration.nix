@@ -7,29 +7,45 @@
     ../../modules/nixos
   ];
 
-  boot.plymouth.enable = true;
+  boot.secBoot.enable = true;
+  # sddm is crashing on login, so disable it for now
+  # sddm.enable = true;
 
-  boot = {
-    loader.systemd-boot.enable = lib.mkForce false;
-
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
+  # this must be above a desktop declaration in order for the caching to work
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [
+      "https://hyprland.cachix.org/"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
 
+  #TODO modularize this as 'config.hyprland.enable'
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+  
   networking.hostName = "framework";
   networking.networkmanager.enable = true;
 
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-  security.pam.services.login.enableGnomeKeyring = true;
-  security.polkit.enable = true;
+  fingerprint.enable = true;
 
   virtualisation = {
     podman.enable = true;
     docker.enable = true;
   };
+
+  # mount usb drives and other removable media
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
 
   time.timeZone = "America/New_York";
   
@@ -37,19 +53,7 @@
 
   services.printing.enable = true;
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-  };
-
+  # this is necessary to set the default shell
   programs.fish.enable = true;
 
   hardware.graphics.enable32Bit = true;
@@ -62,23 +66,7 @@
     shell = pkgs.fish;
   };
 
-  home-manager = {
-    backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
-    useGlobalPkgs = true;
-    users = {
-      "bdface".imports = [
-        ./home.nix
-	      inputs.catppuccin.homeManagerModules.catppuccin
-      ];
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-  };
 
   environment.systemPackages = with pkgs; [
     yt-dlp
@@ -96,33 +84,24 @@
     distrobox
     wl-clipboard
     adw-gtk3
+    
+    # gui apps
+    kdePackages.dolphin
+    kdePackages.gwenview
+    kdePackages.ark
+    kdePackages.okular
+    kdePackages.kate
   ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
+    fira
   ];
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-cosmic
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
 
   _1password.enable = true;
 
-  #flatpak
-  services.flatpak.enable = true;
-
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
+  # make ozones (vscode, et al) use wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   system.stateVersion = "25.05";
 }

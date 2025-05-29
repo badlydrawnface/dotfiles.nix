@@ -33,7 +33,7 @@
   networking.networkmanager.enable = true;
 
   # TODO replace with kwallet
-  security.pam.services.login.kwallet.enable = true;
+  #security.pam.services.login.kwallet.enable = true;
   # enable gnome keyring for chromium secrets
   #services.gnome.gnome-keyring.enable = true;
   #security.pam.services.greetd.enableGnomeKeyring = true;

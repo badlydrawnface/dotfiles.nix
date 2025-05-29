@@ -27,9 +27,9 @@
           "application/pdf" = ["xreader.desktop"];
           
           # browser
-          "x-scheme-handler/http" = ["brave.desktop"];
-          "x-scheme-handler/https" = ["brave.desktop"];
-          "text/html" = ["brave.desktop"];
+          "x-scheme-handler/http" = ["zen.desktop"];
+          "x-scheme-handler/https" = ["zen.desktop"];
+          "text/html" = ["zen.desktop"];
         };
       };
     };

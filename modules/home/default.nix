@@ -1,7 +1,6 @@
 { ... }: {
   imports = [
     ./catppuccin
-    ./firefox
     ./fish
     ./gh
     ./git

@@ -14,8 +14,9 @@
           "~/.local/share/wallpapers/wallhaven-yxdrex.png"
         ];
 
+        # TODO modularize the display type
         wallpaper = [
-          "DP-1,~/.local/share/wallpapers/wallhaven-yxdrex.png"
+          "eDP-1,~/.local/share/wallpapers/wallhaven-yxdrex.png"
         ];
       };
     };

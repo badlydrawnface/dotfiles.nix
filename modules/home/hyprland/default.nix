@@ -3,16 +3,16 @@
 # define hyprland flake packages
 let
   hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
-  hyprsunsetPkgs = inputs.hyprsunset.packages.${pkgs.system};
 in
 {
   imports = [
     ./dunst
-    # ./hypridle
-    # ./hyprlock
+    ./hypridle
+    ./hyprlock
     ./hyprpaper
     ./rofi
     ./waybar
+    ./wlsunset
   ];
 
   options = {
@@ -26,26 +26,22 @@ in
 
     home.packages = with pkgs; [
       hyprpaper
-      hyprsunsetPkgs.hyprsunset
       hyprpolkitagent
       grimblast
       playerctl
     ];
 
+    hyprland.dunst.enable = true;
+    hyprland.hyprlock.enable = true;
+    hyprland.hypridle.enable = true;
     hyprland.hyprpaper.enable = true;
-    # hyprland.hyprlock.enable = true;
-    # hyprland.hypridle.enable = true;
-    hyprland.waybar.enable = true;
     hyprland.rofi.enable = true;
+    hyprland.waybar.enable = true;
+    hyprland.wlsunset.enable = true;
+
     services.swayosd.enable = true;
     services.playerctld.enable = true;
 
-    # enable kdeconnect and its indicator
-    services.kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
-    
     wayland.windowManager.hyprland = {
       #TODO
       enable = true;
@@ -54,14 +50,14 @@ in
         # autostart programs
         "exec-once" = [
 	        "systemctl --user enable --now hyprpolkitagent.service"
-          "waybar & hyprpaper"
-          "hyprctl setcursor catppuccin-mocha-dark-cursors 32"
+          "waybar & hyprpaper & wlsunset"
+          "hyprctl setcursor catppuccin-mocha-dark-cursors 24"
         ];
 
         "$terminal" = "alacritty";
         "$fileManager" = "nemo";
         "$menu" = "rofi";
-        "$browser" = "brave";
+        "$browser" = "zen";
 
         "input" = {
           "kb_layout" = "us, ca";
@@ -105,7 +101,6 @@ in
 
         "animations" = {
           "enabled" = true;
-
           "bezier" = "slide,0.05,0.9,0.1,1.1";
 
           "animation" = [
@@ -204,10 +199,6 @@ in
           "$mainMod SHIFT, up, movewindow, u"
           "$mainMod SHIFT, down, movewindow, d"
 
-          # screen brightness
-          ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
-          ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-
           # playback
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioNext, exec, playerctl next"
@@ -221,6 +212,10 @@ in
           # volume control with swayosd
           ", XF86AudioRaiseVolume, exec, swayosd-client --max-volume 100 --output-volume raise"
           ", XF86AudioLowerVolume, exec, swayosd-client --max-volume 100 --output-volume lower"
+
+          # screen brightness
+          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
         ];
 
         "bindl" = [

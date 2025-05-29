@@ -1,12 +1,12 @@
 { pkgs, lib, config, ... }: {
   options = {
-    dunst.enable = lib.mkEnableOption {
+    hyprland.dunst.enable = lib.mkEnableOption {
       default = true;
       description = "Enable dunst";
     };
   };
   
-  config = lib.mkIf config.dunst.enable {
+  config = lib.mkIf config.hyprland.dunst.enable {
     # notifications
     services.dunst = {
       enable = true;
@@ -17,7 +17,7 @@
       };
       settings = {
         global = {
-          font = "Inter Display 11";
+          font = "Fira Sans 11";
         };
       };
     };
