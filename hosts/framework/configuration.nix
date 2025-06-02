@@ -91,6 +91,11 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = false;
+  };
+
   environment.systemPackages = with pkgs; [
     yt-dlp
     tree
