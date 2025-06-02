@@ -9,16 +9,16 @@
       settings =
       {
         mainBar = {
-          modules-left =  [ "custom/launcher" "hyprland/workspaces" "custom/media" ];
-          modules-center = [ "hyprland/window" ];
-          modules-right = [ "tray" "hyprland/language" "backlight" "network" "battery" "wireplumber" "clock" ];
+          modules-left =  [ "custom/launcher" "niri/workspaces" ];
+          modules-center = [ "niri/window" ];
+          modules-right = [ "tray" "niri/language" "backlight" "network" "battery" "wireplumber" "clock" ];
 
           "custom/launcher" = {
             on-click = "rofi -show drun -show emoji";
             format = " ";
           };
 
-          "hyprland/workspaces" = {
+          "niri/workspaces" = {
             disable-scroll = false;
             all-outputs = true;
             warp-on-scroll = false;
@@ -36,8 +36,8 @@
             };
           };
 
-          "hyprland/window" = {
-            max-length = 40;
+          "niri/window" = {
+            max-length = 42;
           };
 
           "clock" = {
@@ -46,7 +46,7 @@
             format = "{:%I:%M %p}";
           };
 
-          "hyprland/language" = {
+          "niri/language" = {
             format = "󰌌   {}";
             format-en = "en";
             format-fr = "fr";
@@ -60,7 +60,6 @@
           };
 
           "network" = {
-            interface = "enp34s0";
             interval = 3;
             format = "  {bandwidthDownBytes}";
           };
@@ -90,20 +89,6 @@
             show-passive-items = true;
             spacing = 10;
           };
-
-          # TODO use home.file to add auxiliary files (i.e define-color css files and scripts)
-          "custom/media" = {
-            format = "{icon} {}";
-            return-type = "json";
-            max-length = 40;
-            format-icons = {
-              spotify = " ";
-              default = "🎜 ";
-            };
-            escape = true;
-            exec = "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"; # Script in resources folder
-            # "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-          };
         };
       };
     
@@ -119,13 +104,13 @@
         }
     
         window#waybar {
-          background-color: rgba(30, 30, 46, 0.5);
+          background-color: alpha(@base, 0.7);
           transition-property: background-color;
           transition-duration: 0.5s;
         }
     
         #custom-launcher {
-          color: @maroon;
+          color: @green;
           font-size: 22px;
           margin-left: 1rem;
         }
@@ -144,9 +129,9 @@
         }
     
         #workspaces button.active {
-          background-color: @maroon;
+          background-color: @green;
           margin: 2px 2px;
-          color: @base;
+          color: @crust;
         }
     
         #workspaces button.urgent {
@@ -157,13 +142,12 @@
         #tray,
         #language,
         #network,
-        #custom-media,
         #backlight,
         #clock,
         #battery,
         #wireplumber {
           background-color: @surface0;
-          color: @sapphire;
+          color: @green;
           margin: 5px 0;
           padding: 0rem 0.75rem 0rem;
         }

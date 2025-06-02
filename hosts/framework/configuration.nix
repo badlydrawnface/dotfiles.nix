@@ -9,7 +9,7 @@
 
   boot.secBoot.enable = true;
   # sddm is crashing on login, so disable it for now
-  # sddm.enable = true;
+  sddm.enable = true;
 
   # this must be above a desktop declaration in order for the caching to work
   nix.settings = {
@@ -24,13 +24,22 @@
     ];
   };
 
+  # 6.12 is too old (i think its lts) ryzen ai needs the bleeding edge kernel to avoid gpu hangs
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   #TODO modularize this as 'config.hyprland.enable'
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-  
+  #programs.hyprland = {
+    #enable = true;
+    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  #};
+
+  xdgPortals.enable = true;
+
+  services.desktopManager.cosmic.enable = true;
+
+  programs.niri.enable = true;
+
   networking.hostName = "framework";
   networking.networkmanager.enable = true;
 
@@ -40,6 +49,8 @@
     podman.enable = true;
     docker.enable = true;
   };
+
+  # sysQt.enable = true;
 
   # mount usb drives and other removable media
   services.devmon.enable = true;
@@ -66,6 +77,18 @@
     shell = pkgs.fish;
   };
 
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = { inherit inputs; };
+    useGlobalPkgs = true;
+    users = {
+      "bdface".imports = [
+        ./home.nix
+	inputs.catppuccin.homeModules.catppuccin
+      ];
+    };
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -84,13 +107,14 @@
     distrobox
     wl-clipboard
     adw-gtk3
+    xwayland-satellite
     
-    # gui apps
-    kdePackages.dolphin
+    #gui apps
+    # kdePackages.dolphin
     kdePackages.gwenview
     kdePackages.ark
     kdePackages.okular
-    kdePackages.kate
+    # kdePackages.kate
   ];
 
   fonts.packages = with pkgs; [
@@ -99,6 +123,9 @@
   ];
 
   _1password.enable = true;
+
+  # enable flatpak and add flathub repo
+  flathub.enable = true;
 
   # make ozones (vscode, et al) use wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

@@ -14,7 +14,7 @@
       font = "Fira Sans 11, Iosevka Nerd Font 11";
       extraConfig = {
         modi = "run,drun,window,emoji";
-        icon-theme = "Papirus-dark";
+        icon-theme = "Papirus-Dark";
         show-icons = true;
         terminal = "alacritty";
         drun-display-format = "{icon} {name}";

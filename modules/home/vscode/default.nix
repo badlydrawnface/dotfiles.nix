@@ -15,9 +15,9 @@
         "editor.fontFamily" = "Iosevka NF";
         "editor.fontSize" = 16;
         "terminal.integrated.fontSize" = 16;
-        "catppuccin.accentColor" = "sapphire";
         "workbench.iconTheme" = "catppuccin-macchiato";
         "window.titleBarStyle" = "custom";
+        "explorer.confirmDelete" = false;
 
         # hide update notifications
         "update.mode" = "none";

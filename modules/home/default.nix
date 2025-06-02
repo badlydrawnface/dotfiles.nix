@@ -8,6 +8,7 @@
     ./hyprland
     ./nextcloud
     ./nvim
+    ./qt
     ./terms
     ./vscode
     ./xdg

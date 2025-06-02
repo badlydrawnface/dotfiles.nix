@@ -10,6 +10,7 @@ in
   #TODO finish modularizing the flake
   imports = [
     ../../modules/home
+    inputs.zen-browser.homeModules.beta
   ];
 
   catppuccin = {
@@ -25,19 +26,34 @@ in
   # modularized configs
   alacritty.enable = true;
   fish.enable = true;
-  firefox.enable = true;
   gh.enable = true;
   git.enable = true;
-  myGtk.enable = true;
   hyprland.enable = true;
-  nextcloud.enable = true;
-  #TODO nnn/yazi config
+  myGtk.enable = true;
+  myQt.enable = true;
   nvim.enable = true;
   vscode.enable = true;
   myXdg.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-yxdrex.png" = {
-    source = ../../wallpapers/wallhaven-yxdrex.png;
+  # TODO desktop module rewrite
+  programs.swaylock.enable = true;
+
+  programs.zen-browser = {
+    enable = true;
+    policies = {
+      DisableAppUpdate = true;
+      DisableTelemetry = true;
+      # find more options here: https://mozilla.github.io/policy-templates/
+    };
+  };
+
+  home.file.".local/share/wallpapers/wallhaven-o5k7kl.jpg" = {
+    source = ../../wallpapers/wallhaven-o5k7kl.jpg;
+  };
+
+  # niri config (not declarable yet)
+  home.file.".config/niri/config.kdl" = {
+    source = ../../config/niri.kdl;
   };
 
   # host-specific monitor configuration
@@ -47,21 +63,13 @@ in
     };
   };
 
-  # TODO move this to theming modules
+  # TODO move this to theming modules...  
+  # FIXME eventually
   # set prefer-dark for gtk4 and others
   dconf.settings = {
     "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
       };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "kvantum";
-    style = {
-      name = "kvantum";
-      package = pkgs.libsForQt5.qtstyleplugin-kvantum;
-    };
   };
 
   # get the python script for the media player
@@ -80,7 +88,6 @@ in
     brave
     zed-editor
     fastfetch
-    wl-clipboard
     wormhole-rs
     steam
     mpv
@@ -88,6 +95,10 @@ in
     discover-overlay
     lutris
     prismlauncher
+    mcpelauncher-ui-qt
+    taisei
+    srb2
+    srb2kart
     dolphin-emu
     ryujinx
     audacity
@@ -96,23 +107,15 @@ in
     heroic
     gimp
     inkscape
-    kdenlive
-    catppuccin-kvantum
-    libsForQt5.qtstyleplugin-kvantum
-    wlsunset
+    kdePackages.kdenlive
     pavucontrol
-    grimblast
-    wf-recorder
-    android-studio
     calibre
     gearlever
     via
     solaar
+    openai-whisper
+    steamguard-cli
   ];
-
-  home.sessionVariables = {
-    GRIMBLAST_EDITOR = "xviewer";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, inputs, ... }:
 
 {
@@ -11,9 +7,9 @@
       ../../modules/nixos
     ];
 
-  systemd-boot.enable = true;
+  boot.secBoot.enable = true;
 
-  # enable ly
+  # enable sddm
   sddm.enable = true;
   
   # enable plymouth
@@ -27,19 +23,16 @@
     options = [ "defaults" "user" "exec" "nofail" "x-gvfs-show"];
   };
 
+  # latest mainline kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "gaming-pc"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # TODO replace with kwallet
-  #security.pam.services.login.kwallet.enable = true;
-  # enable gnome keyring for chromium secrets
-  #services.gnome.gnome-keyring.enable = true;
-  #security.pam.services.greetd.enableGnomeKeyring = true;
-  #security.pam.services.login.enableGnomeKeyring = true;
-
-  security.polkit.enable = true;
+  # enable gnome keyring for secrets
+  polkitGnomeKeyring.enable = true;
 
   # enable docker and podman
   virtualisation = {
@@ -79,28 +72,20 @@
   # enable cups
   services.printing.enable = true;
 
-  # enable hyprland
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
+  # TODO use home.file for the config.kbl file
+  programs.niri.enable = true;
 
-  # TODO modularize
-  # enable plasma
-  services.desktopManager.plasma6.enable = true;
 
-  # enable audio
+  # # enable hyprland
+  # programs.hyprland = {
+  #   enable = true;
+  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #   portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  # };
+
+  pipewire.enable = true;
+  # disable hdmi audio suspend
   services.pipewire = {
-    enable = true;
-    pulse = {
-      enable = true;
-    };
-    jack.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
     wireplumber.configPackages = [
       (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa.conf" ''
         monitor.alsa.rules = [
@@ -145,15 +130,6 @@
   hardware.graphics.enable32Bit = true;
   services.pulseaudio.support32Bit = true;
 
-  # enable dynamically-linked executables
-  programs.nix-ld.enable = true;
-
-  programs.nix-ld.libraries = with pkgs; [
-    nodejs_22
-    python312Packages.python-lsp-server
-  ];
-
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bdface = {
     isNormalUser = true;
@@ -172,7 +148,7 @@
       "bdface" = {
         imports = [
           ./home.nix
-          inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.catppuccin.homeModules.catppuccin
         ];
       };
     };
@@ -207,25 +183,22 @@
     qt6Packages.qt6ct
     webp-pixbuf-loader
     libwebp
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
     distrobox
-    flutter
-    file-roller
     wl-clipboard
-    awscli2
-    aws-sam-cli
+    adw-gtk3
+    xwayland-satellite
     
-    # cinnamon apps (xapps) for consistant, desktop-agnostic theming (tbd)
-    nemo
-    xreader
-    xviewer
-    xed
+    # gui apps
+    kdePackages.gwenview
+    kdePackages.ark
+    kdePackages.okular
+    kdePackages.kate
   ];
 
   fonts.packages = with pkgs; [
     # install iosevka nerd font
     nerd-fonts.iosevka
-    inter
     fira
   ];
 
@@ -236,27 +209,10 @@
     # rcm perms
     SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0664", GROUP="plugdev"
   '';
+  
+  xdgPortals.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
-
-  # flatpak config
-  services.flatpak.enable = true;
-
-  # add flathub
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
+  flathub.enable = true;
 
   system.stateVersion = "24.05";
 }

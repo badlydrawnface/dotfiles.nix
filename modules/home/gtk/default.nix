@@ -12,11 +12,12 @@
         name = "catppuccin-mocha-dark-cursors";
 	      size = 24;
 	      package = pkgs.catppuccin-cursors.mochaDark;
-      };
-      iconTheme = {
-        name = "Papirus";
-        package = pkgs.catppuccin-papirus-folders;
-      };
+      }
+      # gtk.catppuccin.enable sets this
+      # iconTheme = {
+      #   name = "Papirus";
+      #   package = pkgs.catppuccin-papirus-folders;
+      # };
       font = {
         name = "Fira Sans";
         size = 11;

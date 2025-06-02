@@ -19,12 +19,12 @@
           "inode/directory" = ["nemo.desktop"];
           "video/*" = ["mpv.desktop"];
           "audio/*" = ["mpv.desktop"];
-          "image/*" = ["xviewer.desktop"];
-          "image/jpeg" = ["xviewer.desktop"];
-          "image/png" = ["xviewer.desktop"];
+          "image/*" = ["gwenview.desktop"];
+          "image/jpeg" = ["gwenview.desktop"];
+          "image/png" = ["gwenview.desktop"];
           "image/svg" = ["inkscape.desktop"];
           "text/*" = ["nvim.desktop"];
-          "application/pdf" = ["xreader.desktop"];
+          "application/pdf" = ["okular.desktop"];
           
           # browser
           "x-scheme-handler/http" = ["zen.desktop"];

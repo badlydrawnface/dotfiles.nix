@@ -9,6 +9,8 @@
       wlr.enable = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
+        # for niri
+        pkgs.xdg-desktop-portal-gnome
       ];
     };
   };

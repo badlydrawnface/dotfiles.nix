@@ -7,9 +7,11 @@
   config = lib.mkIf config.hyprland.wlsunset.enable {
     services.wlsunset = {
       enable = true;
+      package = pkgs.wlsunset;
       # Allentown, PA
       latitude = 40.6;
       longitude = -75.4;
+      temperature.night = 3000;
     };
   };
 }

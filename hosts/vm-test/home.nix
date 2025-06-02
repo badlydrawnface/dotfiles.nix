@@ -58,7 +58,7 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name= "Papirus-dark";
+      name= "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
     theme = {

@@ -18,11 +18,6 @@
       url = "github:hyprwm/Hyprland";
     };
     
-    # more up to date version of cosmic
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +31,7 @@
     
   };
 
-  outputs = { self, nixpkgs, nixos-cosmic, lanzaboote, ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, ... }@inputs: {
     nixosConfigurations = {
       vm-test = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -60,7 +55,6 @@
         specialArgs = { inherit inputs; };
 	      modules = [
           ./hosts/framework/configuration.nix
-          nixos-cosmic.nixosModules.default
           inputs.catppuccin.nixosModules.catppuccin
           lanzaboote.nixosModules.lanzaboote
           inputs.home-manager.nixosModules.default

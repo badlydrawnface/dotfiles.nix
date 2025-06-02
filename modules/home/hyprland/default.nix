@@ -29,6 +29,7 @@ in
       hyprpolkitagent
       grimblast
       playerctl
+      hyprdim
     ];
 
     hyprland.dunst.enable = true;
@@ -51,11 +52,12 @@ in
         "exec-once" = [
 	        "systemctl --user enable --now hyprpolkitagent.service"
           "waybar & hyprpaper & wlsunset"
+          "hyprdim"
           "hyprctl setcursor catppuccin-mocha-dark-cursors 24"
         ];
 
         "$terminal" = "alacritty";
-        "$fileManager" = "nemo";
+        "$fileManager" = "dolphin";
         "$menu" = "rofi";
         "$browser" = "zen";
 
@@ -78,7 +80,7 @@ in
           "gaps_in" = 3;
           "gaps_out" = 5;
           "border_size" = 3;
-          "col.active_border" = "rgba($maroonAlphaee) rgba($sapphireAlphaee) 65deg";
+          "col.active_border" = "rgba($greenAlphaee)";
           "col.inactive_border" = "rgba($surface0Alphacc)";
 
           "layout" = "dwindle";

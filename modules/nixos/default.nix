@@ -6,6 +6,7 @@
     ./fprintd
     ./ly
     ./pipewire
+    ./qt
     ./sddm
     ./security
     ./xdg
