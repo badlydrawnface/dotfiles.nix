@@ -30,5 +30,7 @@ building with my `hardware-configuration.nix` file will almost certainly cause p
 - Extract binary cache/nix settings
 - maybe make package modules
 - color adw-gtk3 so i am not dependent on the deprecated `catppuccin.gtk`
+- get rid of kwallet somehow
+- make brave stop opening webpages when i set my mimetypes to zsen
 
 **TODO**

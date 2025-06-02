@@ -85,7 +85,6 @@ in
 
   home.packages = with pkgs; [
     libreoffice
-    brave
     zed-editor
     fastfetch
     wormhole-rs
