@@ -9,16 +9,16 @@
       settings =
       {
         mainBar = {
-          modules-left =  [ "custom/launcher" "niri/workspaces" ];
-          modules-center = [ "niri/window" ];
-          modules-right = [ "tray" "niri/language" "backlight" "network" "battery" "wireplumber" "clock" ];
+          modules-left =  [ "custom/launcher" "hyprland/workspaces" ];
+          modules-center = [ "hyprland/window" ];
+          modules-right = [ "tray" "hyprland/language" "backlight" "network" "battery" "wireplumber" "clock" ];
 
           "custom/launcher" = {
             on-click = "rofi -show drun -show emoji";
             format = " ";
           };
 
-          "niri/workspaces" = {
+          "hyprland/workspaces" = {
             disable-scroll = false;
             all-outputs = true;
             warp-on-scroll = false;
@@ -36,7 +36,7 @@
             };
           };
 
-          "niri/window" = {
+          "hyprland/window" = {
             max-length = 42;
           };
 
@@ -46,7 +46,7 @@
             format = "{:%I:%M %p}";
           };
 
-          "niri/language" = {
+          "hyprland/language" = {
             format = "󰌌   {}";
             format-en = "en";
             format-fr = "fr";

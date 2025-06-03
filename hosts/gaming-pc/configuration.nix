@@ -161,12 +161,6 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
   ];
-  
-  security.pam.services.kwallet = {
-    name = "kwallet";
-    enableKwallet = false;
-  };
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
