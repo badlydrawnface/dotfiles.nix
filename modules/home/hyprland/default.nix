@@ -1,9 +1,5 @@
 { config, lib, pkgs, inputs, ... }: 
 
-# define hyprland flake packages
-let
-  hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
-in
 {
   imports = [
     ./dunst
@@ -30,6 +26,7 @@ in
       grimblast
       playerctl
       hyprdim
+      hyprnome
     ];
 
     hyprland.dunst.enable = true;
@@ -46,7 +43,6 @@ in
     wayland.windowManager.hyprland = {
       #TODO
       enable = true;
-      package = hyprlandPkgs.hyprland;
       settings = {
         # autostart programs
         "exec-once" = [

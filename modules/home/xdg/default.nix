@@ -16,20 +16,26 @@
         enable = true;
         defaultApplications = {
           # file manager
-          "inode/directory" = ["nemo.desktop"];
+          "inode/directory" = ["org.kde.dolphin.desktop"];
+          "text/plain" = ["org.kde.kate.desktop"];
           "video/*" = ["mpv.desktop"];
           "audio/*" = ["mpv.desktop"];
-          "image/*" = ["gwenview.desktop"];
-          "image/jpeg" = ["gwenview.desktop"];
-          "image/png" = ["gwenview.desktop"];
+          "image/*" = ["org.kde.gwenview.desktop"];
+          "image/jpeg" = ["org.kde.gwenview.desktop"];
+          "image/png" = ["org.kde.gwenview.desktop"];
+          "image/webp" = ["org.kde.gwenview.desktop"];
           "image/svg" = ["inkscape.desktop"];
-          "text/*" = ["nvim.desktop"];
-          "application/pdf" = ["okular.desktop"];
-          
+          "text/*" = ["org.kde.kate.desktop"];
+          "application/pdf" = ["org.kde.okular.desktop"];
+          "application/zip" = ["org.kde.ark.desktop"];
+          "application/tar" = ["org.kde.ark.desktop"];
+          "application/7z"  = ["org.kde.ark.desktop"];
+          "application/rar" = ["org.kde.ark.desktop"];
+
           # browser
-          "x-scheme-handler/http" = ["zen.desktop"];
-          "x-scheme-handler/https" = ["zen.desktop"];
-          "text/html" = ["zen.desktop"];
+          "x-scheme-handler/http" = ["zen-beta.desktop"];
+          "x-scheme-handler/https" = ["zen-beta.desktop"];
+          "text/html" = ["zen-beta.desktop"];
         };
       };
     };

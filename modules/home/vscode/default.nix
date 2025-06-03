@@ -14,6 +14,7 @@
         "[nix]"."editor.tabSize" = 2;
         "editor.fontFamily" = "Iosevka NF";
         "editor.fontSize" = 16;
+        "editor.semanticHighlighting.enabled" = true;
         "terminal.integrated.fontSize" = 16;
         "workbench.iconTheme" = "catppuccin-macchiato";
         "window.titleBarStyle" = "custom";

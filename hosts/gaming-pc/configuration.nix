@@ -72,16 +72,10 @@
   # enable cups
   services.printing.enable = true;
 
-  # TODO use home.file for the config.kbl file
-  programs.niri.enable = true;
-
-
-  # # enable hyprland
-  # programs.hyprland = {
-  #   enable = true;
-  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  #   portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  # };
+  # enable hyprland
+  programs.hyprland = {
+    enable = true;
+  };
 
   pipewire.enable = true;
   # disable hdmi audio suspend
@@ -163,6 +157,10 @@
     substituters = [ "https://hyprland.cachix.org" ];
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+  ];
   
   security.pam.services.kwallet = {
     name = "kwallet";
@@ -194,9 +192,12 @@
     wl-clipboard
     adw-gtk3
     xwayland-satellite
+    ns-usbloader
+    inputs.nix-alien.packages.${system}.nix-alien
     
     # gui apps
     kdePackages.gwenview
+    kdePackages.dolphin
     kdePackages.ark
     kdePackages.okular
     kdePackages.kate

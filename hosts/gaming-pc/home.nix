@@ -1,11 +1,5 @@
 { config, pkgs, inputs, outputs, ... }:
 
-# define hyprland flake packages
-let
-  hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
-  hyprsunsetPkgs = inputs.hyprsunset.packages.${pkgs.system};
-in
-
 {
   #TODO finish modularizing the flake
   imports = [
@@ -85,6 +79,7 @@ in
 
   home.packages = with pkgs; [
     libreoffice
+    brave
     zed-editor
     fastfetch
     wormhole-rs

@@ -17,6 +17,7 @@
         # TODO modularize the display type
         wallpaper = [
           "eDP-1,~/.local/share/wallpapers/wallhaven-o5k7kl.jpg"
+          "DP-1,~/.local/share/wallpapers/wallhaven-o5k7kl.jpg"
         ];
       };
     };
