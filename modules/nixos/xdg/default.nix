@@ -7,9 +7,9 @@
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-	pkgs.xdg-desktop-portal-hyprland
+      extraPortals = with pkgs; [
+        kdePackages.xdg-desktop-portal-kde
+        xdg-desktop-portal-gtk
       ];
     };
   };

@@ -11,13 +11,13 @@
       enable = true;
       settings = {
         preload = [
-          "~/.local/share/wallpapers/wallhaven-o5k7kl.jpg"
+          "~/.local/share/wallpapers/wallhaven-5g22q5.png"
         ];
 
         # TODO modularize the display type
         wallpaper = [
-          "eDP-1,~/.local/share/wallpapers/wallhaven-o5k7kl.jpg"
-          "DP-1,~/.local/share/wallpapers/wallhaven-o5k7kl.jpg"
+          "eDP-1,~/.local/share/wallpapers/wallhaven-5g22q5.png"
+          "DP-1,~/.local/share/wallpapers/wallhaven-5g22q5.png"
         ];
       };
     };

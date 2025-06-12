@@ -1,12 +1,12 @@
 { pkgs, lib, config, ... }: {
   options = {
-    hyprland.rofi.enable = lib.mkEnableOption {
+    wmCommon.rofi.enable = lib.mkEnableOption {
       default = true;
       description = "Enable wayland fork of Rofi";
     };
   };
 
-  config = lib.mkIf config.hyprland.rofi.enable {
+  config = lib.mkIf config.wmCommon.rofi.enable {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;

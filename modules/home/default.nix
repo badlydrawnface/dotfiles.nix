@@ -1,11 +1,11 @@
 { ... }: {
   imports = [
     ./catppuccin
+    ./desktops
     ./fish
     ./gh
     ./git
     ./gtk
-    ./hyprland
     ./nextcloud
     ./nvim
     ./qt

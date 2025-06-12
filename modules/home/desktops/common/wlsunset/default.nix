@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }: {
 
   options = {
-    hyprland.wlsunset.enable = lib.mkEnableOption "Enable wlsunset for night light gamma control";
+    wmCommon.wlsunset.enable = lib.mkEnableOption "Enable wlsunset for night light gamma control";
   };
 
-  config = lib.mkIf config.hyprland.wlsunset.enable {
+  config = lib.mkIf config.wmCommon.wlsunset.enable {
     services.wlsunset = {
       enable = true;
       package = pkgs.wlsunset;

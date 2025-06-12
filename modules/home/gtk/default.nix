@@ -8,10 +8,14 @@
   config = lib.mkIf config.myGtk.enable {
     gtk = {
       enable = true;
+      #theme = {
+        #name = "adw-gtk3-dark";
+	#package = pkgs.adw-gtk3;
+      #};
       cursorTheme = {
         name = "catppuccin-mocha-dark-cursors";
-	      size = 24;
-	      package = pkgs.catppuccin-cursors.mochaDark;
+	size = 24;
+	package = pkgs.catppuccin-cursors.mochaDark;
       };
       # gtk.catppuccin.enable sets this
       # iconTheme = {

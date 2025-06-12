@@ -1,14 +1,10 @@
-{ config, lib, pkgs, inputs, ... }: 
+{ config, lib, pkgs, ... }: 
 
 {
   imports = [
-    ./dunst
     ./hypridle
     ./hyprlock
     ./hyprpaper
-    ./rofi
-    ./waybar
-    ./wlsunset
   ];
 
   options = {
@@ -19,26 +15,17 @@
   };
 
   config = lib.mkIf config.hyprland.enable {
-
     home.packages = with pkgs; [
       hyprpaper
-      hyprpolkitagent
       grimblast
       playerctl
-      hyprdim
       hyprnome
     ];
 
-    hyprland.dunst.enable = true;
     hyprland.hyprlock.enable = true;
     hyprland.hypridle.enable = true;
     hyprland.hyprpaper.enable = true;
-    hyprland.rofi.enable = true;
-    hyprland.waybar.enable = true;
-    hyprland.wlsunset.enable = true;
-
-    services.swayosd.enable = true;
-    services.playerctld.enable = true;
+    services.hyprpolkitagent.enable = true;
 
     wayland.windowManager.hyprland = {
       #TODO
@@ -46,9 +33,7 @@
       settings = {
         # autostart programs
         "exec-once" = [
-	        "systemctl --user enable --now hyprpolkitagent.service"
           "waybar & hyprpaper & wlsunset"
-          "hyprdim"
           "hyprctl setcursor catppuccin-mocha-dark-cursors 24"
         ];
 

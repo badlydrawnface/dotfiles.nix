@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }: {
   options = {
-    hyprland.waybar.enable = lib.mkEnableOption "Enable waybar configurations and style";
+    wmCommon.waybar.enable = lib.mkEnableOption "Enable waybar configurations and style";
   };
 
-  config = lib.mkIf config.hyprland.waybar.enable {
+  config = lib.mkIf config.wmCommon.waybar.enable {
     programs.waybar = {
       enable = true;
       settings =

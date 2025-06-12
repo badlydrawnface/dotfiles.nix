@@ -1,10 +1,5 @@
 { config, pkgs, inputs, outputs, ... }:
 
-# define hyprland flake packages
-let
-  hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
-in
-
 {
   # # TODO finish modularizing the flake
   imports = [
@@ -12,29 +7,28 @@ in
     inputs.zen-browser.homeModules.beta
   ];
 
-  catppuccin = {
-    enable = true;
-    gtk.enable = true;
-    flavor = "macchiato";
-    accent = "green";
-  };
+  #catppuccin = {
+    #enable = true;
+    #gtk.enable = true;
+    #flavor = "macchiato";
+    #accent = "green";
+  #};
 
   # modularized configs
   alacritty.enable = true;
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
-  hyprland.enable = true;
-  myGtk.enable = true;
-  myQt.enable = true;
+  #hyprland.enable = true;
+  #myGtk.enable = true;
+  #myQt.enable = true;
+  plasma.enable = true;
   nvim.enable = true;
   vscode.enable = true;
   myXdg.enable = true;
 
-  programs.swaylock.enable = true;
-
-  home.file.".local/share/wallpapers/wallhaven-o5k7kl.jpg" = {
-    source = ../../wallpapers/wallhaven-o5k7kl.jpg;
+  home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
+    source = ../../wallpapers/wallhaven-5g22q5.png;
   };
 
   programs.zen-browser = {
@@ -47,16 +41,16 @@ in
   };
 
   # host-specific monitor configuration
-  wayland.windowManager.hyprland = {
-    settings = {
-      "monitor" = "eDP-1,preferred,auto,1.566667";
+  #wayland.windowManager.hyprland = {
+    #settings = {
+      #"monitor" = "eDP-1,preferred,auto,1.566667";
 
       # save on battery life
-      "decoration:blur:enabled" = false;
-      "decoration:shadow:enabled" = false;
-      "misc:vfr" = true;
-    };
-  };
+      #"decoration:blur:enabled" = false;
+      #"decoration:shadow:enabled" = false;
+      #"misc:vfr" = true;
+    #};
+  #};
 
   # get the python script for the media player
   home.file.".config/waybar/mediaplayer.py" = {
@@ -71,6 +65,7 @@ in
 
   home.packages = with pkgs; [
     libreoffice
+    brave
     zed-editor
     fastfetch
     wormhole-rs
@@ -91,11 +86,14 @@ in
     heroic
     gimp
     inkscape
+    signal-desktop
+    grayjay
     kdePackages.kdenlive
     pavucontrol
     calibre
     steamguard-cli
     openai-whisper
+    grimblast
     wf-recorder
   ];
 

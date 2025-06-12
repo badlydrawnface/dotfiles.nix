@@ -18,48 +18,48 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    
   };
 
-  outputs = { self, nixpkgs, lanzaboote, ... }@inputs: {
-    nixosConfigurations = {
-      vm-test = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/vm-test/configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
+  outputs = { self, nixpkgs, ... }@inputs:
+    let
+      inherit (self) outputs;
+      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];       
+      forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+    in {
+      # custom packages
+      packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
 
-      gaming-pc = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/gaming-pc/configuration.nix
-          inputs.catppuccin.nixosModules.catppuccin
-          lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.default
-        ];
-      };
+      nixosConfigurations = {
+        vm-test = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/vm-test/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
 
-      framework = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-	      modules = [
-          ./hosts/framework/configuration.nix
-          inputs.catppuccin.nixosModules.catppuccin
-          lanzaboote.nixosModules.lanzaboote
-          inputs.home-manager.nixosModules.default
-        ];
+        gaming-pc = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/gaming-pc/configuration.nix
+            inputs.catppuccin.nixosModules.catppuccin
+            inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+
+        framework = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+	    modules = [
+	      ./hosts/framework/configuration.nix		   
+              inputs.lanzaboote.nixosModules.lanzaboote
+              inputs.home-manager.nixosModules.default
+          ];
+        };
       };
     };
-  };
-}
+  }
