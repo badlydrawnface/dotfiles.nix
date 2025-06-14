@@ -58,6 +58,7 @@
           specialArgs = { inherit inputs outputs; };
 	    modules = [
 	      ./hosts/framework/configuration.nix		   
+	      inputs.catppuccin.nixosModules.catppuccin
               inputs.lanzaboote.nixosModules.lanzaboote
               inputs.home-manager.nixosModules.default
           ];
