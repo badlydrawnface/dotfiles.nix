@@ -18,9 +18,6 @@
 
   xdgPortals.enable = true;
   
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
-
   networking.hostName = "framework";
   networking.networkmanager.enable = true;
 
