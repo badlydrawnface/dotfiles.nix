@@ -16,21 +16,21 @@
         enable = true;
         defaultApplications = {
           # file manager
-          "inode/directory" = ["org.kde.dolphin.desktop"];
-          "text/plain" = ["org.kde.kate.desktop"];
+          "inode/directory" = ["yazi.desktop"];
           "video/*" = ["mpv.desktop"];
           "audio/*" = ["mpv.desktop"];
-          "image/*" = ["org.kde.gwenview.desktop"];
-          "image/jpeg" = ["org.kde.gwenview.desktop"];
-          "image/png" = ["org.kde.gwenview.desktop"];
-          "image/webp" = ["org.kde.gwenview.desktop"];
+          "image/*" = ["swappy.desktop"];
+          "image/png" = ["swappy.desktop"];
+          "image/jpeg" = ["swappy.desktop"];
+          "image/webp" = ["swappy.desktop"];
           "image/svg" = ["inkscape.desktop"];
-          "text/*" = ["org.kde.kate.desktop"];
-          "application/pdf" = ["org.kde.okular.desktop"];
-          "application/zip" = ["org.kde.ark.desktop"];
-          "application/tar" = ["org.kde.ark.desktop"];
-          "application/7z"  = ["org.kde.ark.desktop"];
-          "application/rar" = ["org.kde.ark.desktop"];
+          "text/*" = ["nvim.desktop"];
+          "application/pdf" = ["org.gnome.Evince.desktop"];
+          "application/exe" = ["protontricks-launch.desktop"];
+          "application/zip" = ["org.gnome.FileRoller.desktop"];
+          "application/tar" = ["org.gnome.FileRoller.desktop"];
+          "application/7z"  = ["org.gnome.FileRoller.desktop"];
+          "application/rar" = ["org.gnome.FileRoller.desktop"];
 
           # browser
           "x-scheme-handler/http" = ["zen-beta.desktop"];

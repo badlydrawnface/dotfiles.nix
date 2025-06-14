@@ -17,7 +17,6 @@
   config = lib.mkIf config.hyprland.enable {
     home.packages = with pkgs; [
       hyprpaper
-      grimblast
       playerctl
       hyprnome
     ];
@@ -30,21 +29,26 @@
     wayland.windowManager.hyprland = {
       #TODO
       enable = true;
+      # needed for uwsm to work
+      systemd.enable = false;
       settings = {
         # autostart programs
         "exec-once" = [
-          "waybar & hyprpaper & wlsunset"
-          "hyprctl setcursor catppuccin-mocha-dark-cursors 24"
+        "uwsm app -- waybar"
+        "uwsm app -- hyprpaper"
+        "uwsm app -- wlsunset"
+        "uwsm app -- steam -silent"
+        "uwsm app -- hyprctl setcursor catppuccin-mocha-dark-cursors 24"
         ];
 
         "$terminal" = "alacritty";
-        "$fileManager" = "dolphin";
+        "$fileManager" = "nemo";
         "$menu" = "rofi";
         "$browser" = "zen";
 
         "input" = {
-          "kb_layout" = "us, ca";
-          "kb_variant" = ", multix";
+          "kb_layout" = "us, ca, it";
+          "kb_variant" = ", multix, us";
           "kb_options" = "grp:win_space_toggle";
 
           "touchpad" = {
@@ -183,18 +187,18 @@
           "$mainMod SHIFT, down, movewindow, d"
 
           # playback
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioPlay, exec, uwsm app -- playerctl play-pause"
+          ", XF86AudioNext, exec, uwsm app -- playerctl next"
+          ", XF86AudioPrev, exec, uwsm app -- playerctl previous"
 
           # mute with swayosd
-          ", XF86AudioMute, exec, swayosd-client --max-volume 100 --output-volume mute-toggle"
+          ", XF86AudioMute, exec, uwsm -- swayosd-client --max-volume 100 --output-volume mute-toggle"
         ];
 
         "binde" = [
           # volume control with swayosd
-          ", XF86AudioRaiseVolume, exec, swayosd-client --max-volume 100 --output-volume raise"
-          ", XF86AudioLowerVolume, exec, swayosd-client --max-volume 100 --output-volume lower"
+          ", XF86AudioRaiseVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume raise"
+          ", XF86AudioLowerVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume lower"
 
           # screen brightness
           ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
@@ -203,8 +207,8 @@
 
         "bindl" = [
           # copy and pastes to the clipboard
-          "$mainMod, A, exec, grimblast copy screen"
-          "$mainMod SHIFT, A, exec, grimblast copy area -"
+          "$mainMod, A, exec, uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"
+          "$mainMod SHIFT, A, exec, uwsm app -- grim - | swappy -f -"
         ];
 
         "bindm" = [

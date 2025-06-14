@@ -23,7 +23,10 @@ I need sleep.
 
 also **please replace the hardware-configuration.nix with the file generated in /etc/nixos from install**
 
-building with my `hardware-configuration.nix` file will almost certainly cause problems with the next generation.
+building with my `hardware-configuration.nix` file will almost certainly cause problems with the next generation.'
+
+# Edit 6/13/25
+Apparently kwallet and kwallet5 are dependencies that are installed on all packages from `kdePackages` and `libsForQt5` respectively, I guess no theming at all...
 
 ## Modularization goals
 - Get Catppuccin working properly

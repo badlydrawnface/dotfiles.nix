@@ -10,7 +10,7 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
-    accent = "sapphire";
+    accent = "green";
     gtk = {
       enable = true;
       icon.enable = true;
@@ -18,19 +18,18 @@
   };
 
   # modularized configs
-  alacritty.enable = true;
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
   hyprland.enable = true;
   myGtk.enable = true;
-  myQt.enable = true;
-  nvim.enable = true;
-  vscode.enable = true;
+  # myQt.enable = true;
   myXdg.enable = true;
-
-  # TODO desktop module rewrite
-  programs.swaylock.enable = true;
+  nvim.enable = true;
+  term.alacritty.enable = true;
+  wmCommon.enable = true;
+  vscode.enable = true;
+  yazi.enable = true;
 
   programs.zen-browser = {
     enable = true;
@@ -41,13 +40,8 @@
     };
   };
 
-  home.file.".local/share/wallpapers/wallhaven-o5k7kl.jpg" = {
-    source = ../../wallpapers/wallhaven-o5k7kl.jpg;
-  };
-
-  # niri config (not declarable yet)
-  home.file.".config/niri/config.kdl" = {
-    source = ../../config/niri.kdl;
+  home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
+    source = ../../wallpapers/wallhaven-5g22q5.png;
   };
 
   # host-specific monitor configuration
@@ -55,15 +49,6 @@
     settings = {
       "monitor" = "DP-1,1920x1080@144,auto,1";
     };
-  };
-
-  # TODO move this to theming modules...  
-  # FIXME eventually
-  # set prefer-dark for gtk4 and others
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
   };
 
   # get the python script for the media player
@@ -101,7 +86,6 @@
     heroic
     gimp
     inkscape
-    kdePackages.kdenlive
     pavucontrol
     calibre
     gearlever

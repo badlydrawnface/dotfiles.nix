@@ -11,6 +11,7 @@
     ./qt
     ./terms
     ./vscode
+    ./yazi
     ./xdg
   ];
 }

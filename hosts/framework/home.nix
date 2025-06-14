@@ -7,25 +7,26 @@
     inputs.zen-browser.homeModules.beta
   ];
 
-  #catppuccin = {
-    #enable = true;
-    #gtk.enable = true;
-    #flavor = "macchiato";
-    #accent = "green";
-  #};
+  catppuccin = {
+    enable = true;
+    gtk.enable = true;
+    flavor = "macchiato";
+    accent = "green";
+  };
 
   # modularized configs
-  alacritty.enable = true;
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
-  #hyprland.enable = true;
-  #myGtk.enable = true;
-  #myQt.enable = true;
-  plasma.enable = true;
-  nvim.enable = true;
-  vscode.enable = true;
+  hyprland.enable = true;
+  myGtk.enable = true;
+  # myQt.enable = true;
   myXdg.enable = true;
+  nvim.enable = true;
+  term.alacritty.enable = true;
+  wmCommon.enable = true;
+  vscode.enable = true;
+  yazi.enable = true;
 
   home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
     source = ../../wallpapers/wallhaven-5g22q5.png;
@@ -41,16 +42,16 @@
   };
 
   # host-specific monitor configuration
-  #wayland.windowManager.hyprland = {
-    #settings = {
-      #"monitor" = "eDP-1,preferred,auto,1.566667";
+  wayland.windowManager.hyprland = {
+    settings = {
+      "monitor" = "eDP-1,preferred,auto,1.566667";
 
       # save on battery life
-      #"decoration:blur:enabled" = false;
-      #"decoration:shadow:enabled" = false;
-      #"misc:vfr" = true;
-    #};
-  #};
+      "decoration:blur:enabled" = false;
+      "decoration:shadow:enabled" = false;
+      "misc:vfr" = true;
+    };
+  };
 
   # get the python script for the media player
   home.file.".config/waybar/mediaplayer.py" = {
@@ -83,18 +84,14 @@
     audacity
     cemu
     spotify
-    heroic
     gimp
     inkscape
     signal-desktop
     grayjay
-    kdePackages.kdenlive
     pavucontrol
     calibre
     steamguard-cli
     openai-whisper
-    grimblast
-    wf-recorder
   ];
 
   # Let Home Manager install and manage itself.

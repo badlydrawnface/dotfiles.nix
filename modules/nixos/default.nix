@@ -2,9 +2,10 @@
   imports = [
     ./1password
     ./boot
+    ./desktops
     ./flatpak
     ./fprintd
-    ./ly
+    ./greetd
     ./pipewire
     ./qt
     ./sddm

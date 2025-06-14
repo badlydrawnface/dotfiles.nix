@@ -2,7 +2,7 @@
   options = {
     vscode.enable = lib.mkEnableOption {
       default = true;
-      description = "Enable Visaul Studio Code";
+      description = "Enable Visual Studio Code";
     };
   };
 
@@ -16,7 +16,7 @@
         "editor.fontSize" = 16;
         "editor.semanticHighlighting.enabled" = true;
         "terminal.integrated.fontSize" = 16;
-        "workbench.iconTheme" = "catppuccin-macchiato";
+        "workbench.iconTheme" = "catppuccin-mocha";
         "window.titleBarStyle" = "custom";
         "explorer.confirmDelete" = false;
 

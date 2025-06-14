@@ -9,9 +9,6 @@
 
   boot.secBoot.enable = true;
 
-  # enable sddm
-  sddm.enable = true;
-  
   # enable plymouth
   boot.plymouth.enable = true;
 
@@ -38,7 +35,12 @@
   virtualisation = {
     docker.enable = true;
     podman.enable = true;
+    waydroid.enable = true;
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
+
+  programs.virt-manager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -58,24 +60,27 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # enable flakes and nix command, use cachix to not have to build hyprland each time
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
   # mount usb drives and other removable media
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # enable cups
   services.printing.enable = true;
 
-  # enable hyprland
-  programs.hyprland = {
-    enable = true;
-  };
+  greetd.enable = true;
+  
+  # hyprland w/h uwsm
+  desktops.hyprland.enable = true;
+  programs.uwsm.enable = true;
 
   pipewire.enable = true;
   # disable hdmi audio suspend
@@ -123,12 +128,16 @@
   # needed for steam
   hardware.graphics.enable32Bit = true;
   services.pulseaudio.support32Bit = true;
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bdface = {
     isNormalUser = true;
     description = "badlydrawnface";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     shell = pkgs.fish;
   };
 
@@ -151,13 +160,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # enable flakes and nix command, use cachix to not have to build hyprland each time
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
   ];
@@ -170,31 +172,22 @@
     tree
     tmux
     fastfetch
-    hyprcursor
     flatpak-builder
     direnv
     p7zip
     unrar
     unzip
     usbutils
-    libsForQt5.qt5ct
-    qt6Packages.qt6ct
     webp-pixbuf-loader
     libwebp
-    kdePackages.polkit-kde-agent-1
     distrobox
     wl-clipboard
-    adw-gtk3
-    xwayland-satellite
     ns-usbloader
-    inputs.nix-alien.packages.${system}.nix-alien
-    
-    # gui apps
-    kdePackages.gwenview
-    kdePackages.dolphin
-    kdePackages.ark
-    kdePackages.okular
-    kdePackages.kate
+
+    # GUI apps
+    file-roller
+    evince
+
   ];
 
   fonts.packages = with pkgs; [

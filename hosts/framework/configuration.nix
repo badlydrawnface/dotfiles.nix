@@ -44,8 +44,22 @@
 
   services.printing.enable = true;
 
-  # this is necessary to set the default shell
+  # this is necessary in order to set the default shell
   programs.fish.enable = true;
+
+  # enable flakes and nix command, use cachix to not have to build hyprland each time
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
+  greetd.enable = true;
+  
+  # hyprland w/h uwsm
+  desktops.hyprland.enable = true;
+  programs.uwsm.enable = true;
 
   # necessary for steam
   programs.steam = {
@@ -70,12 +84,10 @@
     users = {
       "bdface".imports = [
         ./home.nix
-	inputs.catppuccin.homeModules.catppuccin
+	      inputs.catppuccin.homeModules.catppuccin
       ];
     };
   };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -96,12 +108,9 @@
     wl-clipboard
     plover.dev
     
-    #gui apps
-    # kdePackages.dolphin
-    #kdePackages.gwenview
-    #kdePackages.ark
-    #kdePackages.okular
-    # kdePackages.kate
+    # GUI apps
+    file-roller
+    evince
   ];
 
   fonts.packages = with pkgs; [

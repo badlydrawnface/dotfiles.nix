@@ -15,7 +15,19 @@
   };
 
   config = lib.mkIf config.wmCommon.enable {
+    wmCommon.dunst.enable = true;
+    wmCommon.rofi.enable = true;
+    wmCommon.waybar.enable = true;
+    wmCommon.wlsunset.enable = true;
+
     services.swayosd.enable = true;
     services.playerctld.enable = true;
+
+    home.packages = with pkgs; [
+      slurp
+      grim
+      swappy
+      wf-recorder
+    ];
   };
 }

@@ -11,7 +11,11 @@
       # Allentown, PA
       latitude = 40.6;
       longitude = -75.4;
-      temperature.night = 3000;
+      temperature.night = 3500;
     };
+
+    home.packages = with pkgs; [
+      wlsunset
+    ];
   };
 }

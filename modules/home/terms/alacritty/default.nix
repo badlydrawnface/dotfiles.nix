@@ -2,10 +2,10 @@
 
 {
   options = {
-    alacritty.enable = lib.mkEnableOption "enables alacritty terminal";
+    term.alacritty.enable = lib.mkEnableOption "enables alacritty terminal";
   };
 
-  config = lib.mkIf config.alacritty.enable {
+  config = lib.mkIf config.term.alacritty.enable {
     programs.alacritty = {
       enable = true;
       settings = {
