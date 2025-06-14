@@ -10,5 +10,6 @@
     services.fprintd.enable = true;
     # disable fingerprint on login
     security.pam.services.login.fprintAuth = false;
+    security.pam.services.greetd.fprintAuth = false;
   };
 }
