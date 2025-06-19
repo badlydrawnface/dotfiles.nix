@@ -4,7 +4,7 @@
     fish.enable = lib.mkEnableOption "Enable fish shell, configure starship";
   };
 
-  config = lib.mkIf config.nextcloud.enable {
+  config = lib.mkIf config.fish.enable {
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
