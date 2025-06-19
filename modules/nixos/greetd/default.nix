@@ -8,7 +8,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd uwsm default start";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
         };
       };
     };

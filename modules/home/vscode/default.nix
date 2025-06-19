@@ -25,8 +25,9 @@
         };
         extensions = with pkgs.vscode-extensions; [
           bbenoist.nix
-          github.copilot
-          github.copilot-chat
+          # kinda defeats the purpose of vscode with all the copilot icons
+          # github.copilot
+          # github.copilot-chat
           catppuccin.catppuccin-vsc
           catppuccin.catppuccin-vsc-icons
           gruntfuggly.todo-tree
