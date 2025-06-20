@@ -4,6 +4,8 @@
   appimageTools,
 };
 
+#FIXME
+
 let
   pname = "mudita-center";
   version = "3.0.1";
@@ -17,9 +19,9 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  profile = ''
-    export DISABLE_SUDO_PROMPT=1
-  '';
+  # profile = ''
+  #   export DISABLE_SUDO_PROMPT=1
+  # '';
 
   extraInstallCommands = ''
     install -m 444 -D ${appimageContents}/'Mudita Center.desktop' -t $out/share/applications
