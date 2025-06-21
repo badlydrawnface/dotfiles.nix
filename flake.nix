@@ -6,6 +6,7 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
+    # necessary for cosmic cachix to work properly
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
