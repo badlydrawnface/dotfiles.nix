@@ -13,5 +13,6 @@
     ./vscode
     ./yazi
     ./xdg
+    ./zed-editor
   ];
 }

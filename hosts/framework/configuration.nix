@@ -1,8 +1,13 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-  [
+  imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
   ];
@@ -17,27 +22,32 @@
   services.fwupd.enable = true;
 
   xdgPortals.enable = true;
-  
+
   networking.hostName = "framework";
   networking.networkmanager.enable = true;
 
   fingerprint.enable = true;
 
+  # enable docker, podman, waydroid and libvirt
   virtualisation = {
-    podman.enable = true;
     docker.enable = true;
-    waydroid.enable = true;
+    podman.enable = true;
+    #waydroid.enable = true;
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
+
+  programs.virt-manager.enable = true;
 
   # mount usb drives and other removable media
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-
   time.timeZone = "America/New_York";
-  
+
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
 
   services.printing.enable = true;
 
@@ -46,17 +56,26 @@
 
   # enable flakes and nix command, use cachix to not have to build hyprland each time
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-substituters = [
+      "https://hyprland.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
 
-  greetd.enable = true;
-  
-  # hyprland w/h uwsm
-  desktops.hyprland.enable = true;
-  programs.uwsm.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   # necessary for steam
   programs.steam = {
@@ -70,7 +89,12 @@
   users.users.bdface = {
     isNormalUser = true;
     description = "badlydrawnface";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "uucp" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirt"
+    ];
     shell = pkgs.fish;
   };
 
@@ -81,7 +105,7 @@
     users = {
       "bdface".imports = [
         ./home.nix
-	      inputs.catppuccin.homeModules.catppuccin
+        inputs.catppuccin.homeModules.catppuccin
       ];
     };
   };
@@ -103,11 +127,11 @@
     libwebp
     distrobox
     wl-clipboard
-    plover.dev
-    
+
     # GUI apps
     file-roller
     evince
+    loupe
   ];
 
   fonts.packages = with pkgs; [
@@ -119,6 +143,9 @@
 
   # enable flatpak and add flathub repo
   flathub.enable = true;
+
+  # bluetooth
+  hardware.bluetooth.enable = true;
 
   # make ozones (vscode, et al) use wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

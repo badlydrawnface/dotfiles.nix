@@ -1,4 +1,11 @@
-{ config, pkgs, inputs, outputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
 
 {
   # # TODO finish modularizing the flake
@@ -14,19 +21,25 @@
     accent = "green";
   };
 
+  # necessary since catppuccin's flake doesn't change the icon theme
+  programs.vscode.profiles.default.userSettings."workbench.iconTheme" =
+    lib.mkForce "catppuccin-macchiato";
+
   # modularized configs
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
-  hyprland.enable = true;
-  myGtk.enable = true;
-  # myQt.enable = true;
+  #hyprland.enable = true;
+  #myGtk.enable = true;
+  #myQt.enable = true;
   myXdg.enable = true;
   nvim.enable = true;
   term.alacritty.enable = true;
-  wmCommon.enable = true;
+  term.kitty.enable = true;
+  #wmCommon.enable = true;
   vscode.enable = true;
   yazi.enable = true;
+  zed.enable = true;
 
   home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
     source = ../../wallpapers/wallhaven-5g22q5.png;
@@ -58,21 +71,29 @@
     source = ../../config/waybar/mediaplayer.py;
   };
 
+  # temporary for cosmic
+  xdg.configFile."gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-theme-name=adw-gtk3
+  '';
+
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
-
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
     libreoffice
     brave
-    zed-editor
+    adw-gtk3
     fastfetch
     wormhole-rs
     steam
     mpv
-    discord
+    (discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
     discover-overlay
     lutris
     prismlauncher
@@ -92,6 +113,8 @@
     calibre
     steamguard-cli
     openai-whisper
+    flameshot
+    wf-recorder
   ];
 
   # Let Home Manager install and manage itself.

@@ -16,15 +16,15 @@
         enable = true;
         defaultApplications = {
           # file manager
-          "inode/directory" = ["yazi.desktop"];
+          "inode/directory" = ["com.system76.CosmicFiles.desktop"];
           "video/*" = ["mpv.desktop"];
           "audio/*" = ["mpv.desktop"];
-          "image/*" = ["swappy.desktop"];
-          "image/png" = ["swappy.desktop"];
-          "image/jpeg" = ["swappy.desktop"];
-          "image/webp" = ["swappy.desktop"];
+          "image/*" = ["org.gnome.Loupe.desktop"];
+          "image/png" = ["org.gnome.Loupe.desktop"];
+          "image/jpeg" = ["org.gnome.Loupe.desktop"];
+          "image/webp" = ["org.gnome.Loupe.desktop"];
           "image/svg" = ["inkscape.desktop"];
-          "text/*" = ["nvim.desktop"];
+          "text/*" = ["com.system76.CosmicEdit.desktop"];
           "application/pdf" = ["org.gnome.Evince.desktop"];
           "application/exe" = ["protontricks-launch.desktop"];
           "application/zip" = ["org.gnome.FileRoller.desktop"];
