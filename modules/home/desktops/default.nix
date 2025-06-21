@@ -2,6 +2,5 @@
   imports = [
     ./common
     ./hyprland
-    ./sway
   ];
 }
