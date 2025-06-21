@@ -30,6 +30,7 @@
   wmCommon.enable = true;
   vscode.enable = true;
   yazi.enable = true;
+  zed.enable = true;
 
   programs.zen-browser = {
     enable = true;
@@ -65,7 +66,6 @@
   home.packages = with pkgs; [
     libreoffice
     brave
-    zed-editor
     fastfetch
     wormhole-rs
     steam
