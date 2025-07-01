@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options = {
     xdgPortals.enable = lib.mkEnableOption "Enable XDG portals";
   };
@@ -8,6 +14,7 @@
       enable = true;
       wlr.enable = true;
       extraPortals = with pkgs; [
+        xdg-desktop-portal-cosmic
         xdg-desktop-portal-gtk
       ];
     };

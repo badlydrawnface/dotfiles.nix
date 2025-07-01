@@ -1,27 +1,47 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nixos
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nixos
+  ];
 
   boot.secBoot.enable = true;
 
   # enable plymouth
   boot.plymouth.enable = true;
 
-  #FIXME this doesn't work
   # external hard drive
   fileSystems."/mnt/HDD" = {
     device = "/dev/disk/by-label/HDD";
     fsType = "btrfs";
-    options = [ "defaults" "user" "exec" "nofail" "x-gvfs-show"];
+    options = [
+      "defaults"
+      "user"
+      "exec"
+      "nofail"
+      "x-gvfs-show"
+    ];
   };
 
   # latest mainline kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.gcadapter-oc-kmod
+  ];
+
+  # to autoload at boot:
+  boot.kernelModules = [
+    "gcadapter_oc"
+  ];
 
   networking.hostName = "gaming-pc"; # Define your hostname.
 
@@ -31,11 +51,13 @@
   # enable gnome keyring for secrets
   polkitGnomeKeyring.enable = true;
 
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   # enable docker and podman
   virtualisation = {
     docker.enable = true;
     podman.enable = true;
-    #waydroid.enable = true;
+    waydroid.enable = true;
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
@@ -62,10 +84,22 @@
 
   # enable flakes and nix command, use cachix to not have to build hyprland each time
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-substituters = [
+      "https://hyprland.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
 
   # mount usb drives and other removable media
@@ -76,16 +110,14 @@
   # enable cups
   services.printing.enable = true;
 
-  greetd.enable = true;
-  
-  # hyprland w/h uwsm
   desktops.hyprland.enable = true;
-  programs.uwsm.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   pipewire.enable = true;
   # disable hdmi audio suspend
   services.pipewire = {
     wireplumber.configPackages = [
+      #FIXME this doesn't work
       (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa.conf" ''
         monitor.alsa.rules = [
           {
@@ -137,7 +169,12 @@
   users.users.bdface = {
     isNormalUser = true;
     description = "badlydrawnface";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+    ];
     shell = pkgs.fish;
   };
 
@@ -145,7 +182,7 @@
     # avoid home-manager failure due to existing files
     backupFileExtension = "backup";
     # also pass inputs to home-manager modules
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     useGlobalPkgs = true;
     users = {
       "bdface" = {
@@ -168,12 +205,13 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     yt-dlp
-    open-vm-tools 
+    open-vm-tools
     tree
     tmux
     fastfetch
     flatpak-builder
     direnv
+    dolphin-emu
     p7zip
     unrar
     unzip
@@ -183,12 +221,20 @@
     distrobox
     wl-clipboard
     ns-usbloader
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
 
     # GUI apps
+    nemo
     file-roller
     evince
-
   ];
+
+  services.udev.packages = [ pkgs.dolphin-emu ];
+
+  programs.gpu-screen-recorder = {
+    enable = true;
+  };
 
   fonts.packages = with pkgs; [
     # install iosevka nerd font
@@ -203,10 +249,11 @@
     # rcm perms
     SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0664", GROUP="plugdev"
   '';
-  
+
   xdgPortals.enable = true;
 
   flathub.enable = true;
+  _1password.enable = true;
 
   system.stateVersion = "24.05";
 }

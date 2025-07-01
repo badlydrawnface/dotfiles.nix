@@ -1,10 +1,14 @@
-{ config, pkgs, inputs, outputs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   #TODO finish modularizing the flake
   imports = [
     ../../modules/home
-    inputs.zen-browser.homeModules.beta
+    inputs.zen-browser.homeModules.twilight
   ];
 
   catppuccin = {
@@ -18,6 +22,8 @@
   };
 
   # modularized configs
+  browsers.zen.enable = true;
+  browsers.brave.enable = true;
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
@@ -32,17 +38,13 @@
   yazi.enable = true;
   zed.enable = true;
 
-  programs.zen-browser = {
-    enable = true;
-    policies = {
-      DisableAppUpdate = true;
-      DisableTelemetry = true;
-      # find more options here: https://mozilla.github.io/policy-templates/
-    };
-  };
-
   home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
     source = ../../wallpapers/wallhaven-5g22q5.png;
+  };
+
+  # profile picture
+  home.file.".face" = {
+    source = .../../../../config/face.png;
   };
 
   # host-specific monitor configuration
@@ -59,7 +61,6 @@
 
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
-
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
@@ -78,7 +79,6 @@
     taisei
     srb2
     srb2kart
-    dolphin-emu
     ryujinx
     audacity
     cemu
@@ -93,9 +93,14 @@
     solaar
     openai-whisper
     steamguard-cli
+    signal-desktop
+    qbittorrent-enhanced
+    grayjay
+    android-studio
+    jetbrains.rust-rover
+    jetbrains.rider
   ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }

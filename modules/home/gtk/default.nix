@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
 
   # TODO major refactor needed
   options = {
@@ -12,12 +18,12 @@
       name = "catppuccin-mocha-dark-cursors";
       size = 24;
     };
-    
+
     gtk = {
       enable = true;
       #theme = {
-        #name = "adw-gtk3-dark";
-	      #package = pkgs.adw-gtk3;
+      #name = "adw-gtk3-dark";
+      #package = pkgs.adw-gtk3;
       #};
       cursorTheme = {
         name = "catppuccin-mocha-dark-cursors";

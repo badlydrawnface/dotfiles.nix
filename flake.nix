@@ -2,13 +2,13 @@
   description = "bdface's nixos config";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/hyprland";
 
     # necessary for cosmic cachix to work properly
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
+    #nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
     catppuccin = {
       url = "github:catppuccin/nix";

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     ./hypridle
     ./hyprlock
     ./hyprpaper
+    ./hyprsunset
   ];
 
   options = {
@@ -19,6 +25,7 @@
       hyprpaper
       playerctl
       hyprnome
+      hyprsunset
     ];
 
     hyprland.hyprlock.enable = true;
@@ -34,9 +41,12 @@
       settings = {
         # autostart programs
         "exec-once" = [
-        "waybar & hyprpaper & wlsunset"
-        "steam -silent"
-        "hyprctl setcursor catppuccin-mocha-dark-cursors 24"
+          "uwsm app -- waybar"
+          "uwsm app -- hyprpaper"
+          #"uwsm app -- hyprsunset"
+          "uwsm app -- steam -silent"
+          "uwsm app -- "
+          #"hyprctl setcursor catppuccin-mocha-dark-cursors 24"
         ];
 
         "$terminal" = "alacritty";
@@ -55,7 +65,7 @@
           };
 
           # disable mouse acceleration
-          "accel_profile"  = "flat";
+          "accel_profile" = "flat";
           "sensitivity" = -0.25;
         };
 
@@ -81,6 +91,7 @@
           "blurls" = [
             "waybar"
             "rofi"
+            "zen"
           ];
         };
 
@@ -170,6 +181,10 @@
           "$mainMod SHIFT, 9, movetoworkspace, 9"
           "$mainMod SHIFT, 0, movetoworkspace, 10"
 
+          # hyprnome
+          "$mainMod CTRL_L, right, uwsm app -- hyprnome"
+          "$mainMod CTRL_L, left, uwsm app -- hyprnome --previous --no-empty"
+
           # scratchpad workspace
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
@@ -185,28 +200,27 @@
           "$mainMod SHIFT, down, movewindow, d"
 
           # playback
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioPlay, exec, uwsm app -- playerctl play-pause"
+          ", XF86AudioNext, exec, uwsm app -- playerctl next"
+          ", XF86AudioPrev, exec, uwsm app -- playerctl previous"
 
           # mute with swayosd
-          ", XF86AudioMute, exec, swayosd-client --max-volume 100 --output-volume mute-toggle"
+          ", XF86AudioMute, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume mute-toggle"
         ];
 
         "binde" = [
           # volume control with swayosd
-          ", XF86AudioRaiseVolume, exec, swayosd-client --max-volume 100 --output-volume raise"
-          ", XF86AudioLowerVolume, exec, swayosd-client --max-volume 100 --output-volume lower"
-
+          ", XF86AudioRaiseVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume raise"
+          ", XF86AudioLowerVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume lower"
           # screen brightness
-          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
-          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+          ", XF86MonBrightnessUp, exec, uwsm app -- swayosd-client --brightness raise"
+          ", XF86MonBrightnessDown, exec, uwsm app -- swayosd-client --brightness lower"
         ];
 
         "bindl" = [
           # copy and pastes to the clipboard
-          "$mainMod, A, exec, grim -g \"$(slurp -d)\" - | swappy -f -"
-          "$mainMod SHIFT, A, exec, grim - | swappy -f -"
+          "$mainMod, A, exec, uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"
+          "$mainMod SHIFT, A, exec, uwsm app -- grim - | swappy -f -"
         ];
 
         "bindm" = [

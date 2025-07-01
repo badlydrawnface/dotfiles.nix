@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... } : {
-  
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+
   imports = [
     ./dunst
     ./rofi
@@ -18,7 +24,7 @@
     wmCommon.dunst.enable = true;
     wmCommon.rofi.enable = true;
     wmCommon.waybar.enable = true;
-    wmCommon.wlsunset.enable = true;
+    # wmCommon.wlsunset.enable = true;
 
     services.swayosd.enable = true;
     services.playerctld.enable = true;
