@@ -182,8 +182,8 @@
           "$mainMod SHIFT, 0, movetoworkspace, 10"
 
           # hyprnome
-          "$mainMod CTRL_L, right, uwsm app -- hyprnome"
-          "$mainMod CTRL_L, left, uwsm app -- hyprnome --previous --no-empty"
+          "$mainMod CTRL_L, right, exec, uwsm app -- hyprnome"
+          "$mainMod CTRL_L, left, exec, uwsm app -- hyprnome --previous --no-empty"
 
           # scratchpad workspace
           "$mainMod, S, togglespecialworkspace, magic"
