@@ -24,8 +24,8 @@
     home.packages = with pkgs; [
       hyprpaper
       playerctl
-      hyprnome
-      hyprsunset
+      hyprsunser
+      hyprdim
     ];
 
     hyprland.hyprlock.enable = true;
@@ -43,10 +43,8 @@
         "exec-once" = [
           "uwsm app -- waybar"
           "uwsm app -- hyprpaper"
-          #"uwsm app -- hyprsunset"
           "uwsm app -- steam -silent"
-          "uwsm app -- "
-          #"hyprctl setcursor catppuccin-mocha-dark-cursors 24"
+          "uwsm app -- hyprdim"
         ];
 
         "$terminal" = "alacritty";
@@ -80,17 +78,18 @@
         };
 
         "decoration" = {
-          "rounding" = 10;
+          "rounding" = 5;
+          "inactive_opacity" = 0.5;
 
           "blur" = {
             "enabled" = true;
-            "size" = 10;
-            "passes" = 1;
+            "size" = 12;
+            "passes" = 3;
+            "vibrancy" = 0.36;
           };
 
           "blurls" = [
             "waybar"
-            "rofi"
             "zen"
           ];
         };
@@ -123,18 +122,20 @@
         };
 
         # windowrules
-        "windowrulev2" = [
+        "windowrule" = [
           "float, title:^(Picture-in-Picture)$"
           "size 800 450, title:(Picture-in-Picture)"
           "pin, title:^(Picture-in-Picture)"
           "float, title:^(Firefox)$"
           "size 800 450, title:(Firefox)"
           "pin, title:^(Firefox)$"
+          "opacity 1 override 1 override,title:^(Picture-in-Picture)$"
 
           # chromium pip
           "float, title:^(Picture in picture)$"
           "pin, title:^(Picture in picture)$"
           "size 800 450, title:(Picture in picture)"
+          "opacity 1 override 1 override,title:^(Picture in picture)$"
         ];
 
         "$mainMod" = "SUPER";
@@ -180,10 +181,6 @@
           "$mainMod SHIFT, 8, movetoworkspace, 8"
           "$mainMod SHIFT, 9, movetoworkspace, 9"
           "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-          # hyprnome
-          "$mainMod CTRL_L, right, exec, uwsm app -- hyprnome"
-          "$mainMod CTRL_L, left, exec, uwsm app -- hyprnome --previous --no-empty"
 
           # scratchpad workspace
           "$mainMod, S, togglespecialworkspace, magic"

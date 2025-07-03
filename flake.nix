@@ -6,10 +6,6 @@
 
     hyprland.url = "github:hyprwm/hyprland";
 
-    # necessary for cosmic cachix to work properly
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-    #nixpkgs.follows = "nixos-cosmic/nixpkgs";
-
     catppuccin = {
       url = "github:catppuccin/nix";
     };
@@ -46,7 +42,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/gaming-pc/configuration.nix
-            inputs.nixos-cosmic.nixosModules.default
             inputs.catppuccin.nixosModules.catppuccin
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.home-manager.nixosModules.default
@@ -57,7 +52,6 @@
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/framework/configuration.nix
-            inputs.nixos-cosmic.nixosModules.default
             inputs.catppuccin.nixosModules.catppuccin
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.home-manager.nixosModules.default

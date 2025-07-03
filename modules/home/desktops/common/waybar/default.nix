@@ -35,11 +35,10 @@
           };
 
           "hyprland/workspaces" = {
-            format = " ";
+            format = "{icon}";
             disable-scroll = false;
             all-outputs = true;
             warp-on-scroll = false;
-            sort-by = "COORDINATES";
           };
 
           "hyprland/window" = {
@@ -125,16 +124,10 @@
           font-family: "Fira Sans", "Iosevka Nerd Font";
           font-weight: bold;
           font-size: 14px;
-          min-height: 0;
-          padding: 1px;
-          margin: 0;
-          border-radius: 0;
         }
 
         window#waybar {
-          background-color: alpha(@base, 0.7);
-          transition-property: background-color;
-          transition-duration: 0.5s;
+          background-color: alpha(@base, 0.75);
         }
 
         #custom-launcher {
@@ -144,24 +137,25 @@
         }
 
         #workspaces {
-          border-radius: 2rem;
+          border-radius: 5px;
           background-color: @surface0;
-          margin: 6px;
+          margin: 2px;
           margin-left: 1rem;
         }
 
         #workspaces button {
           background: @surface2;
+          color: @text;
+          border-radius: 5px;
+          padding: 0px 2px;
           margin: 3px;
-          padding: 0px 5px;
-          border-radius: 2rem;
           transition: all 0.3s ease-in-out;
         }
 
         #workspaces button.active {
           background-color: @green;
-          font-size: 10px;
-          min-width: 50px;
+          color: @crust;
+          min-width: 40px;
         }
 
         #workspaces button.urgent {
@@ -178,8 +172,8 @@
         #wireplumber {
           background-color: @surface0;
           color: @green;
-          margin: 5px 0;
-          padding: 0rem 0.75rem 0rem;
+          margin: 3px 0;
+          padding: 0rem 0.5rem 0rem;
         }
 
         #custom-media {
@@ -190,7 +184,7 @@
         }
 
         #window {
-          border-radius: 1rem;
+          border-radius: 5px;
         }
 
         window#waybar.empty #window {
@@ -198,7 +192,7 @@
         }
 
         #language {
-          border-radius: 1rem 0px 0px 1rem;
+          border-radius: 5px 0px 0px 5px;
           margin-left: 1rem;
         }
 
@@ -207,12 +201,12 @@
         }
 
         #clock {
-          border-radius: 0px 1rem 1rem 0px;
+          border-radius: 0px 5px 5px 0px;
           margin-right: 1rem;
         }
 
         #tray {
-          border-radius: 1rem;
+          border-radius: 5px;
         }
       '';
     };
