@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }: {
+{
+  ...
+}:
+{
   imports = [
-    ./1password
     ./boot
     ./desktops
     ./flatpak
@@ -10,6 +12,5 @@
     ./qt
     ./sddm
     ./security
-    ./xdg
   ];
 }
