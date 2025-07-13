@@ -24,6 +24,7 @@
             "hyprland/language"
             "backlight"
             "network"
+            "power-profiles-daemon"
             "battery"
             "wireplumber"
             "clock"
@@ -77,6 +78,7 @@
           "network" = {
             interval = 3;
             format = "  {bandwidthDownBytes}";
+            on-click = "kitty nmtui";
           };
 
           "battery" = {
@@ -96,6 +98,17 @@
               "󰂁"
               "󰁹"
             ];
+          };
+
+          "power-profiles-daemon" = {
+            format = "{icon}";
+            tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+            tooltip = true;
+            format-icons = {
+              performance = "";
+              balanced = "";
+              power-saver = "";
+            };
           };
 
           "wireplumber" = {
@@ -127,13 +140,13 @@
         }
 
         window#waybar {
-          background-color: alpha(@base, 0.75);
+          background-color: @base;
         }
 
         #custom-launcher {
           color: @green;
           font-size: 22px;
-          margin-left: 1rem;
+          margin-left: 0.5rem;
         }
 
         #workspaces {
@@ -144,7 +157,6 @@
         }
 
         #workspaces button {
-          background: @surface2;
           color: @text;
           border-radius: 5px;
           padding: 0px 2px;
@@ -155,7 +167,7 @@
         #workspaces button.active {
           background-color: @green;
           color: @crust;
-          min-width: 40px;
+          min-width: 35px;
         }
 
         #workspaces button.urgent {
@@ -169,6 +181,7 @@
         #backlight,
         #clock,
         #battery,
+        #power-profiles-daemon,
         #wireplumber {
           background-color: @surface0;
           color: @green;
@@ -202,7 +215,7 @@
 
         #clock {
           border-radius: 0px 5px 5px 0px;
-          margin-right: 1rem;
+          margin-right: 0.5rem;
         }
 
         #tray {
