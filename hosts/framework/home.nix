@@ -6,7 +6,6 @@
   outputs,
   ...
 }:
-
 {
   # # TODO finish modularizing the flake
   imports = [
@@ -16,7 +15,10 @@
 
   catppuccin = {
     enable = true;
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      icon.enable = true;
+    };
     flavor = "macchiato";
     accent = "green";
   };
@@ -29,14 +31,14 @@
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
-  #hyprland.enable = true;
-  #myGtk.enable = true;
-  #myQt.enable = true;
+  hyprland.enable = true;
+  myGtk.enable = true;
+  myQt.enable = true;
   myXdg.enable = true;
   nvim.enable = true;
   term.alacritty.enable = true;
   term.kitty.enable = true;
-  #wmCommon.enable = true;
+  wmCommon.enable = true;
   vscode.enable = true;
   yazi.enable = true;
   zed.enable = true;
@@ -58,11 +60,6 @@
   wayland.windowManager.hyprland = {
     settings = {
       "monitor" = "eDP-1,preferred,auto,1.566667";
-
-      # save on battery life
-      "decoration:blur:enabled" = false;
-      "decoration:shadow:enabled" = false;
-      "misc:vfr" = true;
     };
   };
 
@@ -70,12 +67,6 @@
   home.file.".config/waybar/mediaplayer.py" = {
     source = ../../config/waybar/mediaplayer.py;
   };
-
-  # temporary for cosmic
-  xdg.configFile."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-theme-name=adw-gtk3
-  '';
 
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
@@ -115,9 +106,13 @@
     openai-whisper
     flameshot
     wf-recorder
+    grayjay
+    freetube
+    android-tools
+    scrcpy
+    btop
   ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }

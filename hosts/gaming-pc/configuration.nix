@@ -250,10 +250,7 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0664", GROUP="plugdev"
   '';
 
-  xdgPortals.enable = true;
-
   flathub.enable = true;
-  _1password.enable = true;
 
   system.stateVersion = "24.05";
 }

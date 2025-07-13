@@ -33,6 +33,7 @@
   myXdg.enable = true;
   nvim.enable = true;
   term.alacritty.enable = true;
+  term.kitty.enable = true;
   wmCommon.enable = true;
   vscode.enable = true;
   yazi.enable = true;
@@ -97,6 +98,10 @@
     qbittorrent-enhanced
     grayjay
     android-studio
+    freetube
+    android-tools
+    scrcpy
+    btop
     jetbrains.rust-rover
     jetbrains.rider
   ];

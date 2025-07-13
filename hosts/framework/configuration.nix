@@ -21,12 +21,15 @@
   # firmware updates
   services.fwupd.enable = true;
 
-  xdgPortals.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   networking.hostName = "framework";
   networking.networkmanager.enable = true;
 
   fingerprint.enable = true;
+
+  desktops.hyprland.enable = true;
+  sddm.enable = true;
 
   # enable docker, podman, waydroid and libvirt
   virtualisation = {
@@ -73,9 +76,6 @@
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
     ];
   };
-
-  #services.desktopManager.cosmic.enable = true;
-  #services.displayManager.cosmic-greeter.enable = true;
 
   # necessary for steam
   programs.steam = {
@@ -131,15 +131,15 @@
     # GUI apps
     file-roller
     evince
+    nemo
     loupe
   ];
 
+  # fonts
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
     fira
   ];
-
-  _1password.enable = true;
 
   # enable flatpak and add flathub repo
   flathub.enable = true;
