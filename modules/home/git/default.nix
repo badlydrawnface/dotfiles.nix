@@ -18,6 +18,11 @@
       aliases = {
         hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
       };
+      extraConfig = {
+        core = {
+          filemode = false;
+        };
+      };
     };
   };
 }
