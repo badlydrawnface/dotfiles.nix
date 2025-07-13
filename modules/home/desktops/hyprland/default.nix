@@ -24,7 +24,7 @@
     home.packages = with pkgs; [
       hyprpaper
       playerctl
-      hyprsunser
+      hyprsunset
       hyprdim
     ];
 
@@ -47,7 +47,7 @@
           "uwsm app -- hyprdim"
         ];
 
-        "$terminal" = "alacritty";
+        "$terminal" = "kitty";
         "$fileManager" = "nemo";
         "$menu" = "rofi";
         "$browser" = "zen";
