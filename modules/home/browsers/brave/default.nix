@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   options = {
     browsers.brave.enable = lib.mkEnableOption "Enable and configure Brave/Chromium";
   };
@@ -7,7 +8,6 @@
     programs.chromium = {
       enable = true;
       extensions = [
-        "aeblfdkhhhdcdjpifhhbdiojplfjncoa" # 1password
         "mnjggcdmjocbbbhaepdhchncahnbgone" # sponsorblock
         "gebbhagfogifgggkldgodflihgfeippi" # returnyoutubedislike
         "ponfpcnoihfmfllpaingbgckeeldkhle" # enhancer for youtube
