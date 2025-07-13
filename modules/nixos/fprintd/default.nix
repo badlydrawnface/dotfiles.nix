@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options = {
     fingerprint.enable = lib.mkEnableOption {
       default = false;
@@ -10,6 +16,7 @@
     services.fprintd.enable = true;
     # disable fingerprint on login
     security.pam.services.login.fprintAuth = false;
+    security.pam.services.hyprpolkitagent.fprintAuth = true;
     security.pam.services.greetd.fprintAuth = false;
   };
 }
