@@ -19,6 +19,7 @@
         "toml"
         "pylsp"
         "csharp"
+        "lua"
       ];
       userSettings = {
         "ui_font_size" = 16;
@@ -33,6 +34,9 @@
         "languages" = {
           "Nix" = {
             "tab_size" = 2;
+          };
+          "Css" = {
+            "tab_size" = 4;
           };
         };
       };
