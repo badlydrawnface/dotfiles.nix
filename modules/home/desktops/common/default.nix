@@ -24,7 +24,7 @@
     wmCommon.dunst.enable = true;
     wmCommon.rofi.enable = true;
     wmCommon.waybar.enable = true;
-    # wmCommon.wlsunset.enable = true;
+    wmCommon.wlsunset.enable = true;
 
     services.swayosd.enable = true;
     services.playerctld.enable = true;
@@ -34,6 +34,13 @@
       grim
       swappy
       wf-recorder
+      overskride
     ];
+
+    # swappy config
+    xdg.configFile."swappy/config".text = ''
+      [Default]
+      save_dir=$HOME/Pictures/swappy
+    '';
   };
 }
