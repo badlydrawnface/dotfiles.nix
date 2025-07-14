@@ -67,7 +67,6 @@
 
   home.packages = with pkgs; [
     libreoffice
-    brave
     fastfetch
     wormhole-rs
     steam

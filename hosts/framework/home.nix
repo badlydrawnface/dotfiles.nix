@@ -28,6 +28,7 @@
     lib.mkForce "catppuccin-macchiato";
 
   # modularized configs
+  browsers.brave.enable = true;
   fish.enable = true;
   gh.enable = true;
   git.enable = true;
@@ -75,14 +76,12 @@
 
   home.packages = with pkgs; [
     libreoffice
-    brave
     adw-gtk3
     fastfetch
     wormhole-rs
     steam
     mpv
     (discord.override {
-      withOpenASAR = true;
       withVencord = true;
     })
     discover-overlay
