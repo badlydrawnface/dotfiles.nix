@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }: {
+{ ... }:
+{
   imports = [
-    ./plymouth
-    ./lanzaboote
+    ./plymouth.nix
+    ./lanzaboote.nix
   ];
 }

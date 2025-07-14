@@ -1,9 +1,7 @@
 {
-  config,
   lib,
   pkgs,
   inputs,
-  outputs,
   ...
 }:
 {
@@ -30,7 +28,6 @@
   # modularized configs
   browsers.brave.enable = true;
   fish.enable = true;
-  gh.enable = true;
   git.enable = true;
   hyprland.enable = true;
   myGtk.enable = true;
@@ -41,7 +38,6 @@
   term.kitty.enable = true;
   wmCommon.enable = true;
   vscode.enable = true;
-  yazi.enable = true;
   zed.enable = true;
 
   home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {

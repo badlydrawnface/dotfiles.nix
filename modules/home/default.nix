@@ -1,19 +1,16 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./browsers
-    ./catppuccin
     ./desktops
-    ./fish
-    ./gh
-    ./git
-    ./gtk
-    ./nextcloud
-    ./nvim
-    ./qt
+    ./fish.nix
+    ./git.nix
+    ./gtk.nix
+    ./nvim.nix
+    ./qt.nix
     ./terms
-    ./vscode
-    ./yazi
-    ./xdg
-    ./zed-editor
+    ./vscode.nix
+    ./xdg.nix
+    ./zed.nix
   ];
 }

@@ -7,10 +7,10 @@
 {
 
   imports = [
-    ./dunst
-    ./rofi
-    ./waybar
-    ./wlsunset
+    ./dunst.nix
+    ./rofi.nix
+    ./waybar.nix
+    ./wlsunset.nix
   ];
 
   options = {

@@ -7,10 +7,9 @@
 
 {
   imports = [
-    ./hypridle
-    ./hyprlock
-    ./hyprpaper
-    ./hyprsunset
+    ./hypridle.nix
+    ./hyprlock.nix
+    ./hyprpaper.nix
   ];
 
   options = {

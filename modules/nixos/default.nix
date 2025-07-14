@@ -1,16 +1,13 @@
-{
-  ...
-}:
+{ ... }:
 {
   imports = [
     ./boot
-    ./desktops
-    ./flatpak
-    ./fprintd
-    ./greetd
-    ./pipewire
-    ./qt
-    ./sddm
-    ./security
+    ./flatpak.nix
+    ./fprintd.nix
+    ./greetd.nix
+    ./hyprland.nix
+    ./pipewire.nix
+    ./sddm.nix
+    ./security.nix
   ];
 }
