@@ -489,22 +489,6 @@
         "type": "github"
       }
     },
-    "nixos-hardware": {
-      "locked": {
-        "lastModified": 1752048960,
-        "narHash": "sha256-gATnkOe37eeVwKKYCsL+OnS2gU4MmLuZFzzWCtaKLI8=",
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "rev": "7ced9122cff2163c6a0212b8d1ec8c33a1660806",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixos-hardware",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1750776420,
@@ -625,7 +609,6 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "lanzaboote": "lanzaboote",
-        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "zen-browser": "zen-browser"
       }
