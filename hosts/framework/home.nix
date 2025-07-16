@@ -26,7 +26,8 @@
     lib.mkForce "catppuccin-macchiato";
 
   # modularized configs
-  browsers.brave.enable = true;
+  browsers.brave.enable = true; # does nothing
+  #browsers.firefox.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
@@ -40,17 +41,10 @@
   vscode.enable = true;
   zed.enable = true;
 
+  programs.zen-browser.enable = true;
+
   home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
     source = ../../wallpapers/wallhaven-5g22q5.png;
-  };
-
-  programs.zen-browser = {
-    enable = true;
-    policies = {
-      DisableAppUpdate = true;
-      DisableTelemetry = true;
-      # find more options here: https://mozilla.github.io/policy-templates/
-    };
   };
 
   # host-specific monitor configuration
@@ -91,7 +85,7 @@
     audacity
     cemu
     spotify
-    gimp
+    #gimp
     inkscape
     signal-desktop
     grayjay

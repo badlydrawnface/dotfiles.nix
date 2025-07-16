@@ -10,6 +10,11 @@
       url = "github:catppuccin/nix";
     };
 
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,14 +32,19 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      firefox-addons,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
-      # custom packages
+      # custom psackages
       packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
 
       nixosConfigurations = {
