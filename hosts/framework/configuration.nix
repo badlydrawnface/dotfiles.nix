@@ -33,7 +33,7 @@
   virtualisation = {
     docker.enable = true;
     podman.enable = true;
-    #waydroid.enable = true;
+    waydroid.enable = true;
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
@@ -51,6 +51,23 @@
   i18n.supportedLocales = [ "all" ];
 
   services.printing.enable = true;
+  hardware.sane = {
+    enable = true;
+    extraBackends = [
+      pkgs.hplipWithPlugin
+      pkgs.sane-airscan
+    ];
+    disabledDefaultBackends = [ "escl" ];
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
+  };
 
   # this is necessary in order to set the default shell
   programs.fish.enable = true;
@@ -92,6 +109,8 @@
       "wheel"
       "docker"
       "libvirt"
+      "scanner"
+      "lp"
     ];
     shell = pkgs.fish;
   };
@@ -125,18 +144,18 @@
     libwebp
     distrobox
     wl-clipboard
+    gscan2pdf
 
     # GUI apps
-    file-roller
+    nautilus
     evince
-    nemo
     loupe
   ];
 
   # fonts
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
-    fira
+    adwaita-fonts
   ];
 
   # enable flatpak and add flathub repo

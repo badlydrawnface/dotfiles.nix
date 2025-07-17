@@ -76,7 +76,7 @@
     })
     discover-overlay
     lutris
-    prismlauncher
+    #prismlauncher
     mcpelauncher-ui-qt
     taisei
     srb2kart

@@ -16,20 +16,18 @@ in
   };
 
   config = lib.mkIf config.myQt.enable {
+    catppuccin.kvantum.enable = false;
     qt = {
       enable = true;
-      style = {
-        package = pkgs.adwaita-qt;
-        name = "adwaita-dark";
-      };
+      platformTheme.name = "qtct";
     };
-    # necessary to use qtct
-    catppuccin.kvantum.enable = false;
-
     home.packages = with pkgs; [
       libsForQt5.qt5ct
+      libsForQt5.qtstyleplugin-kvantum
       qt6ct
       qt6Packages.qtstyleplugin-kvantum
+      catppuccin-kvantum
+      kdePackages.breeze-icons
     ];
     xdg.configFile = {
       "Kvantum/${themeName}".source = "${config.catppuccin.sources.kvantum}/share/Kvantum/${themeName}";

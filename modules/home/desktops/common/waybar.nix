@@ -133,7 +133,7 @@
 
       style = ''
         * {
-          font-family: "Fira Sans", "Iosevka Nerd Font";
+          font-family: "Adwaita Sans", "Iosevka Nerd Font";
           font-weight: bold;
           font-size: 14px;
         }

@@ -14,7 +14,7 @@
   config = lib.mkIf config.myGtk.enable {
     home.pointerCursor = {
       gtk.enable = true;
-      package = pkgs.catppuccin-cursors;
+      package = pkgs.catppuccin-cursors.macchiatoDark;
       name = "catppuccin-${config.catppuccin.accent}-dark-cursors";
       size = 24;
     };
@@ -24,10 +24,10 @@
       cursorTheme = {
         name = "catppuccin-${config.catppuccin.accent}-dark-cursors";
         size = 24;
-        package = pkgs.catppuccin-cursors;
+        package = pkgs.catppuccin-cursors.macchiatoDark;
       };
       font = {
-        name = "Fira Sans";
+        name = "Adwaita Sans";
         size = 11;
       };
     };

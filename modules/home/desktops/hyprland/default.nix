@@ -47,7 +47,7 @@
         ];
 
         "$terminal" = "kitty";
-        "$fileManager" = "nemo";
+        "$fileManager" = "nautilus";
         "$menu" = "rofi";
         "$browser" = "zen";
 

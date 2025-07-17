@@ -23,7 +23,7 @@
       };
       settings = {
         global = {
-          font = "Fira Sans 11";
+          font = "Adwaita Sans 11";
         };
       };
     };
