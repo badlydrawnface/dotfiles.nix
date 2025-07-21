@@ -15,14 +15,14 @@
     home.pointerCursor = {
       gtk.enable = true;
       package = pkgs.catppuccin-cursors.macchiatoDark;
-      name = "catppuccin-${config.catppuccin.accent}-dark-cursors";
+      name = "catppuccin-${config.catppuccin.flavor}-dark-cursors";
       size = 24;
     };
 
     gtk = {
       enable = true;
       cursorTheme = {
-        name = "catppuccin-${config.catppuccin.accent}-dark-cursors";
+        name = "catppuccin-${config.catppuccin.flavor}-dark-cursors";
         size = 24;
         package = pkgs.catppuccin-cursors.macchiatoDark;
       };
