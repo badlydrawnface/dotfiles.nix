@@ -17,13 +17,9 @@
       enable = true;
       icon.enable = true;
     };
-    flavor = "macchiato";
-    accent = "green";
+    flavor = "mocha";
+    accent = "mauve";
   };
-
-  # necessary since catppuccin's flake doesn't change the icon theme
-  programs.vscode.profiles.default.userSettings."workbench.iconTheme" =
-    lib.mkForce "catppuccin-macchiato";
 
   # modularized configs
   browsers.brave.enable = true; # does nothing
@@ -43,14 +39,17 @@
 
   programs.zen-browser.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
-    source = ../../wallpapers/wallhaven-5g22q5.png;
+  home.file.".local/share/wallpapers/wallhaven-vq6kp8.jpg" = {
+    source = ../../wallpapers/wallhaven-vq6kp8.jpg;
   };
 
   # host-specific monitor configuration
   wayland.windowManager.hyprland = {
     settings = {
-      "monitor" = "eDP-1,preferred,auto,1.566667";
+      "monitor" = [
+        "eDP-1,preferred,auto,1.566667"
+        "DP-1,preferred@144,auto-up,1"
+      ];
     };
   };
 
@@ -76,7 +75,7 @@
     })
     discover-overlay
     lutris
-    #prismlauncher
+    prismlauncher
     mcpelauncher-ui-qt
     taisei
     srb2kart
@@ -84,8 +83,8 @@
     ryujinx
     audacity
     cemu
-    spotify
-    #gimp
+    altserver-linux
+    gimp
     inkscape
     signal-desktop
     grayjay

@@ -4,6 +4,10 @@
   config,
   ...
 }:
+let
+  cfg = config.catppuccin;
+  cursorVariant = "${cfg.flavor}Dark";
+in
 {
 
   # TODO major refactor needed
@@ -14,17 +18,17 @@
   config = lib.mkIf config.myGtk.enable {
     home.pointerCursor = {
       gtk.enable = true;
-      package = pkgs.catppuccin-cursors.macchiatoDark;
-      name = "catppuccin-${config.catppuccin.flavor}-dark-cursors";
+      package = pkgs.catppuccin-cursors.${cursorVariant};
+      name = "catppuccin-${cfg.flavor}-dark-cursors";
       size = 24;
     };
 
     gtk = {
       enable = true;
       cursorTheme = {
-        name = "catppuccin-${config.catppuccin.flavor}-dark-cursors";
+        name = "catppuccin-${cfg.flavor}-dark-cursors";
         size = 24;
-        package = pkgs.catppuccin-cursors.macchiatoDark;
+        package = pkgs.catppuccin-cursors.${cursorVariant};
       };
       font = {
         name = "Adwaita Sans";

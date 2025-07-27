@@ -158,6 +158,8 @@
     adwaita-fonts
   ];
 
+  services.udev.packages = [ pkgs.dolphin-emu ];
+
   # enable flatpak and add flathub repo
   flathub.enable = true;
 

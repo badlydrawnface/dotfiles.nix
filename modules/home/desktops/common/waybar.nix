@@ -143,7 +143,7 @@
         }
 
         #custom-launcher {
-          color: @green;
+          color: @mauve;
           font-size: 22px;
           margin-left: 0.5rem;
         }
@@ -164,7 +164,7 @@
         }
 
         #workspaces button.active {
-          background-color: @green;
+          background-color: @mauve;
           color: @crust;
           min-width: 35px;
         }
@@ -183,7 +183,7 @@
         #power-profiles-daemon,
         #wireplumber {
           background-color: @surface0;
-          color: @green;
+          color: @mauve;
           margin: 3px 0;
           padding: 0rem 0.5rem 0rem;
         }
