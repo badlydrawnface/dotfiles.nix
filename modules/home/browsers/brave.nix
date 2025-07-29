@@ -10,9 +10,8 @@
   };
 
   config = lib.mkIf config.browsers.brave.enable {
-    programs.chromium = {
+    programs.brave = {
       enable = true;
-      package = pkgs.brave;
       extensions = [
         { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # proton pass
         { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # sponsorblock

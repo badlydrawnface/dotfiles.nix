@@ -23,7 +23,6 @@
 
   # modularized configs
   browsers.brave.enable = true; # does nothing
-  #browsers.firefox.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;

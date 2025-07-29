@@ -2,6 +2,7 @@
 {
   imports = [
     ./boot
+    ./browserpolicies.nix
     ./flatpak.nix
     ./fprintd.nix
     ./greetd.nix
