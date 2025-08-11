@@ -48,9 +48,10 @@
   networking.networkmanager.enable = true;
 
   # enable gnome keyring for secrets
-  polkitGnomeKeyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.polkit.enable = true;
 
   # enable docker and podman
   virtualisation = {
