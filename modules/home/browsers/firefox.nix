@@ -11,6 +11,8 @@
   };
 
   config = lib.mkIf config.browsers.firefox.enable {
+    # temporary
+    catppuccin.firefox.enable = false;
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-devedition;
@@ -32,9 +34,12 @@
       };
       profiles.default = {
         isDefault = true;
-        extensions = {
-          force = true;
-        };
+        extensions = with pkgs.firefox-addons; [
+          ublock-origin
+          https-everywhere
+          decentraleyes
+          sponsorblock
+        ];
         search = {
           force = true;
           default = "kagi";

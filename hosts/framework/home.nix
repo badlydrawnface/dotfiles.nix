@@ -12,14 +12,13 @@
 
   catppuccin = {
     enable = true;
-    gtk = {
-      enable = true;
-      icon.enable = true;
-    };
+    gtk.icon.enable = true;
     flavor = "mocha";
     accent = "mauve";
   };
 
+  gtkColoring.enable = true;
+  
   # modularized configs
   browsers.brave.enable = true; # does nothing
   fish.enable = true;
