@@ -2,6 +2,7 @@
 {
   imports = [
     ./browsers
+    ./catppuccin
     ./desktops
     ./fish.nix
     ./git.nix
