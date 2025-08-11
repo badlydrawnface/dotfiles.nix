@@ -25,6 +25,8 @@
           "workbench.iconTheme" = "catppuccin-${config.catppuccin.flavor}";
           "window.titleBarStyle" = "custom";
           "explorer.confirmDelete" = false;
+          # copilot will forcibly add this setting
+          "github.copilot.nextEditSuggestions.enabled" = true;
 
           # hide update notifications
           "update.mode" = "none";
