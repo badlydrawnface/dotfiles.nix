@@ -152,6 +152,7 @@
     nautilus
     evince
     loupe
+    xed-editor
   ];
 
   # fonts

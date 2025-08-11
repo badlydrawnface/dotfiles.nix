@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   inputs,
   ...
@@ -47,7 +46,6 @@
     settings = {
       "monitor" = [
         "eDP-1,preferred,auto,1.566667"
-        "DP-1,preferred@144,auto-up,1"
       ];
     };
   };
@@ -79,10 +77,9 @@
     taisei
     srb2kart
     dolphin-emu
-    ryujinx
+    ryubing
     audacity
     cemu
-    altserver-linux
     gimp
     inkscape
     signal-desktop

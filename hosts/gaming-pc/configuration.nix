@@ -157,6 +157,9 @@
   # enable fish
   programs.fish.enable = true;
 
+  # brave
+  browserPolicies.enable = true;
+
   # needed for steam
   hardware.graphics.enable32Bit = true;
   services.pulseaudio.support32Bit = true;

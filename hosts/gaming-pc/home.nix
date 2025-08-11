@@ -15,20 +15,18 @@
     enable = true;
     flavor = "mocha";
     accent = "green";
-    gtk = {
-      enable = true;
-      icon.enable = true;
-    };
+    gtk.icon.enable = true;
   };
 
+  #gtkColoring.enable = true;
+
   # modularized configs
-  browsers.zen.enable = true;
   browsers.brave.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
   myGtk.enable = true;
-  # myQt.enable = true;
+  myQt.enable = true;
   myXdg.enable = true;
   nvim.enable = true;
   term.alacritty.enable = true;
@@ -61,7 +59,7 @@
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
 
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.05"; # no need to change this.
 
   home.packages = with pkgs; [
     libreoffice
@@ -77,10 +75,11 @@
     taisei
     srb2
     srb2kart
-    ryujinx
+    ryubing
     audacity
     cemu
-    spotify
+    youtube-music
+    cider-2
     heroic
     gimp
     inkscape
@@ -94,13 +93,13 @@
     signal-desktop
     qbittorrent-enhanced
     grayjay
-    android-studio
     freetube
     android-tools
     scrcpy
     btop
     jetbrains.rust-rover
     jetbrains.rider
+    jetbrains.pycharm-professional
   ];
 
   # Let Home Manager install and manage itself.
