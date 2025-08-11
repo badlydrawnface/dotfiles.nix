@@ -30,7 +30,11 @@
           "image/webp" = [ "org.gnome.Loupe.desktop" ];
           "image/svg" = [ "inkscape.desktop" ];
           "text/*" = [ "nvim.desktop" ];
-	  "text/txt" = [ "nvim.desktop" ];
+          "text/txt" = [ "xed.desktop" ];
+          "text/css" = [ "vscode.desktop" ];
+          "text/js" = [ "vscode.desktop" ];
+          "text/ts" = [ "vscode.desktop" ];
+          "text/json" = [ "vscode.desktop" ];
           "application/pdf" = [ "org.gnome.Evince.desktop" ];
           "application/exe" = [ "protontricks-launch.desktop" ];
           "application/zip" = [ "org.gnome.FileRoller.desktop" ];
@@ -39,9 +43,9 @@
           "application/rar" = [ "org.gnome.FileRoller.desktop" ];
 
           # browser
-          "x-scheme-handler/http" = [ "zen-beta.desktop" ];
-          "x-scheme-handler/https" = [ "zen-beta.desktop" ];
-          "text/html" = [ "zen-beta.desktop" ];
+          "x-scheme-handler/http" = [ "brave.desktop" ];
+          "x-scheme-handler/https" = [ "brave.desktop" ];
+          "text/html" = [ "brave.desktop" ];
         };
       };
     };

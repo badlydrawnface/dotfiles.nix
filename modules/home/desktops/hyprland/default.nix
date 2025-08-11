@@ -49,7 +49,7 @@
         "$terminal" = "kitty";
         "$fileManager" = "nautilus";
         "$menu" = "rofi";
-        "$browser" = "zen";
+        "$browser" = "brave";
 
         "input" = {
           "kb_layout" = "us, ca, it";

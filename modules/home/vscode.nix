@@ -34,10 +34,8 @@
         extensions = with pkgs.vscode-extensions; [
           bbenoist.nix
           # kinda defeats the purpose of vscode with all the copilot icons
-          # github.copilot
-          # github.copilot-chat
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
+          github.copilot
+          github.copilot-chat
           gruntfuggly.todo-tree
           rust-lang.rust-analyzer
           ms-vsliveshare.vsliveshare
