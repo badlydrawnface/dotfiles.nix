@@ -15,6 +15,6 @@ This is only going to work with both Lanzaboote and the initrd to be setup on a 
 - [X] Get Catppuccin working properly
 - [ ] Extract binary cache/nix settings
 - [ ] maybe make package modules
-- [X] color adw-gtk3 so i am not dependent on the deprecated `catppuccin.gtk`
+- [X] color adw-gtk3 so i am not dependent on the ~~deprecated~~ now removed `catppuccin.gtk`
 
 **TODO**
