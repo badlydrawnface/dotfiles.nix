@@ -111,7 +111,7 @@
   services.printing.enable = true;
 
   desktops.hyprland.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  sddm.enable = true;
 
   pipewire.enable = true;
   # disable hdmi audio suspend
@@ -224,13 +224,14 @@
     distrobox
     wl-clipboard
     ns-usbloader
-    gpu-screen-recorder
     gpu-screen-recorder-gtk
 
     # GUI apps
     nemo
-    file-roller
+    nemo-fileroller
+    xed-editor
     evince
+    loupe
   ];
 
   services.udev.packages = [ pkgs.dolphin-emu ];
@@ -241,8 +242,11 @@
 
   fonts.packages = with pkgs; [
     # install iosevka nerd font
+    adwaita-fonts
     nerd-fonts.iosevka
     fira
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
   ];
 
   services.udev.extraRules = ''

@@ -14,7 +14,8 @@
   config = lib.mkIf config.boot.secBoot.enable {
     boot = {
       loader.systemd-boot.enable = lib.mkForce false;
-      bootspec.enableValidation = true;
+      # FIXME this causes a build failure in relation to libcue
+      # bootspec.enableValidation = true;
       initrd.systemd.enable = true;
 
       lanzaboote = {

@@ -47,7 +47,7 @@
         ];
 
         "$terminal" = "kitty";
-        "$fileManager" = "nautilus";
+        "$fileManager" = "nemo";
         "$menu" = "rofi";
         "$browser" = "brave";
 
@@ -70,7 +70,7 @@
           "gaps_in" = 3;
           "gaps_out" = 5;
           "border_size" = 3;
-          "col.active_border" = "rgba($mauveAlphaee) rgba($pinkAlphaee) 45deg";
+          "col.active_border" = "rgba($sapphireAlphaee) rgba($tealAlphaee) 45deg";
           "col.inactive_border" = "rgba($surface0Alphacc)";
 
           "layout" = "dwindle";

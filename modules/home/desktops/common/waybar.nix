@@ -3,6 +3,9 @@
   config,
   ...
 }:
+let
+  accent = config.catppuccin.accent;
+in
 {
   options = {
     wmCommon.waybar.enable = lib.mkEnableOption "Enable waybar configurations and style";
@@ -32,6 +35,7 @@
           "custom/launcher" = {
             on-click = "rofi -show drun -show emoji";
             format = " ";
+            tooltip = "open rofi";
           };
 
           "hyprland/workspaces" = {
@@ -77,6 +81,9 @@
           "network" = {
             interval = 3;
             format = "  {bandwidthDownBytes}";
+            tooltip-format = "󰛳  {ifname} via {gwaddr}";
+            tooltip-format-wifi = "  {essid} {signalStrength}%";
+            tooltip-format-ethernet = "󰈀  {ifname}";
             on-click = "kitty nmtui";
           };
 
@@ -143,7 +150,7 @@
         }
 
         #custom-launcher {
-          color: @mauve;
+          color: @${accent};
           font-size: 22px;
           margin-left: 0.5rem;
         }
@@ -164,7 +171,7 @@
         }
 
         #workspaces button.active {
-          background-color: @mauve;
+          background-color: @${accent};
           color: @crust;
           min-width: 35px;
         }
@@ -183,7 +190,7 @@
         #power-profiles-daemon,
         #wireplumber {
           background-color: @surface0;
-          color: @mauve;
+          color: @${accent};
           margin: 3px 0;
           padding: 0rem 0.5rem 0rem;
         }

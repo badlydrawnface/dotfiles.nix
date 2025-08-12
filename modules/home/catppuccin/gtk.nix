@@ -170,29 +170,23 @@ in
   config = lib.mkIf config.gtkColoring.enable {
     dconf.settings = {
         "org/gnome/desktop/interface" = {
-          color-scheme = if config.catppuccin.flavor == "latte" then "'default'" else "'prefer-dark'";
+          color-scheme = if config.catppuccin.flavor == "latte" then "default" else "prefer-dark";
         };
       };
     gtk = {
       enable = true;
-      theme = {
-        name = if config.catppuccin.flavor == "latte" then "adw-gtk3" else "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
-      };
       gtk3 = {
-        extraCss = ''@import url("${colors}");'';
-        extraConfig = {
-          gtk-application-prefer-dark-theme = if config.catppuccin.flavor == "latte" then 0 else 1;
+        theme = {
+          name = if config.catppuccin.flavor == "latte" then "adw-gtk3" else "adw-gtk3-dark";
+          package = pkgs.adw-gtk3;
         };
+        extraCss = ''@import url("${colors}");'';
       };
       gtk4 = {
         extraCss = ''
           @import url("${colors}");
           @import url("${gtk4-vars}");
         '';
-        extraConfig = {
-          gtk-application-prefer-dark-theme = if config.catppuccin.flavor == "latte" then 0 else 1;
-        };
       };
     };
   };

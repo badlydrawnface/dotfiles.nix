@@ -14,11 +14,11 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
-    accent = "green";
+    accent = "sapphire";
     gtk.icon.enable = true;
   };
 
-  #gtkColoring.enable = true;
+  gtkColoring.enable = true;
 
   # modularized configs
   browsers.brave.enable = true;
@@ -35,8 +35,8 @@
   vscode.enable = true;
   zed.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-5g22q5.png" = {
-    source = ../../wallpapers/wallhaven-5g22q5.png;
+  home.file.".local/share/wallpapers/wallhaven-yxdrex.png" = {
+    source = ../../wallpapers/wallhaven-yxdrex.png;
   };
 
   # profile picture
@@ -65,7 +65,6 @@
     libreoffice
     fastfetch
     wormhole-rs
-    steam
     mpv
     discord
     discover-overlay
@@ -97,6 +96,7 @@
     android-tools
     scrcpy
     btop
+    opentrack
     jetbrains.rust-rover
     jetbrains.rider
     jetbrains.pycharm-professional
