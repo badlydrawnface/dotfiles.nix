@@ -155,6 +155,11 @@
     xed-editor
   ];
 
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "kitty";
+  };
+
   # fonts
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
