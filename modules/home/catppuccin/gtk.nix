@@ -187,6 +187,9 @@ in
           @import url("${colors}");
           @import url("${gtk4-vars}");
         '';
+        extraConfig = {
+          gtk-application-prefer-dark-theme = if config.catppuccin.flavor == "latte" then 0 else 1;
+        };
       };
     };
   };
