@@ -20,7 +20,7 @@
   gtkColoring.enable = true;
   
   # modularized configs
-  browsers.brave.enable = true; # does nothing
+  browsers.brave.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
@@ -36,8 +36,8 @@
 
   programs.zen-browser.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-vq6kp8.jpg" = {
-    source = ../../wallpapers/wallhaven-vq6kp8.jpg;
+  home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
+    source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
   };
 
   # host-specific monitor configuration
@@ -72,9 +72,9 @@
     discover-overlay
     lutris
     prismlauncher
-    mcpelauncher-ui-qt
+    #mcpelauncher-ui-qt
     taisei
-    srb2kart
+    #srb2kart
     dolphin-emu
     ryubing
     audacity
@@ -87,13 +87,15 @@
     calibre
     steamguard-cli
     openai-whisper
-    flameshot
     wf-recorder
     grayjay
     freetube
     android-tools
     scrcpy
     btop
+    localsend
+    cider-2
+    appimage-run
   ];
 
   # Let Home Manager install and manage itself.

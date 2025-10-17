@@ -15,9 +15,8 @@
   config = lib.mkIf config.wmCommon.rofi.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
-      plugins = [ pkgs.rofi-emoji-wayland ];
-      font = "Iosevka Nerd Font 11";
+      plugins = [ pkgs.rofi-emoji ];
+      font = "JetBrainsMono Nerd Font 11";
       extraConfig = {
         modi = "run,drun,window,emoji";
         icon-theme = "Papirus-Dark";

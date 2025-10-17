@@ -24,7 +24,7 @@
       hyprpaper
       playerctl
       hyprsunset
-      hyprdim
+      hyprlandPlugins.hyprspace
     ];
 
     hyprland.hyprlock.enable = true;
@@ -43,11 +43,11 @@
           "uwsm app -- waybar"
           "uwsm app -- hyprpaper"
           "uwsm app -- steam -silent"
-          "uwsm app -- hyprdim"
+	  "uwsm app -- syshud"
         ];
 
         "$terminal" = "kitty";
-        "$fileManager" = "nemo";
+        "$fileManager" = "cosmic-files";
         "$menu" = "rofi";
         "$browser" = "brave";
 
@@ -70,7 +70,7 @@
           "gaps_in" = 3;
           "gaps_out" = 5;
           "border_size" = 3;
-          "col.active_border" = "rgba($sapphireAlphaee) rgba($tealAlphaee) 45deg";
+          "col.active_border" = "rgba($mauveAlphaee) rgba($pinkAlphaee) 45deg";
           "col.inactive_border" = "rgba($surface0Alphacc)";
 
           "layout" = "dwindle";
@@ -82,15 +82,21 @@
 
           "blur" = {
             "enabled" = true;
-            "size" = 12;
-            "passes" = 3;
-            "vibrancy" = 0.36;
+            "size" = 10;
+            "passes" = 2;
+            "vibrancy" = 0.75;
           };
 
           "blurls" = [
             "waybar"
             "zen"
           ];
+
+          "layerrule" = [
+	    "blur,waybar"
+
+	    "order -1, class:Trucky"
+	  ];
         };
 
         "animations" = {
@@ -112,9 +118,9 @@
           "preserve_split" = true;
         };
 
-        "gestures" = {
-          "workspace_swipe" = "on";
-        };
+        "gesture" = [
+	  "3, horizontal, workspace"
+        ];
 
         "misc" = {
           "col.splash" = "rgba(cdd6f4ff)";
@@ -135,13 +141,19 @@
           "pin, title:^(Picture in picture)$"
           "size 800 450, title:(Picture in picture)"
           "opacity 1 override 1 override,title:^(Picture in picture)$"
+
+          # trucky overlay (but every Trucky window has the same title, so they all will follow this)
+          "float, class:Trucky"
+          "noblur, class:Trucky"
+          "rounding 0, class:Trucky"
+          "opacity 1 override 1 override,class:Trucky"
         ];
 
         "$mainMod" = "SUPER";
 
         "bind" = [
-          "$mainMod, Q, exec, $terminal"
-          "$mainMod, C, killactive"
+          "$mainMod, RETURN, exec, $terminal"
+          "$mainMod, Q, killactive"
           "$mainMod, W, exec, $browser"
           "$mainMod, R, exec, $menu -show drun -show emoji"
           "$mainMod, E, exec, $fileManager"
@@ -201,13 +213,13 @@
           ", XF86AudioPrev, exec, uwsm app -- playerctl previous"
 
           # mute with swayosd
-          ", XF86AudioMute, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume mute-toggle"
+          ", XF86AudioMute, exec, uwsm app -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ];
 
         "binde" = [
           # volume control with swayosd
-          ", XF86AudioRaiseVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume raise"
-          ", XF86AudioLowerVolume, exec, uwsm app -- swayosd-client --max-volume 100 --output-volume lower"
+          ", XF86AudioRaiseVolume, exec, uwsm app -- wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+          ", XF86AudioLowerVolume, exec, uwsm app -- wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
           # screen brightness
           ", XF86MonBrightnessUp, exec, uwsm app -- swayosd-client --brightness raise"
           ", XF86MonBrightnessDown, exec, uwsm app -- swayosd-client --brightness lower"

@@ -35,6 +35,7 @@
       swappy
       wf-recorder
       overskride
+      syshud
     ];
 
     # swappy config

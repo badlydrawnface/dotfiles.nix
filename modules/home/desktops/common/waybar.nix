@@ -140,13 +140,13 @@ in
 
       style = ''
         * {
-          font-family: "Adwaita Sans", "Iosevka Nerd Font";
+          font-family: "Adwaita Sans", "JetBrainsMono Nerd Font";
           font-weight: bold;
           font-size: 14px;
         }
 
         window#waybar {
-          background-color: @base;
+          background-color: alpha(@base, 0.65);
         }
 
         #custom-launcher {
@@ -157,7 +157,7 @@ in
 
         #workspaces {
           border-radius: 5px;
-          background-color: @surface0;
+          background-color: @base;
           margin: 2px;
           margin-left: 1rem;
         }
@@ -189,7 +189,7 @@ in
         #battery,
         #power-profiles-daemon,
         #wireplumber {
-          background-color: @surface0;
+          background-color: @base;
           color: @${accent};
           margin: 3px 0;
           padding: 0rem 0.5rem 0rem;

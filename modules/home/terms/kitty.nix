@@ -12,7 +12,7 @@
     programs.kitty = {
       enable = true;
       font = {
-        name = "IosevkaNF";
+        name = "JetBrainsMonoNF";
         size = 13;
       };
       settings = {

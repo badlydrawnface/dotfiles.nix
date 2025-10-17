@@ -27,6 +27,8 @@
   fingerprint.enable = true;
 
   desktops.hyprland.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
   sddm.enable = true;
 
   # enable docker, podman, waydroid and libvirt
@@ -97,6 +99,8 @@
     enable = true;
     protontricks.enable = true;
   };
+
+  programs.gamescope.enable = true;
   
   browserPolicies.enable = true;
 
@@ -116,6 +120,13 @@
     ];
     shell = pkgs.fish;
   };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+    fuse
+  ];
 
   home-manager = {
     backupFileExtension = "backup";
@@ -146,23 +157,16 @@
     libwebp
     distrobox
     wl-clipboard
-    gscan2pdf
-
+    #gscan2pdf
+    
     # GUI apps
-    nautilus
     evince
     loupe
-    xed-editor
   ];
-
-  programs.nautilus-open-any-terminal = {
-    enable = true;
-    terminal = "kitty";
-  };
 
   # fonts
   fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
+    nerd-fonts.jetbrains-mono
     adwaita-fonts
   ];
 
@@ -174,7 +178,7 @@
   # bluetooth
   hardware.bluetooth.enable = true;
 
-  # make ozones (vscode, et al) use wayland
+  # make ozones (vscode et al.) use wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   system.stateVersion = "25.05";
