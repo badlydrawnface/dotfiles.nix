@@ -38,5 +38,13 @@ in
         '';
       };
     };
+
+    # add qtct configs from config folder (set kvantum as style, set font, icon theme et al.)
+    home.file.".config/qt5ct/qt5ct.conf" = {
+      source = ../../config/qt5ct.conf;
+    };
+    home.file.".config/qt6ct/qt6ct.conf" = {
+      source = ../../config/qt6ct.conf;
+    };
   };
 }
