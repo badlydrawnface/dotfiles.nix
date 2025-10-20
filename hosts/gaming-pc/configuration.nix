@@ -1,5 +1,5 @@
 {
-  config,
+  config, 
   pkgs,
   inputs,
   ...
@@ -7,14 +7,11 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos
   ];
 
   boot.secBoot.enable = true;
-
-  # enable plymouth
   boot.plymouth.enable = true;
 
   # external hard drive
@@ -42,18 +39,16 @@
     "gcadapter_oc"
   ];
 
-  networking.hostName = "gaming-pc"; # Define your hostname.
+  services.power-profiles-daemon.enable = true;
 
-  # Enable networking
+
+  networking.hostName = "gaming-pc";
   networking.networkmanager.enable = true;
 
-  # enable gnome keyring for secrets
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  desktops.hyprland.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
-  security.polkit.enable = true;
-
-  # enable docker and podman
   virtualisation = {
     docker.enable = true;
     podman.enable = true;
@@ -64,23 +59,37 @@
 
   programs.virt-manager.enable = true;
 
-  # Set your time zone.
+  # mount usb drives and other removable media
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
   time.timeZone = "America/New_York";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  services.printing.enable = true;
+  hardware.sane = {
+    enable = true;
+    extraBackends = [
+      pkgs.hplipWithPlugin
+      pkgs.sane-airscan
+    ];
+    disabledDefaultBackends = [ "escl" ];
   };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
+  };
+
+  # this is necessary in order to set the default shell
+  programs.fish.enable = true;
 
   # enable flakes and nix command, use cachix to not have to build hyprland each time
   nix.settings = {
@@ -102,65 +111,9 @@
     ];
   };
 
-  # mount usb drives and other removable media
-  services.devmon.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
-
-  # enable cups
-  services.printing.enable = true;
-
-  desktops.hyprland.enable = true;
-  sddm.enable = true;
-
   pipewire.enable = true;
-  # disable hdmi audio suspend
-  services.pipewire = {
-    wireplumber.configPackages = [
-      #FIXME this doesn't work
-      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa.conf" ''
-        monitor.alsa.rules = [
-          {
-            matches = [
-              {
-                device.name = "~alsa_card.*"
-              }
-            ]
-            actions = {
-              update-props = {
-                # Device settings
-                api.alsa.use-acp = true
-              }
-            }
-          }
-          {
-            matches = [
-              {
-                node.name = "~alsa_input.pci.*"
-              }
-              {
-                node.name = "~alsa_output.pci.*"
-              }
-            ]
-            actions = {
-            # Node settings
-              update-props = {
-                session.suspend-timeout-seconds = 0
-              }
-            }
-          }
-        ]
-      '')
-    ];
-  };
 
-  # enable fish
-  programs.fish.enable = true;
-
-  # brave
-  browserPolicies.enable = true;
-
-  # needed for steam
+  # necessary for steam
   hardware.graphics.enable32Bit = true;
   services.pulseaudio.support32Bit = true;
   programs.steam = {
@@ -168,7 +121,15 @@
     protontricks.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.gamescope.enable = true;
+  
+  # appimage support
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
+  # brave policies
+  browserPolicies.enable = true;
+
   users.users.bdface = {
     isNormalUser = true;
     description = "badlydrawnface";
@@ -176,41 +137,30 @@
       "networkmanager"
       "wheel"
       "docker"
-      "libvirtd"
+      "libvirt"
+      "scanner"
+      "lp"
     ];
     shell = pkgs.fish;
   };
 
   home-manager = {
-    # avoid home-manager failure due to existing files
     backupFileExtension = "backup";
-    # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
     useGlobalPkgs = true;
     users = {
-      "bdface" = {
-        imports = [
-          ./home.nix
-          inputs.catppuccin.homeModules.catppuccin
-        ];
-      };
+      "bdface".imports = [
+        ./home.nix
+        inputs.catppuccin.homeModules.catppuccin
+      ];
     };
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-  ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     yt-dlp
-    open-vm-tools
     tree
-    tmux
     fastfetch
     flatpak-builder
     direnv
@@ -223,31 +173,30 @@
     libwebp
     distrobox
     wl-clipboard
-    ns-usbloader
     gpu-screen-recorder-gtk
+    freetype
+    glib
 
     # GUI apps
-    nemo
-    nemo-fileroller
-    xed-editor
     evince
     loupe
   ];
+
+  fonts.packages = with pkgs; [
+    # install iosevka nerd font
+    adwaita-fonts
+    nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+  ];
+
+  programs.localsend.enable = true;
 
   services.udev.packages = [ pkgs.dolphin-emu ];
 
   programs.gpu-screen-recorder = {
     enable = true;
   };
-
-  fonts.packages = with pkgs; [
-    # install iosevka nerd font
-    adwaita-fonts
-    nerd-fonts.iosevka
-    fira
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-  ];
 
   services.udev.extraRules = ''
     # Nintendo SDK debugger, which nxdumptool presents itself as
@@ -257,7 +206,8 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0664", GROUP="plugdev"
   '';
 
+  # enable flatpak and add flathub repo
   flathub.enable = true;
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

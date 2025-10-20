@@ -5,23 +5,24 @@
 }:
 
 {
-  #TODO finish modularizing the flake
   imports = [
     ../../modules/home
     inputs.zen-browser.homeModules.twilight
+    inputs.eden.homeModules.default
   ];
 
   catppuccin = {
     enable = true;
-    flavor = "mocha";
-    accent = "sapphire";
     gtk.icon.enable = true;
+    flavor = "mocha";
+    accent = "mauve";
   };
 
   gtkColoring.enable = true;
 
   # modularized configs
   browsers.brave.enable = true;
+  programs.zen-browser.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
@@ -35,8 +36,10 @@
   vscode.enable = true;
   zed.enable = true;
 
-  home.file.".local/share/wallpapers/wallhaven-yxdrex.png" = {
-    source = ../../wallpapers/wallhaven-yxdrex.png;
+  programs.eden.enable = true;
+
+  home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
+    source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
   };
 
   # profile picture
@@ -51,52 +54,47 @@
     };
   };
 
-  # get the python script for the media player
-  home.file.".config/waybar/mediaplayer.py" = {
-    source = ../../config/waybar/mediaplayer.py;
-  };
-
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
 
-  home.stateVersion = "24.05"; # no need to change this.
+  home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     libreoffice
     fastfetch
     wormhole-rs
     mpv
-    discord
+    (discord.override {
+      withVencord = true;
+    })
     discover-overlay
     lutris
     prismlauncher
     mcpelauncher-ui-qt
     taisei
     srb2
-    srb2kart
+    #srb2kart
     ryubing
     audacity
     cemu
-    youtube-music
     cider-2
     heroic
     gimp
     inkscape
     pavucontrol
+    signal-desktop
+    grayjay
     calibre
     gearlever
     via
     solaar
     openai-whisper
-    steamguard-cli
-    signal-desktop
     qbittorrent-enhanced
-    grayjay
+    wf-recorder
     freetube
     android-tools
     scrcpy
     btop
-    opentrack
     jetbrains.rust-rover
     jetbrains.rider
     jetbrains.pycharm-professional

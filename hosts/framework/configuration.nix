@@ -13,7 +13,7 @@
   boot.secBoot.enable = true;
   boot.plymouth.enable = true;
 
-  # 6.12 is too old (i think its lts) ryzen ai 300 needs latest kernel to avoid gpu hangs
+  # latest mainline kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # firmware updates
@@ -29,9 +29,7 @@
   desktops.hyprland.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
-  sddm.enable = true;
 
-  # enable docker, podman, waydroid and libvirt
   virtualisation = {
     docker.enable = true;
     podman.enable = true;
@@ -94,18 +92,24 @@
     ];
   };
 
+  pipewire.enable = true;
+
   # necessary for steam
+  hardware.graphics.enable32Bit = true;
+  services.pulseaudio.support32Bit = true;
   programs.steam = {
     enable = true;
     protontricks.enable = true;
   };
 
   programs.gamescope.enable = true;
-  
-  browserPolicies.enable = true;
 
-  hardware.graphics.enable32Bit = true;
-  services.pulseaudio.support32Bit = true;
+  # appimage support
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+  
+  # brave policies
+  browserPolicies.enable = true;
 
   users.users.bdface = {
     isNormalUser = true;
@@ -120,13 +124,6 @@
     ];
     shell = pkgs.fish;
   };
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-    fuse
-  ];
 
   home-manager = {
     backupFileExtension = "backup";
@@ -145,10 +142,10 @@
   environment.systemPackages = with pkgs; [
     yt-dlp
     tree
-    tmux
     fastfetch
     flatpak-builder
     direnv
+    dolphin-emu
     p7zip
     unrar
     unzip
@@ -158,17 +155,23 @@
     distrobox
     wl-clipboard
     #gscan2pdf
+    freetype
+    glib
     
     # GUI apps
     evince
     loupe
   ];
 
-  # fonts
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    # install iosevka nerd font
     adwaita-fonts
+    nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
   ];
+
+  programs.localsend.enable = true;
 
   services.udev.packages = [ pkgs.dolphin-emu ];
 
