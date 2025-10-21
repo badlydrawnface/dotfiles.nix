@@ -21,7 +21,7 @@
         enable = true;
         defaultApplications = {
           # file manager
-          "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+          "inode/directory" = [ "com.system76.CosmicFiles.desktop" ];
           "video/*" = [ "mpv.desktop" ];
           "audio/*" = [ "mpv.desktop" ];
           "image/*" = [ "org.gnome.Loupe.desktop" ];

@@ -43,13 +43,13 @@
           "uwsm app -- waybar"
           "uwsm app -- hyprpaper"
           "uwsm app -- steam -silent"
-	  "uwsm app -- syshud"
+	        "uwsm app -- syshud"
         ];
 
         "$terminal" = "kitty";
         "$fileManager" = "cosmic-files";
         "$menu" = "rofi";
-        "$browser" = "brave";
+        "$browser" = "zen-twilight";
 
         "input" = {
           "kb_layout" = "us, ca, it";
@@ -119,7 +119,7 @@
         };
 
         "gesture" = [
-	  "3, horizontal, workspace"
+	        "3, horizontal, workspace"
         ];
 
         "misc" = {

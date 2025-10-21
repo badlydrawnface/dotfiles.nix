@@ -169,10 +169,10 @@ in
   
   config = lib.mkIf config.gtkColoring.enable {
     dconf.settings = {
-        "org/gnome/desktop/interface" = {
-          color-scheme = if config.catppuccin.flavor == "latte" then "default" else "prefer-dark";
-        };
+      "org/gnome/desktop/interface" = {
+        color-scheme = if config.catppuccin.flavor == "latte" then "default" else "prefer-dark";
       };
+    };
     gtk = {
       enable = true;
       gtk3 = {
@@ -187,9 +187,6 @@ in
           @import url("${colors}");
           @import url("${gtk4-vars}");
         '';
-        extraConfig = {
-          gtk-application-prefer-dark-theme = if config.catppuccin.flavor == "latte" then 0 else 1;
-        };
       };
     };
   };

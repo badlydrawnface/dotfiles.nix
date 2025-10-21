@@ -118,7 +118,7 @@ in
           };
 
           "wireplumber" = {
-            on-click = "pavucontrol";
+            on-click = "pwvucontrol";
             format = "{icon}   {volume}%";
             format-muted = " ";
             format-icons = {

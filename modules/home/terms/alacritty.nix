@@ -16,19 +16,19 @@
         font = {
           size = 13;
           normal = {
-            family = "IosevkaNF";
+            family = "JetBrainsMonoNF";
             style = "Regular";
           };
           bold = {
-            family = "IosevkaNF";
+            family = "JetBrainsMonoNF";
             style = "Bold";
           };
           italic = {
-            family = "IosevkaNF";
+            family = "JetBrainsMonoNF";
             style = "Italic";
           };
           bold_italic = {
-            family = "IosevkaNF";
+            family = "JetBrainsMonoNF";
             style = "Bold Italic";
           };
         };
