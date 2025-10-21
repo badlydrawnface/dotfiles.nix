@@ -8,7 +8,6 @@
   imports = [
     ../../modules/home
     inputs.zen-browser.homeModules.twilight
-    inputs.eden.homeModules.default
   ];
 
   catppuccin = {
@@ -35,8 +34,8 @@
   wmCommon.enable = true;
   vscode.enable = true;
   zed.enable = true;
-
-  programs.eden.enable = true;
+ 
+  programs.yazi.enable = true;
 
   home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
     source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
@@ -81,9 +80,9 @@
     heroic
     gimp
     inkscape
-    pavucontrol
+    pwvucontrol
     signal-desktop
-    grayjay
+    #grayjay
     calibre
     gearlever
     via
@@ -95,9 +94,9 @@
     android-tools
     scrcpy
     btop
-    jetbrains.rust-rover
-    jetbrains.rider
-    jetbrains.pycharm-professional
+    #jetbrains.rust-rover
+    #jetbrains.rider
+    #jetbrains.pycharm-professional
   ];
 
   # Let Home Manager install and manage itself.

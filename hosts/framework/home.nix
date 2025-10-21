@@ -35,6 +35,8 @@
   vscode.enable = true;
   zed.enable = true;
 
+  programs.yazi.enable = true;
+
   home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
     source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
   };
@@ -71,6 +73,7 @@
     prismlauncher
     mcpelauncher-ui-qt
     taisei
+    srb2
     #srb2kart
     dolphin-emu
     ryubing
@@ -79,9 +82,9 @@
     cider-2
     gimp
     inkscape
-    pavucontrol
+    pwvucontrol
     signal-desktop
-    grayjay
+    #grayjay
     calibre
     gearlever
     openai-whisper
@@ -93,7 +96,7 @@
     btop
     jetbrains.rust-rover
     jetbrains.rider
-    jetbrains.pycharm-professional
+    #jetbrains.pycharm-professional
   ];
 
   # Let Home Manager install and manage itself.
