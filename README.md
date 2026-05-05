@@ -1,4 +1,10 @@
-# NixOS Config (very much a WIP)
+# NOTICE: Deprecated, went back to arch
+
+I am employed now, and I do not have the time to keep trying to deal the with non-FDE nature of Nix anymore.
+
+I am reworking my [Arch dotfiles](https://github.com/badlydrawnface/dotfiles) again.
+
+## NixOS Config (very much a WIP)
 
 I have been learning how to use Nix as of late, and I was just trying to configure things to my liking across different devices.
 
