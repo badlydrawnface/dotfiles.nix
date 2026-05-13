@@ -16,13 +16,12 @@
       enable = true;
       settings = {
         preload = [
-          "~/.local/share/wallpapers/G2l_3J6WsAA06aR.jpeg"
+          "~/.local/share/wallpapers/current"
         ];
 
-        # TODO modularize the display type
         wallpaper = [
-          "eDP-1,~/.local/share/wallpapers/G2l_3J6WsAA06aR.jpeg"
-          "DP-1,~/.local/share/wallpapers/G2l_3J6WsAA06aR.jpeg"
+          "eDP-1,~/.local/share/wallpapers/current"
+          "DP-1,~/.local/share/wallpapers/current"
         ];
       };
     };

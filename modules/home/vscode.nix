@@ -18,7 +18,7 @@
       profiles.default = {
         userSettings = {
           "[nix]"."editor.tabSize" = 2;
-          "editor.fontFamily" = "JetBrainsMono NF";
+          "editor.fontFamily" = "FantasqueSansM Nerd Font";
           "editor.fontSize" = 16;
           "editor.semanticHighlighting.enabled" = true;
           "terminal.integrated.fontSize" = 16;

@@ -20,11 +20,10 @@ in
             "custom/launcher"
             "hyprland/workspaces"
           ];
-          modules-center = [ "hyprland/window" ];
+          # modules-center = [ "hyprland/window" ];
           modules-right = [
-            "tray"
             "hyprland/language"
-            "backlight"
+            "tray"
             "network"
             "power-profiles-daemon"
             "battery"
@@ -35,7 +34,7 @@ in
           "custom/launcher" = {
             on-click = "rofi -show drun -show emoji";
             format = " ";
-            tooltip = "open rofi";
+            tooltip-format = "Open Menu";
           };
 
           "hyprland/workspaces" = {
@@ -56,45 +55,30 @@ in
           };
 
           "hyprland/language" = {
-            format = "󰌌   {}";
+            format = "󰌌 {}";
             format-en = "en";
             format-fr = "fr";
             format-it = "it";
           };
 
-          "backlight" = {
-            # device = "acpi_video1"
-            format = "{icon}  {percent}%";
-            format-icons = [
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-            ];
-          };
-
           "network" = {
             interval = 3;
-            format = "  {bandwidthDownBytes}";
-            tooltip-format = "󰛳  {ifname} via {gwaddr}";
-            tooltip-format-wifi = "  {essid} {signalStrength}%";
-            tooltip-format-ethernet = "󰈀  {ifname}";
-            on-click = "kitty nmtui";
+            format = "{}";
+            format-wifi = "󰖩 ";
+            format-ethernet = "󰈀 ";
+            format-disconnected = "󰌙";
+            tooltip-format = " {bandwidthDownBytes}\n {bandwidthUpBytes}";
+            tooltip-format-wifi = "{essid} ({signalStrength}%)\n {bandwidthDownBytes}\n {bandwidthUpBytes}";
+            tooltip-format-ethernet = "{ifname} \n {bandwidthDownBytes}\n {bandwidthUpBytes}";
           };
 
           "battery" = {
             states = {
               warning = 15;
             };
-            format = "{icon}  {capacity}%";
-            format-charging = "󰂄  {capacity}%";
-            format-warning = "󰂃  {capacity}%";
-            format-alt = "{icon}  {time}";
+            format = "{icon}";
+            format-charging = "󰂄";
+            format-warning = "󰂃";
             format-icons = [
               "󰁺"
               "󰁻"
@@ -108,18 +92,18 @@ in
 
           "power-profiles-daemon" = {
             format = "{icon}";
-            tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+            tooltip-format = "Power profile: {profile}";
             tooltip = true;
             format-icons = {
-              performance = "";
-              balanced = "";
-              power-saver = "";
+              performance = " ";
+              balanced = " ";
+              power-saver = " ";
             };
           };
 
           "wireplumber" = {
             on-click = "pwvucontrol";
-            format = "{icon}   {volume}%";
+            format = "{icon}";
             format-muted = " ";
             format-icons = {
               default = [
@@ -140,9 +124,9 @@ in
 
       style = ''
         * {
-          font-family: "Adwaita Sans", "JetBrainsMono Nerd Font";
+          font-family: "FantasqueSansM Nerd Font";
           font-weight: bold;
-          font-size: 14px;
+          font-size: 16px;
         }
 
         window#waybar {
@@ -157,7 +141,7 @@ in
 
         #workspaces {
           border-radius: 5px;
-          background-color: @base;
+          background-color: @surface0;
           margin: 2px;
           margin-left: 1rem;
         }
@@ -189,7 +173,7 @@ in
         #battery,
         #power-profiles-daemon,
         #wireplumber {
-          background-color: @base;
+          background-color: @surface0;
           color: @${accent};
           margin: 3px 0;
           padding: 0rem 0.5rem 0rem;
@@ -222,10 +206,6 @@ in
         #clock {
           border-radius: 0px 5px 5px 0px;
           margin-right: 0.5rem;
-        }
-
-        #tray {
-          border-radius: 5px;
         }
       '';
     };

@@ -34,8 +34,8 @@
       grim
       swappy
       wf-recorder
-      overskride
-      syshud
+      impala
+      bluetui
     ];
 
     # swappy config

@@ -10,8 +10,7 @@
     ../../modules/nixos
   ];
 
-  boot.secBoot.enable = true;
-  boot.plymouth.enable = true;
+  boot.loader.systemd-boot.enable = true;
 
   # latest mainline kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -27,8 +26,8 @@
   fingerprint.enable = true;
 
   desktops.hyprland.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+
+  sddm.enable = true;
 
   virtualisation = {
     docker.enable = true;
@@ -37,6 +36,9 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
+
+  # tailscale
+  services.tailscale.enable = true;
 
   programs.virt-manager.enable = true;
 
@@ -54,10 +56,8 @@
   hardware.sane = {
     enable = true;
     extraBackends = [
-      pkgs.hplipWithPlugin
       pkgs.sane-airscan
     ];
-    disabledDefaultBackends = [ "escl" ];
   };
   services.avahi = {
     enable = true;
@@ -80,15 +80,12 @@
     ];
     substituters = [
       "https://hyprland.cachix.org"
-      "https://cosmic.cachix.org/"
     ];
     trusted-substituters = [
       "https://hyprland.cachix.org"
-      "https://cosmic.cachix.org/"
     ];
     trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
     ];
   };
 
@@ -107,7 +104,7 @@
   # appimage support
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
-  
+
   # brave policies
   browserPolicies.enable = true;
 
@@ -157,18 +154,19 @@
     #gscan2pdf
     freetype
     glib
-    
+
     # GUI apps
     evince
     loupe
+    nautilus
   ];
 
   fonts.packages = with pkgs; [
     # install iosevka nerd font
+    nerd-fonts.fantasque-sans-mono
     adwaita-fonts
-    nerd-fonts.jetbrains-mono
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   programs.localsend.enable = true;
@@ -177,6 +175,11 @@
 
   # enable flatpak and add flathub repo
   flathub.enable = true;
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+  };
 
   # bluetooth
   hardware.bluetooth.enable = true;

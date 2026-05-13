@@ -7,21 +7,19 @@
 {
   imports = [
     ../../modules/home
-    inputs.zen-browser.homeModules.twilight
   ];
 
   catppuccin = {
     enable = true;
     gtk.icon.enable = true;
-    flavor = "mocha";
-    accent = "mauve";
+    flavor = "latte";
+    accent = "yellow";
   };
 
   gtkColoring.enable = true;
-  
+
   # modularized configs
   browsers.brave.enable = true;
-  programs.zen-browser.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
@@ -29,16 +27,13 @@
   myQt.enable = true;
   myXdg.enable = true;
   nvim.enable = true;
-  term.alacritty.enable = true;
   term.kitty.enable = true;
   wmCommon.enable = true;
   vscode.enable = true;
   zed.enable = true;
 
-  programs.yazi.enable = true;
-
-  home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
-    source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
+  home.file.".local/share/wallpapers/current" = {
+    source = ../../wallpapers/albany_latte.jpg;
   };
 
   # profile picture
@@ -58,7 +53,7 @@
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
     libreoffice
@@ -69,7 +64,6 @@
       withVencord = true;
     })
     discover-overlay
-    lutris
     prismlauncher
     mcpelauncher-ui-qt
     taisei

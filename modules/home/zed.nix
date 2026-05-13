@@ -25,7 +25,7 @@
         "ui_font_size" = 16;
         "ui_font_family" = "Adwaita Sans";
         "buffer_font_size" = 16;
-        "buffer_font_family" = "JetBrainsMono Nerd Font";
+        "buffer_font_family" = "FantasqueSansM Nerd Font";
 
         "gutters" = {
           "folds" = false;

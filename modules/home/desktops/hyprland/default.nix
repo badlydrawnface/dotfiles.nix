@@ -21,10 +21,7 @@
 
   config = lib.mkIf config.hyprland.enable {
     home.packages = with pkgs; [
-      hyprpaper
       playerctl
-      hyprsunset
-      hyprlandPlugins.hyprspace
     ];
 
     hyprland.hyprlock.enable = true;
@@ -35,7 +32,6 @@
     wayland.windowManager.hyprland = {
       #TODO
       enable = true;
-      # needed for  to work
       systemd.enable = false;
       settings = {
         # autostart programs
@@ -43,13 +39,12 @@
           "uwsm app -- waybar"
           "uwsm app -- hyprpaper"
           "uwsm app -- steam -silent"
-	        "uwsm app -- syshud"
         ];
 
         "$terminal" = "kitty";
-        "$fileManager" = "cosmic-files";
+        "$fileManager" = "nautilus";
         "$menu" = "rofi";
-        "$browser" = "zen-twilight";
+        "$browser" = "brave";
 
         "input" = {
           "kb_layout" = "us, ca, it";
@@ -60,17 +55,13 @@
             "natural_scroll" = true;
             "clickfinger_behavior" = 1;
           };
-
-          # disable mouse acceleration
-          "accel_profile" = "flat";
-          "sensitivity" = -0.25;
         };
 
         "general" = {
           "gaps_in" = 3;
           "gaps_out" = 5;
           "border_size" = 3;
-          "col.active_border" = "rgba($mauveAlphaee) rgba($pinkAlphaee) 45deg";
+          "col.active_border" = "rgba($yellowAlphaee)";
           "col.inactive_border" = "rgba($surface0Alphacc)";
 
           "layout" = "dwindle";
@@ -86,17 +77,6 @@
             "passes" = 2;
             "vibrancy" = 0.75;
           };
-
-          "blurls" = [
-            "waybar"
-            "zen"
-          ];
-
-          "layerrule" = [
-	    "blur,waybar"
-
-	    "order -1, class:Trucky"
-	  ];
         };
 
         "animations" = {
@@ -119,7 +99,7 @@
         };
 
         "gesture" = [
-	        "3, horizontal, workspace"
+          "3, horizontal, workspace"
         ];
 
         "misc" = {
@@ -128,35 +108,39 @@
 
         # windowrules
         "windowrule" = [
-          "float, title:^(Picture-in-Picture)$"
-          "size 800 450, title:(Picture-in-Picture)"
-          "pin, title:^(Picture-in-Picture)"
-          "float, title:^(Firefox)$"
-          "size 800 450, title:(Firefox)"
-          "pin, title:^(Firefox)$"
-          "opacity 1 override 1 override,title:^(Picture-in-Picture)$"
+          "match:title ^(Picture-in-Picture)$, float on"
+          "match:title ^(Picture-in-Picture)$, size 800 450"
+          "match:title ^(Picture-in-Picture)$, pin on"
+          "match:title ^(Picture-in-Picture)$, opacity 1 override 1 override"
+          "match:title ^(Firefox)$, float on"
+          "match:title ^(Firefox)$, size 800 450"
+          "match:title ^(Firefox)$, pin on"
 
           # chromium pip
-          "float, title:^(Picture in picture)$"
-          "pin, title:^(Picture in picture)$"
-          "size 800 450, title:(Picture in picture)"
-          "opacity 1 override 1 override,title:^(Picture in picture)$"
+          "match:title ^(Picture in picture)$, float on"
+          "match:title ^(Picture in picture)$, pin on"
+          "match:title ^(Picture in picture)$, size 800 450"
+          "match:title ^(Picture in picture)$, opacity 1 override 1 override"
 
-          # trucky overlay (but every Trucky window has the same title, so they all will follow this)
-          "float, class:Trucky"
-          "noblur, class:Trucky"
-          "rounding 0, class:Trucky"
-          "opacity 1 override 1 override,class:Trucky"
+          # trucky
+          "match:class ^(Trucky)$, float on"
+          "match:class ^(Trucky)$, no_blur on"
+          "match:class ^(Trucky)$, rounding 0"
+          "match:class ^(Trucky)$, opacity 1 override 1 override"
+        ];
+
+        layerrule = [
+          "match:class waybar, blur on"
         ];
 
         "$mainMod" = "SUPER";
 
         "bind" = [
           "$mainMod, RETURN, exec, $terminal"
-          "$mainMod, Q, killactive"
-          "$mainMod, W, exec, $browser"
+          "$mainMod SHIFT, W, killactive"
+          "$mainMod SHIFT, B, exec, $browser"
           "$mainMod, R, exec, $menu -show drun -show emoji"
-          "$mainMod, E, exec, $fileManager"
+          "$mainMod SHIFT, F, exec, $fileManager"
           "$mainMod, F, fullscreen"
           "$mainMod, V, togglefloating"
           "$mainMod, M, exit"
@@ -208,18 +192,18 @@
           "$mainMod SHIFT, down, movewindow, d"
 
           # playback
-          ", XF86AudioPlay, exec, uwsm app -- playerctl play-pause"
-          ", XF86AudioNext, exec, uwsm app -- playerctl next"
-          ", XF86AudioPrev, exec, uwsm app -- playerctl previous"
+          ", XF86AudioPlay, exec, uwsm app -- swayosd-client --playerctl play-pause"
+          ", XF86AudioNext, exec, uwsm app -- swayosd-client --playerctl next"
+          ", XF86AudioPrev, exec, uwsm app -- swayosd-client --playerctl previous"
 
           # mute with swayosd
-          ", XF86AudioMute, exec, uwsm app -- wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioMute, exec, uwsm app -- swayosd-client --output-volume mute-toggle"
         ];
 
         "binde" = [
           # volume control with swayosd
-          ", XF86AudioRaiseVolume, exec, uwsm app -- wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, uwsm app -- wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86AudioRaiseVolume, exec, uwsm app -- swayosd-client --output-volume raise"
+          ", XF86AudioLowerVolume, exec, uwsm app -- swayosd-client --output-volume lower"
           # screen brightness
           ", XF86MonBrightnessUp, exec, uwsm app -- swayosd-client --brightness raise"
           ", XF86MonBrightnessDown, exec, uwsm app -- swayosd-client --brightness lower"

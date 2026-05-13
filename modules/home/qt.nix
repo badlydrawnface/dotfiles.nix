@@ -24,7 +24,7 @@ in
     home.packages = with pkgs; [
       libsForQt5.qt5ct
       libsForQt5.qtstyleplugin-kvantum
-      qt6ct
+      qt6Packages.qt6ct
       qt6Packages.qtstyleplugin-kvantum
       catppuccin-kvantum
       kdePackages.breeze-icons

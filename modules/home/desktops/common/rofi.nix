@@ -16,7 +16,7 @@
     programs.rofi = {
       enable = true;
       plugins = [ pkgs.rofi-emoji ];
-      font = "JetBrainsMono Nerd Font 11";
+      font = "FantasqueSansM Nerd Font 13";
       extraConfig = {
         modi = "run,drun,window,emoji";
         icon-theme = "Papirus-Dark";

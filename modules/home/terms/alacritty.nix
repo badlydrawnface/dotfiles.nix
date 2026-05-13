@@ -16,20 +16,8 @@
         font = {
           size = 13;
           normal = {
-            family = "JetBrainsMonoNF";
+            family = "FantasqueSansM Nerd Font";
             style = "Regular";
-          };
-          bold = {
-            family = "JetBrainsMonoNF";
-            style = "Bold";
-          };
-          italic = {
-            family = "JetBrainsMonoNF";
-            style = "Italic";
-          };
-          bold_italic = {
-            family = "JetBrainsMonoNF";
-            style = "Bold Italic";
           };
         };
         window = {

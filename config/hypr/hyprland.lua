@@ -1,0 +1,8 @@
+require("lua/autostart")
+require("lua/binds")
+require("lua/envs")
+require("lua/input")
+require("lua/looknfeel")
+require("lua/misc")
+require("lua/perms")
+require("lua/window")

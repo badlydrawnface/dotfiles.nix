@@ -12,7 +12,7 @@
     programs.kitty = {
       enable = true;
       font = {
-        name = "JetBrainsMonoNF";
+        name = "FantasqueSansM Nerd Font";
         size = 13;
       };
       settings = {
