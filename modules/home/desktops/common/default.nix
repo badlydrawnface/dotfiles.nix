@@ -28,6 +28,7 @@
 
     services.swayosd.enable = true;
     services.playerctld.enable = true;
+    services.tailscale-systray.enable = true;
 
     home.packages = with pkgs; [
       slurp

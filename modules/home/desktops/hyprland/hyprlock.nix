@@ -9,6 +9,7 @@
   };
 
   config = lib.mkIf config.hyprland.hyprlock.enable {
+    # catppuccin.hyprlock.enable = false;
     programs.hyprlock = {
       enable = true;
       settings = {

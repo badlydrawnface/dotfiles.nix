@@ -77,6 +77,7 @@ in
               warning = 15;
             };
             format = "{icon}";
+            tooltip-format = "{capacity}%, {time}";
             format-charging = "󰂄";
             format-warning = "󰂃";
             format-icons = [
@@ -124,40 +125,48 @@ in
 
       style = ''
         * {
-          font-family: "FantasqueSansM Nerd Font";
+          font-family: FantasqueSansMNerd Font;
           font-weight: bold;
           font-size: 16px;
+          min-height: 0;
         }
 
         window#waybar {
-          background-color: alpha(@base, 0.65);
+          background-color: alpha(@base, 0.5);
+          transition-property: background-color;
+          transition-duration: 0.5s;
         }
 
         #custom-launcher {
           color: @${accent};
-          font-size: 22px;
-          margin-left: 0.5rem;
+          font-size: 20px;
+          background-color: @base;
+          padding-left: 0.5rem;
+          padding-right: 0.25rem;
         }
 
         #workspaces {
-          border-radius: 5px;
-          background-color: @surface0;
-          margin: 2px;
-          margin-left: 1rem;
+          border-radius: 0 0 0.85rem 0;
+          padding: 2px;
+          color: @text;
+          background-color: @base;
         }
 
         #workspaces button {
-          color: @text;
-          border-radius: 5px;
-          padding: 0px 2px;
-          margin: 3px;
-          transition: all 0.3s ease-in-out;
+          color: @overlay2;
+          padding: 0 4px;
+          border-radius: 1rem;
+          min-width: 0px;
+          transition: all 0.25s ease;
         }
 
         #workspaces button.active {
+          min-width: 30px;
+          padding: 0 10px;
           background-color: @${accent};
-          color: @crust;
-          min-width: 35px;
+          margin: 2px;
+          min-width: 2.3em;
+          color: @base;
         }
 
         #workspaces button.urgent {
@@ -168,44 +177,27 @@ in
         #tray,
         #language,
         #network,
+        #custom-media,
         #backlight,
         #clock,
         #battery,
         #power-profiles-daemon,
         #wireplumber {
-          background-color: @surface0;
-          color: @${accent};
-          margin: 3px 0;
-          padding: 0rem 0.5rem 0rem;
+          color: @text;
+          background-color: @base;
+          padding: 6px;
         }
-
-        #custom-media {
-          background-color: @green;
-          color: @base;
-          border-radius: 1rem;
-          margin-left: 4rem;
-        }
-
-        #window {
-          border-radius: 5px;
-        }
-
         window#waybar.empty #window {
           background-color:transparent;
-        }
-
-        #language {
-          border-radius: 5px 0px 0px 5px;
-          margin-left: 1rem;
         }
 
         #battery.warning:not(.charging) {
           color: @red;
         }
 
-        #clock {
-          border-radius: 0px 5px 5px 0px;
-          margin-right: 0.5rem;
+
+        #language {
+          border-radius: 0 0 0 0.85em;
         }
       '';
     };

@@ -15,13 +15,15 @@
     services.hyprpaper = {
       enable = true;
       settings = {
-        preload = [
-          "~/.local/share/wallpapers/current"
-        ];
-
         wallpaper = [
-          "eDP-1,~/.local/share/wallpapers/current"
-          "DP-1,~/.local/share/wallpapers/current"
+          {
+            monitor = "eDP-1";
+            path = "~/.local/share/wallpapers/current";
+          }
+          {
+            monitor = "DP-1";
+            path = "~/.local/share/wallpapers/current";
+          }
         ];
       };
     };

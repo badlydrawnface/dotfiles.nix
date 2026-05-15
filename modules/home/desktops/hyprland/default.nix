@@ -33,12 +33,12 @@
       #TODO
       enable = true;
       systemd.enable = false;
+      # temporary, until 0.55 hits unstable
+      configType = "hyprlang";
       settings = {
         # autostart programs
         "exec-once" = [
           "uwsm app -- waybar"
-          "uwsm app -- hyprpaper"
-          "uwsm app -- steam -silent"
         ];
 
         "$terminal" = "kitty";
@@ -131,6 +131,7 @@
 
         layerrule = [
           "match:class waybar, blur on"
+          "match:namespace selection, blur off"
         ];
 
         "$mainMod" = "SUPER";
@@ -211,8 +212,8 @@
 
         "bindl" = [
           # copy and pastes to the clipboard
-          "$mainMod, A, exec, uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"
-          "$mainMod SHIFT, A, exec, uwsm app -- grim - | swappy -f -"
+          ", PRINT, exec, uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"
+          "SHIFT, PRINT, exec, uwsm app -- grim - | swappy -f -"
         ];
 
         "bindm" = [

@@ -13,12 +13,12 @@
       enable = true;
       font = {
         name = "FantasqueSansM Nerd Font";
-        size = 13;
+        size = 12;
       };
       settings = {
         background_opacity = 0.8;
         background-blur = 1;
-        window_padding_width = 4;
+        window_padding_width = 2;
       };
     };
   };

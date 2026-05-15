@@ -1,6 +1,6 @@
 {
+  config,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -12,7 +12,7 @@
   catppuccin = {
     enable = true;
     gtk.icon.enable = true;
-    flavor = "latte";
+    flavor = "macchiato";
     accent = "yellow";
   };
 
@@ -32,8 +32,9 @@
   vscode.enable = true;
   zed.enable = true;
 
+  # TODO
   home.file.".local/share/wallpapers/current" = {
-    source = ../../wallpapers/albany_latte.jpg;
+    source = ../../wallpapers/albany_macchiato.webp;
   };
 
   # profile picture

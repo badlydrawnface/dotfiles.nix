@@ -10,6 +10,7 @@
     ../../modules/nixos
   ];
 
+  boot.plymouth.enable = true;
   boot.loader.systemd-boot.enable = true;
 
   # latest mainline kernel

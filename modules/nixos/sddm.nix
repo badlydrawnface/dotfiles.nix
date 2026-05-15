@@ -14,12 +14,15 @@
 
   config = lib.mkIf config.sddm.enable {
     # enable catppuccin sddm theme
-    catppuccin.sddm.enable = true;
+    catppuccin.sddm = {
+      enable = true;
+      flavor = "macchiato";
+      accent = "yellow";
+    };
     services.displayManager.sddm = {
       enable = true;
       enableHidpi = true;
       wayland.enable = true;
-      # this is going to give me kwallet...
       package = pkgs.kdePackages.sddm;
     };
   };
