@@ -1,27 +1,25 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 
 {
   imports = [
     ../../modules/home
-    inputs.zen-browser.homeModules.twilight
   ];
 
   catppuccin = {
     enable = true;
     gtk.icon.enable = true;
     flavor = "mocha";
-    accent = "mauve";
+    accent = "yellow";
+    vscode.enable = false;
   };
 
   gtkColoring.enable = true;
 
   # modularized configs
   browsers.brave.enable = true;
-  programs.zen-browser.enable = true;
   fish.enable = true;
   git.enable = true;
   hyprland.enable = true;
@@ -29,16 +27,13 @@
   myQt.enable = true;
   myXdg.enable = true;
   nvim.enable = true;
-  term.alacritty.enable = true;
   term.kitty.enable = true;
   wmCommon.enable = true;
   vscode.enable = true;
   zed.enable = true;
- 
-  programs.yazi.enable = true;
 
-  home.file.".local/share/wallpapers/G2l_3J6WsAA06aR.jpeg" = {
-    source = ../../wallpapers/G2l_3J6WsAA06aR.jpeg;
+  home.file.".local/share/wallpapers/current" = {
+    source = ../../wallpapers/albany_mocha.jpg;
   };
 
   # profile picture
@@ -48,15 +43,19 @@
 
   # host-specific monitor configuration
   wayland.windowManager.hyprland = {
-    settings = {
-      "monitor" = "DP-1,1920x1080@144,auto,1";
-    };
+    extraConfig = ''
+      hl.monitor({ output = "DP-1", mode = "1920x1080@144", position = "auto" })
+    '';
   };
+
+  programs.vicinae.enable = true;
+
+  services.tailscale-systray.enable = true;
 
   home.username = "bdface";
   home.homeDirectory = "/home/bdface";
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
     libreoffice
@@ -72,7 +71,7 @@
     mcpelauncher-ui-qt
     taisei
     srb2
-    #srb2kart
+    srb2kart
     ryubing
     audacity
     cemu
@@ -82,20 +81,17 @@
     inkscape
     pwvucontrol
     signal-desktop
-    #grayjay
     calibre
     gearlever
     via
     solaar
-    openai-whisper
     qbittorrent-enhanced
     wf-recorder
-    freetube
     android-tools
-    scrcpy
     btop
-    #jetbrains.rust-rover
-    #jetbrains.rider
+    gnome-calculator
+    jetbrains.rust-rover
+    jetbrains.rider
     #jetbrains.pycharm-professional
   ];
 

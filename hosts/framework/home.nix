@@ -44,11 +44,12 @@
 
   # host-specific monitor configuration
   wayland.windowManager.hyprland = {
-    settings = {
-      "monitor" = [
-        "eDP-1,preferred,auto,1.566667"
-      ];
-    };
+    extraConfig = ''
+      hl.monitor({ output = "eDP-1", mode = "preferred", position = "1920x900", scale = "1.6" })
+
+      -- external monitor
+      hl.monitor({ output = "DP-3", mode = "preferred", position = "auto" })
+    '';
   };
 
   home.username = "bdface";

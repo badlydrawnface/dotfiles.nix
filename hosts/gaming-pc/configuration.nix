@@ -1,5 +1,5 @@
 {
-  config, 
+  config,
   pkgs,
   inputs,
   ...
@@ -11,13 +11,22 @@
     ../../modules/nixos
   ];
 
-  boot.secBoot.enable = true;
+  #.secBoot.enable = true;
   boot.plymouth.enable = true;
+
+  boot.loader.limine.enable = true;
+
+  catppuccin = {
+    flavor = "mocha";
+    accent = "yellow";
+    tty.enable = true;
+    limine.enable = true;
+  };
 
   # external hard drive
   fileSystems."/mnt/HDD" = {
     device = "/dev/disk/by-label/HDD";
-    fsType = "btrfs";
+    fsType = "ext4";
     options = [
       "defaults"
       "user"
@@ -41,13 +50,20 @@
 
   services.power-profiles-daemon.enable = true;
 
-
   networking.hostName = "gaming-pc";
   networking.networkmanager.enable = true;
 
+  services.tailscale = {
+    enable = true;
+    disableUpstreamLogging = true;
+    useRoutingFeatures = "client";
+    extraSetFlags = [ "--operator=$USER" ];
+  };
+
   desktops.hyprland.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  sddm.enable = true;
+
+  polkitGnomeKeyring.enable = true;
 
   virtualisation = {
     docker.enable = true;
@@ -56,6 +72,8 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
+
+  services.jellyfin.enable = true;
 
   programs.virt-manager.enable = true;
 
@@ -73,7 +91,6 @@
   hardware.sane = {
     enable = true;
     extraBackends = [
-      pkgs.hplipWithPlugin
       pkgs.sane-airscan
     ];
     disabledDefaultBackends = [ "escl" ];
@@ -97,22 +114,19 @@
       "nix-command"
       "flakes"
     ];
-    substituters = [
-      "https://hyprland.cachix.org"
-      "https://cosmic.cachix.org/"
-    ];
-    trusted-substituters = [
-      "https://hyprland.cachix.org"
-      "https://cosmic.cachix.org/"
-    ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-    ];
   };
 
-  pipewire.enable = true;
+  # needed to build lutris at this time
+  nixpkgs.overlays = [
+    # https://github.com/NixOS/nixpkgs/issues/514113
+    (_: prev: {
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
+    })
+  ];
 
+  pipewire.enable = true;
   # necessary for steam
   hardware.graphics.enable32Bit = true;
   services.pulseaudio.support32Bit = true;
@@ -122,7 +136,7 @@
   };
 
   programs.gamescope.enable = true;
-  
+
   # appimage support
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
@@ -180,14 +194,14 @@
     # GUI apps
     evince
     loupe
+    nautilus
   ];
 
   fonts.packages = with pkgs; [
-    # install iosevka nerd font
     adwaita-fonts
-    nerd-fonts.jetbrains-mono
+    nerd-fonts.fantasque-sans-mono
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   programs.localsend.enable = true;

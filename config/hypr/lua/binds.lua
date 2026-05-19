@@ -1,7 +1,7 @@
 -- Set programs that you use
 local terminal = "kitty"
 local fileManager = "nautilus"
-local menu = "rofi"
+local menu = "rofi -show drun -show emoji"
 local browser = "brave"
 
 local mainMod = "SUPER"
@@ -26,9 +26,6 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
--- Screenshot
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"))
-hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("uwsm app -- grim - | swappy -f -"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -81,3 +78,8 @@ hl.bind(
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("swayosd-client --playerctl next"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("swayosd-client --playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("swayosd-client --playerctl previous"), { locked = true })
+
+-- Screenshot
+hl.bind("Print", hl.dsp.exec_cmd("uwsm app -- grim -g \"$(slurp -d)\" - | swappy -f -"), { locked = true })
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("uwsm app -- grim - | swappy -f -"), { locked = true })
+
