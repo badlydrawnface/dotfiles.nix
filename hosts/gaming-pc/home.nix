@@ -13,7 +13,6 @@
     gtk.icon.enable = true;
     flavor = "mocha";
     accent = "yellow";
-    vscode.enable = false;
   };
 
   gtkColoring.enable = true;
@@ -92,7 +91,7 @@
     gnome-calculator
     jetbrains.rust-rover
     jetbrains.rider
-    #jetbrains.pycharm-professional
+    rtorrent
   ];
 
   # Let Home Manager install and manage itself.
