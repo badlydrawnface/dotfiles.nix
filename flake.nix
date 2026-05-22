@@ -10,7 +10,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -32,7 +32,7 @@
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
-      # custom psackages
+      # custom packages
       packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
 
       nixosConfigurations = {

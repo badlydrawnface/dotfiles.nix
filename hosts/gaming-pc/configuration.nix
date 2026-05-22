@@ -11,10 +11,8 @@
     ../../modules/nixos
   ];
 
-  #.secBoot.enable = true;
+  boot.secBoot.enable = true;
   boot.plymouth.enable = true;
-
-  boot.loader.limine.enable = true;
 
   catppuccin = {
     flavor = "mocha";
@@ -58,6 +56,10 @@
     disableUpstreamLogging = true;
     useRoutingFeatures = "client";
     extraSetFlags = [ "--operator=$USER" ];
+  };
+
+  services.openssh = {
+    enable = true;
   };
 
   desktops.hyprland.enable = true;
