@@ -19,7 +19,7 @@
       font = "FantasqueSansM Nerd Font 13";
       extraConfig = {
         modi = "run,drun,window,emoji";
-        icon-theme = "Papirus-Dark";
+        icon-theme = "Papirus";
         show-icons = true;
         terminal = "alacritty";
         drun-display-format = "{icon} {name}";

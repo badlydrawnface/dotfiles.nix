@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
-
+let
+  
+in
 {
   imports = [
     ./hypridle.nix
@@ -38,6 +40,11 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
+      settings = {};
+      extraConfig = ''
+        local accent = "rgb(${config.palette.${config.catppuccin.accent}.hex})"
+        local surface1 = "rgb(${config.palette.surface1.hex})"
+      '';
     };
   };
 }

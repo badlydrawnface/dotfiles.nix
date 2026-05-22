@@ -12,8 +12,8 @@
   catppuccin = {
     enable = true;
     gtk.icon.enable = true;
-    flavor = "macchiato";
-    accent = "yellow";
+    flavor = "latte";
+    accent = "green";
   };
 
   gtkColoring.enable = true;
@@ -34,22 +34,12 @@
 
   # TODO
   home.file.".local/share/wallpapers/current" = {
-    source = ../../wallpapers/albany_macchiato.webp;
+    source = ../../wallpapers/forrest.png;
   };
 
   # profile picture
   home.file.".face" = {
     source = .../../../../config/face.png;
-  };
-
-  # host-specific monitor configuration
-  wayland.windowManager.hyprland = {
-    extraConfig = ''
-      hl.monitor({ output = "eDP-1", mode = "preferred", position = "1920x900", scale = "1.6" })
-
-      -- external monitor
-      hl.monitor({ output = "DP-3", mode = "preferred", position = "auto" })
-    '';
   };
 
   home.username = "bdface";
@@ -90,8 +80,11 @@
     android-tools
     scrcpy
     btop
-    jetbrains.rust-rover
-    jetbrains.rider
+    #jetbrains.rust-rover
+    #jetbrains.rider
+    proton-vpn
+    lazygit
+    lazydocker
     #jetbrains.pycharm-professional
   ];
 

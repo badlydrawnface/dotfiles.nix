@@ -7,7 +7,7 @@ local browser = "brave"
 local mainMod = "SUPER"
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("wlogout"))
 
 hl.bind(mainMod .. " + SHIFT  + B", hl.dsp.exec_cmd(browser))

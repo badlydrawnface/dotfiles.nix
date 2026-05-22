@@ -55,7 +55,6 @@
     enable = true;
     disableUpstreamLogging = true;
     useRoutingFeatures = "client";
-    extraSetFlags = [ "--operator=$USER" ];
   };
 
   services.openssh = {

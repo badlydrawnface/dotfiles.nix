@@ -177,11 +177,6 @@
   # enable flatpak and add flathub repo
   flathub.enable = true;
 
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-rocm;
-  };
-
   # bluetooth
   hardware.bluetooth.enable = true;
 

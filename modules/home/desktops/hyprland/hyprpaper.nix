@@ -15,6 +15,9 @@
     services.hyprpaper = {
       enable = true;
       settings = {
+        preload = [
+          "~/.local/share/wallpapers/current"
+        ];
         wallpaper = [
           {
             monitor = "eDP-1";
