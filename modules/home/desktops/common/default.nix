@@ -39,10 +39,6 @@
       bluetui
     ];
 
-    xdg.configFile."swayosd/style.css" = {
-      source = ../../../config/swayosd/style.css;
-    };
-
     # swappy config
     xdg.configFile."swappy/config".text = ''
       [Default]
